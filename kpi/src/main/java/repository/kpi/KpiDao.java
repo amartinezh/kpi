@@ -1,0 +1,16 @@
+package repository.kpi;
+
+import java.util.List;
+import java.util.Map;
+
+import domain.kpi.Kpi;
+import domain.kpi.reporte;
+//import domain.kpi.Reporte;
+import domain.session.session;
+
+public interface KpiDao {
+
+	public List<reporte> listKip(session ses);
+	public List<reporte> listKipDrill(session ses);
+
+}
