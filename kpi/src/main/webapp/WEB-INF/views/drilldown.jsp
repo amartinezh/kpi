@@ -183,7 +183,7 @@ tr:last-child {
 									<thead>
 										<tr>
 											<td colspan="20" align="left">
-											<strong><c:out value="${navegacion}" /></strong></td>
+											<h4><strong><c:out value="${navegacion}" /> (<strong><c:out value="${tit}" /> -- <strong><c:out value="${m3r}" />)</strong></h4></td>
 										</tr>
 										<tr>
 											<th style="text-align: center; color: blue;">Nombre
@@ -216,9 +216,9 @@ tr:last-child {
 											</th>
 											<th style="text-align: center; color: blue;">DIC 2015
 											</th>
-											<th style="text-align: center; color: blue;">Graph
+											<!-- <th style="text-align: center; color: blue;">Graph
 											</th>
-											<th style="text-align: center; color: blue;">Drill Down
+											<th style="text-align: center; color: blue;">Drill Down  -->
 											</th>
 										</tr>
 									</thead>
@@ -239,8 +239,8 @@ tr:last-child {
 														</td>
 											
 												</c:forEach>
-												<td><img onclick="graph()" src="<c:url value="/resources/img/adm/graph.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
-												<td><img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
+												<!--  <td><img onclick="graph()" src="<c:url value="/resources/img/adm/graph.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
+												<td><img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>  -->
 											</tr>
 											
 										</c:forEach>
