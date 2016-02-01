@@ -122,8 +122,9 @@ tr:last-child {
 					</ul>
 				</li>
 			</ul>
-			<a href="#" onclick="window.history.back()" class="btn btn-labeled btn-primary bg-color-yellow">
-				<span class="btn-success btn-label"><i class="glyphicon glyphicon-camera"></i></span>Atrás
+			<a href="#" onclick="window.history.back()" class="btn btn-labeled btn-success">
+				<span class="btn-label"><i
+					class="glyphicon glyphicon-chevron-left"></i></span>Atras
 			</a>
 			<a href="historico" class="btn btn-labeled btn-primary bg-color-yellow">
 				<span class="btn-label"><i class="glyphicon glyphicon-camera"></i></span>Manufactura

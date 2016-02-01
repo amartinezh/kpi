@@ -49,8 +49,8 @@
 	type="image/x-icon">
 
 <!-- GOOGLE FONT -->
-<link rel="stylesheet"
-	href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+<!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700"> -->
+<link rel="stylesheet" href="<c:url value="/resources/js/j/css.css"/>">
 
 <!-- Specifying a Webpage Icon for Web Clip 
 			 Ref: https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html -->
@@ -77,14 +77,90 @@
 <link rel="apple-touch-startup-image"
 	href="<c:url value="/resources/img/splash/iphone.png" />"
 	media="screen and (max-device-width: 320px)">
-	<body class="">
-		<!--<input type="text" id="v4l0" value="${param["v4l0"]}"/>
-		 <input type="text" id="p" value="${param["p"]}"/>
-		 #HEADER -->
-		<header id="header">
-			
 
-		</header>
+<style type="text/css">
+tr:last-child {
+	color: #ff0000;
+	font-weight: bold;
+}
+</style>
+
+</head>
+<!--  <body oncontextmenu="return false">  -->
+<body>
+	<!-- possible classes: minified, fixed-ribbon, fixed-header, fixed-width-->
+
+		<input type="hidden" id="v4l0" value="${param["v4l0"]}"/>
+		 <input type="hidden" id="p" value="${param["p"]}"/>
+		<!-- #HEADER -->
+			<header id="header">
+		<div id="logo-group">
+			<!-- PLACE YOUR LOGO HERE -->
+			<span id="logo"> <img
+				src="<c:url value="/resources/img/logo.png"/>" alt="SmartAdmin">
+			</span>
+			<!-- END LOGO PLACEHOLDER -->
+		</div>
+
+		<!-- pulled right: nav area -->
+		<div class="pull-right">
+
+			<!-- collapse menu button 
+				<div id="hide-menu" class="btn-header pull-right">
+					<span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+				</div>
+				 end collapse menu -->
+
+			<!-- #MOBILE -->
+			<!-- Top menu profile link : this shows only when top menu is active -->
+			<ul id="mobile-profile-img"
+				class="header-dropdown-list hidden-xs padding-5">
+				<li class="">
+					<ul class="dropdown-menu pull-right">
+						<li><a href="login.html"
+							class="padding-10 padding-top-5 padding-bottom-5"
+							data-action="userLogout"><i class="fa fa-sign-out fa-lg"></i>
+								<strong><u>S</u>alir</strong></a></li>
+					</ul>
+				</li>
+			</ul>
+			
+			<!-- ---------------------------------------------------- -->
+			<!-- ---------------------------------------------------- -->
+			<!-- ---------------------------------------------------- -->
+			<!-- ---------------------------------------------------- -->
+
+			<a href="#" onclick="window.history.back()" class="btn btn-labeled btn-success">
+				<span class="btn-label"><i
+					class="glyphicon glyphicon-chevron-left"></i></span>Atras
+			</a> 
+			
+			<a href="historico" class="btn btn-labeled btn-primary bg-color-yellow">
+				<span class="btn-label"><i class="glyphicon glyphicon-camera"></i></span>Manufactura
+			</a> 
+			<a href="anual" class="btn btn-success btn-labeled"> <span
+				class="btn-label"><i class="glyphicon glyphicon-info-sign"></i></span>Ventas
+			</a> 
+			<a href="actualizar" class="btn btn-labeled btn-info"> <span
+				class="btn-label"><i class="glyphicon glyphicon-refresh"></i></span>Distribución
+			</a>
+			<a href="historico" class="btn btn-labeled btn-primary bg-color-yellow">
+				<span class="btn-label"><i class="glyphicon glyphicon-camera"></i></span>RRHH
+			</a> 
+			<a href="anual" class="btn btn-success btn-labeled"> <span
+				class="btn-label"><i class="glyphicon glyphicon-info-sign"></i></span>Finanzas
+			</a> 
+			<a href="salir" class="btn btn-labeled btn-danger"> <span
+				class="btn-label"><i class="fa fa-sign-out"></i></span>Salir
+			</a>
+			<!-- end logout button -->
+
+		</div>
+
+
+		<!-- end pulled right: nav area -->
+
+	</header>
 		<!-- END HEADER -->
 
 		<!-- #NAVIGATION -->
@@ -97,32 +173,7 @@
 		<div id="main" role="main">
 
 			<!-- RIBBON -->
-			<div id="ribbon">
 
-				<span class="ribbon-button-alignment"> 
-					<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
-						<i class="fa fa-refresh"></i>
-					</span> 
-				</span>
-
-				<!-- breadcrumb -->
-				<ol class="breadcrumb">
-					<li>Home</li><li>${param["i"]}</li><li>Graph</li>
-				</ol>
-				<!-- end breadcrumb -->
-
-				<!-- You can also add more buttons to the
-				ribbon for further usability
-
-				Example below:
-
-				<span class="ribbon-button-alignment pull-right">
-				<span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
-				<span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
-				<span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
-				</span> -->
-
-			</div>
 			<!-- END RIBBON -->
 			
 			
