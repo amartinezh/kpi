@@ -59,7 +59,7 @@ public class KpiDaoImpl implements KpiDao {
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
-							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, sum(k."+ses.getMoneda()+") as mveval, sum(k."+ses.getDash_tasa()+") as mvevpe"
+							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
@@ -84,18 +84,18 @@ public class KpiDaoImpl implements KpiDao {
 				list.get(Integer.parseInt(r[1].toString())-1).setMvevap(
 						new BigDecimal(r[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 
-				list.get(Integer.parseInt(r[1].toString())-1).setMvedes(r[2].toString());
+				list.get(1).setMvedes(r[2].toString());
 
 				//promMveval.add(new BigDecimal(r[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				//promMvevpe.add(new BigDecimal(r[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				
 				//java.math.BigDecimal obj = new java.math.BigDecimal(r[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
-				//java.math.BigDecimal obj2 = new java.math.BigDecimal(r[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+				//java.math.BigDecimal obj2 = new java.math.BigDecimal(r[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);//Aqui
 
 				promMvevalRealAnoActual=promMvevalRealAnoActual.add(new java.math.BigDecimal(r[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				promMvevpePresupuestadoAnoActual=promMvevpePresupuestadoAnoActual.add(new java.math.BigDecimal(r[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				// Arriba lo muestra, se suma y aqui muestra sero
-
+				System.out.println(list.get(1).getMvedes());
 				//System.out.println(promMvevpePresupuestadoAnoActual.toString());
 			}
 			promMvevalRealAnoActual=promMvevalRealAnoActual.divide(new BigDecimal("12"), 2, RoundingMode.HALF_UP);
@@ -107,7 +107,7 @@ public class KpiDaoImpl implements KpiDao {
 		    @SuppressWarnings("unchecked")
 		    List<Object[]> prom = em
 					.createQuery(
-							"Select k.mveano as mveano, sum(k."+ses.getMoneda()+") as mveval, sum(k."+ses.getDash_tasa()+") as mvevpe"
+							"Select k.mveano as mveano, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
@@ -118,7 +118,7 @@ public class KpiDaoImpl implements KpiDao {
 					.getResultList();
 				
 		    if (prom.size() > 0){
-		    	System.out.println("-----------"+prom.get(0)[0].toString()+"----------------------");
+		    	//System.out.println("-----------"+prom.get(0)[0].toString()+"----------------------");
 				anioAntReal = new java.math.BigDecimal(prom.get(0)[1].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 				anioAntPres = new java.math.BigDecimal(prom.get(0)[2].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 			}
@@ -129,9 +129,9 @@ public class KpiDaoImpl implements KpiDao {
 			
 			// Se va agregando a la hoja de reporte cada línea para luego ser mostrada en la vista
 			// llega tal cual se mostrará
-			
+		    
 			if (list.get(1).getMvedes() != null){
-				valor.add(new reporte(list.get(7).getMvedes(), cfg.getIndicador(), 
+				valor.add(new reporte(list.get(1).getMvedes(), cfg.getIndicador(), 
 						cfg.getUnidad(), "Real", "Presup.",
 						anioAntReal,
 						anioAntPres,

@@ -90,8 +90,8 @@ tr:last-child {
 <body>
 	<!-- possible classes: minified, fixed-ribbon, fixed-header, fixed-width-->
 
-		<input type="hidden" id="v4l0" value="${param["v4l0"]}"/>
-		 <input type="hidden" id="p" value="${param["p"]}"/>
+		<input type="hidden" id="v4l0" value="${param['v4l0']}"/>
+		<input type="hidden" id="p" value="${param['p']}"/>
 		<!-- #HEADER -->
 			<header id="header">
 		<div id="logo-group">
