@@ -70,7 +70,7 @@ CREATE TABLE kpi.MVINDVE(
 
 CREATE TABLE gestion.region
 (
-  region_id serial NOT NULL,
+  region_id character varying(6) NOT NULL,
   descripcion character varying(128),
   CONSTRAINT region_pk PRIMARY KEY (region_id)
 )
@@ -80,13 +80,13 @@ WITH (
 ALTER TABLE gestion.region
   OWNER TO postgres;
 
-  
+
 -- -------------------------------------------------------------------------------
 
 CREATE TABLE gestion.company
 (
-  comp_id serial NOT NULL,
-  region_id integer,
+  comp_id character varying(6) NOT NULL,
+  region_id character varying(6),
   comp_desc character varying(255),
   CONSTRAINT comp_id_pk PRIMARY KEY (comp_id),
   CONSTRAINT region_fk FOREIGN KEY (region_id)
@@ -153,7 +153,7 @@ CREATE TABLE gestion.users
   id character varying(255) COLLATE pg_catalog."es_CO.utf8" NOT NULL,
   pass character varying(255) COLLATE pg_catalog."es_CO.utf8",
   type_id integer,
-  comp_comp_id integer,
+  comp_comp_id character varying(6),
   curr_currency_id integer,
   nivel_organico_id integer,
   CONSTRAINT users_id_pk PRIMARY KEY (id),
@@ -242,16 +242,31 @@ WITH (OIDS=FALSE); ALTER TABLE gestion.plan OWNER TO postgres;
 -- -------------------------------------------------------------------------------
 -- -------------------------------------------------------------------------------
 
-INSERT INTO gestion.region(region_id, descripcion) VALUES (1,'COL');
-INSERT INTO gestion.region(region_id, descripcion) VALUES (2,'CENTRO');
-INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('1', 1, 'PANASA');
-INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('2', 1, 'BIOPACOL');
-INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('3', 2, 'PAINKA');
+INSERT INTO gestion.region(region_id, descripcion) VALUES ('COL','COLOMBIA');
+INSERT INTO gestion.region(region_id, descripcion) VALUES ('VEN','VENEZUELA');
+INSERT INTO gestion.region(region_id, descripcion) VALUES ('PAN','PANAMA');
+INSERT INTO gestion.region(region_id, descripcion) VALUES ('TRI','TRINIDAD');
+INSERT INTO gestion.region(region_id, descripcion) VALUES ('GUA','GUATEMALA');
+
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('01', 'COL', 'PAPELES NACIONALES S.A');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('05', 'COL', 'GB BIOPACOL ANDINA S.A.S.');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('10', 'VEN', 'PAPELES VENEZOLANOS C.A.');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('24', 'VEN', 'DESARROLLOS FORESTALES S.C. II');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('50', 'PAN', 'PAPELERA ISTMEÑA S.A.');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('30', 'TRI', 'GRANDBAY PAPER PRODUCTS LIMITE');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('33', 'TRI', 'TRINIDAD TISSUE');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('12', 'GUA', 'PAPELERA LAT.DE NICARAGUA,S.A');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('14', 'GUA', 'RED ECOLOGICA Y PAPEL S.A. COSTA RICA');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('16', 'GUA', 'PAINSA EL SALVADOR,S.A.DE C.V.');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('17', 'GUA', 'PAINSA DE HONDURAS,S.A.DE C.V.');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('18', 'GUA', 'RED ECOLOGICA, S.A');
+INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('20', 'GUA', 'PAPELERA INTERNACIONAL, S.A.');
+
 INSERT INTO gestion.currency(currency_id, currency_desc) VALUES ('0', 'USD');
 INSERT INTO gestion.currency(currency_id, currency_desc) VALUES ('1', 'LOCAL');
 INSERT INTO gestion.type_users(id, descripcion) VALUES ('1', 'gestionistrador');
 INSERT INTO gestion.type_users(id, descripcion)VALUES ('2', 'Usuario');
-INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('1', 'c4ca4238a0b923820dcc509a6f75849b','1' , '1', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('1', 'c4ca4238a0b923820dcc509a6f75849b','1' , '01', '1');
 
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN001', 'SUM', 'Comercial', '', 'Ventas', 'Cajas Propias', 'V');
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN002', 'SUM', 'Comercial', '', 'Ventas', 'Ton', 'V');

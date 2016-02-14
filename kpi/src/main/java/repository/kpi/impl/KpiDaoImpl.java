@@ -47,9 +47,15 @@ public class KpiDaoImpl implements KpiDao {
 		
 		String sql="";
 		if (!ses.getDash_region().equals("")){
-			if (!ses.getDash_nia().equals("Todas"))
-				//sql = " AND k.mvecia='"+ses.getDash_nia()+"' ";
+			if (!ses.getDash_nia().equals("Todas")){
+				sql = " AND k.mvecia='"+ses.getDash_nia()+"' ";
+				
+			}
+			else{
 				sql = "";
+			}
+			System.out.print("Region: "+ses.getDash_region()+"--------------");
+			
 		}
 		sql += " AND k.mveano='"+ses.getAnio()+"' ";
 		// Lee todos los indicadores de la base de datos
@@ -75,13 +81,13 @@ public class KpiDaoImpl implements KpiDao {
 			for (int i = 0; i < 12; i++) {
 				list.add(new Kpi("2015", "" + (i + 1)));
 			}
-
+			int meses=0;
 			// Se va colocando cada mes en la hoja de resultado
 			for (Object[] r : result) {
 				list.get(Integer.parseInt(r[1].toString())-1).setMveval(
 						new BigDecimal(r[3].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
 
-				list.get(Integer.parseInt(r[1].toString())-1).setMvevap(
+				list.get(Integer.parseInt(r[1].toString())-1).setMvevpe(
 						new BigDecimal(r[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 
 				list.get(1).setMvedes(r[2].toString());
@@ -95,11 +101,14 @@ public class KpiDaoImpl implements KpiDao {
 				promMvevalRealAnoActual=promMvevalRealAnoActual.add(new java.math.BigDecimal(r[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				promMvevpePresupuestadoAnoActual=promMvevpePresupuestadoAnoActual.add(new java.math.BigDecimal(r[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				// Arriba lo muestra, se suma y aqui muestra sero
-				System.out.println(list.get(1).getMvedes());
+				//System.out.println("Presp-->"+r[4].toString());
 				//System.out.println(promMvevpePresupuestadoAnoActual.toString());
+				
+				meses++;
 			}
-			promMvevalRealAnoActual=promMvevalRealAnoActual.divide(new BigDecimal("12"), 2, RoundingMode.HALF_UP);
-			promMvevpePresupuestadoAnoActual=promMvevpePresupuestadoAnoActual.divide(new BigDecimal("12"), 2, RoundingMode.HALF_UP);
+			meses=(meses==0?1:meses);
+			promMvevalRealAnoActual=promMvevalRealAnoActual.divide(new BigDecimal(meses), 2, RoundingMode.HALF_UP);
+			promMvevpePresupuestadoAnoActual=promMvevpePresupuestadoAnoActual.divide(new BigDecimal(meses), 2, RoundingMode.HALF_UP);
 			//System.out.println(promMveval.toString());
 			
 			// Se obtiene el promedio del año anterior por cada línea generada
@@ -112,7 +121,7 @@ public class KpiDaoImpl implements KpiDao {
 									+ cfg.getIndicador()
 									+ "' "
 									+ " and mveano = " + (Integer.parseInt(ses.getAnio()) - 1)
-									+ sql
+									+ " AND k.mvecia='"+ses.getDash_nia()+"' "
 									+ " GROUP BY k.mveano"
 									+ " ORDER BY k.mveano asc")
 					.getResultList();

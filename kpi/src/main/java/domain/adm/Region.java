@@ -24,7 +24,7 @@ public class Region implements Serializable{
     @Column(name = "region_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="gestion.region_region_id_seq")
 	@SequenceGenerator(name="gestion.region_region_id_seq", sequenceName="gestion.region_region_id_seq", allocationSize=1)
-    private int region_id;
+    private String region_id;
 	
 	String descripcion;
 	
@@ -34,17 +34,17 @@ public class Region implements Serializable{
 	public Region() {
 	}
 	
-	public Region(int region_id, String descripcion) {
+	public Region(String region_id, String descripcion) {
 		super();
 		this.region_id = region_id;
 		this.descripcion = descripcion;
 	}
 
-	public int getRegion_id() {
+	public String getRegion_id() {
 		return region_id;
 	}
 
-	public void setRegion_id(int region_id) {
+	public void setRegion_id(String region_id) {
 		this.region_id = region_id;
 	}
 

@@ -64,7 +64,7 @@ public class IndexController {
 		} else {
 			User uss = userManager.val(user.getId(), user.getPass());
 			if (uss != null) {
-				model.addAttribute("user_inicio", new session("mveval", "1", "1", "0", "mvevap"));
+				model.addAttribute("user_inicio", new session("mveval", "COL", "01", "0", "mvevap"));
 				return "redirect:/indicadores/inicio";
 			} else {
 				model.addAttribute("user", new User());
