@@ -46,14 +46,8 @@ public class KpiDaoImpl implements KpiDao {
 		java.math.BigDecimal anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 		
 		String sql="";
-		if (!ses.getDash_region().equals("")){
-			if (!ses.getDash_nia().equals("Todas")){
-				sql = " AND k.mvecia='"+ses.getDash_nia()+"' ";
-				
-			}
-			else{
-				sql = "";
-			}
+		if (!ses.getDash_nia().equals("Todas")){
+			sql = " AND k.mvecia='"+ses.getDash_nia()+"' ";
 			System.out.print("Region: "+ses.getDash_region()+"--------------");
 			
 		}
@@ -121,7 +115,8 @@ public class KpiDaoImpl implements KpiDao {
 									+ cfg.getIndicador()
 									+ "' "
 									+ " and mveano = " + (Integer.parseInt(ses.getAnio()) - 1)
-									+ " AND k.mvecia='"+ses.getDash_nia()+"' "
+									+ sql
+									//+ " AND k.mvecia='"+ses.getDash_nia()+"' "
 									+ " GROUP BY k.mveano"
 									+ " ORDER BY k.mveano asc")
 					.getResultList();
@@ -151,23 +146,6 @@ public class KpiDaoImpl implements KpiDao {
 			promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 			promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		}
-		/*
-		 * List<Object[]> result = em.createQuery(
-		 * "SELECT k.mveano as mveano, k.mvemes as mvemes, k.mvereg as mvereg, k.mvecia as mvecia, sum(c.mveval) as mveval FROM mvindve as k"
-		 * + " GROUP BY k.mveano , k.mvemes, k.mvereg, k.mvecia" + "ORDER BY " +
-		 * " k.mveano , k.mvemes, k.mvereg, k.mveciadesc") .getResultList();
-		 */
-		// List<Kpi> l = new LinkedList<Kpi>();
-		/*
-		 * for (int i = 0; i < 12; i++) { l.add(new Kpi("2015", "" + (i + 1),
-		 * new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN), new
-		 * BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN), new
-		 * BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN), new
-		 * BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN))); }
-		 */
-		// valor.add(new reporte("Compras", "Unidad", "Presup", "Real",
-		// new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN),
-		// new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN), l));
 		return valor;
 	}
 	
@@ -175,8 +153,7 @@ public class KpiDaoImpl implements KpiDao {
 
 	public List<reporte> listKipDrill(session ses) {
 		List<reporte> valor = new LinkedList<reporte>();
-		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
-		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
+		java.math.BigDecimal promedio = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 
 		@SuppressWarnings("unchecked")
 		List<Object[]> result = em
@@ -188,57 +165,51 @@ public class KpiDaoImpl implements KpiDao {
 						+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k.mvemes, k.mvedes, k."+ses.getCampo_descripcion()
 						+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mvedes, k.mveano , k.mvemes asc")
 		.getResultList();
-		
-		// Se crea un objeto lista para almacenar todo año (solo la línea del indicador)
+
 		List<Kpi> list = new LinkedList<Kpi>();
-		
 		String cod_ant=result.get(0)[0].toString();
 		String cod="";
 		
 		int x=0;
 		while (x<result.size()){
 			cod=result.get(x)[0].toString();
-			System.out.println(x+ " " + cod + " " + cod_ant + " " + result.get(x)[1].toString());
+			//System.out.println(x+ " " + cod + " " + cod_ant + " " + result.get(x)[1].toString());
 			
 			// Se inician los 12 meses
 			list = new LinkedList<Kpi>();
 			for (int i = 0; i < 12; i++) {
 				list.add(new Kpi("2015", "" + (i + 1)));
 			}
-			
+			int cantidadMesesResultantes=1;
 			bucle1:
-			while( cod.equals(cod_ant) ){
-				list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMveval(
-						new BigDecimal(result.get(x)[5].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
-				list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMvevpe(
-						new BigDecimal(result.get(x)[6].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
-				promMvevalRealAnoActual=promMvevalRealAnoActual.add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+			do{
+				if (x >= result.size()-2) break bucle1;
+				list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMveval(new BigDecimal(result.get(x)[5].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
+				list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMvevpe(new BigDecimal(result.get(x)[6].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+				promedio=promedio.add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				cod_ant=result.get(x)[0].toString();
 				x++;
-				if (x >= result.size()-1) break bucle1;
-			}
+				//cantidadMesesResultantes++;
+			}while( cod.equals(cod_ant));
+			//promedio=promedio.divide(new BigDecimal(cantidadMesesResultantes), 2, RoundingMode.HALF_UP);
 			
-			promMvevalRealAnoActual=promMvevalRealAnoActual.divide(new BigDecimal("12"), 2, RoundingMode.HALF_UP);
+			System.out.println("Cliente: "+result.get(x)[1].toString() + " Meses " + cantidadMesesResultantes + " Promedio " + promedio);
+			
 			cod_ant=result.get(x)[0].toString();
-
+			
 			// OJO
 			valor.add(new reporte(result.get(x)[0].toString(), result.get(x)[1].toString(), 
 					"", "Real", "Presup.",
-					promMvevalRealAnoActual, 
-					promMvevpePresupuestadoAnoActual,
-					promMvevalRealAnoActual, 
-					promMvevpePresupuestadoAnoActual,
+					promedio, 
+					promedio,
+					promedio, 
+					promedio,
 					new ArrayList<Kpi>(list),""));
 			
 			x++;
+			promedio = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		}
-		//promMvevalRealAnoActual=promMvevalRealAnoActual.divide(new BigDecimal("12"), 2, RoundingMode.HALF_UP);
-		//promMvevpePresupuestadoAnoActual=promMvevpePresupuestadoAnoActual.divide(new BigDecimal("12"), 2, RoundingMode.HALF_UP);
-		//System.out.println(promMveval.toString());
-			
-			// Se va agregando a la hoja de reporte cada línea para luego ser mostrada en la vista
-			// llega tal cual se mostrará
-			
+		System.out.println("cantidadMesesResultantes: "+x);
 		return valor;
 	}
 

@@ -126,24 +126,21 @@ tr:last-child {
 				<span class="btn-label"><i
 					class="glyphicon glyphicon-chevron-left"></i></span>Atras
 			</a>
-			<a href="historico" class="btn btn-labeled btn-primary bg-color-yellow">
-				<span class="btn-label"><i class="glyphicon glyphicon-camera"></i></span>Manufactura
-			</a>
-			<a href="anual" class="btn btn-success btn-labeled"> <span
-				class="btn-label"><i class="glyphicon glyphicon-info-sign"></i></span>Ventas
-			</a> 
-			<a href="actualizar" class="btn btn-labeled btn-info"> <span
-				class="btn-label"><i class="glyphicon glyphicon-refresh"></i></span>Distribución
-			</a>
-			<a href="historico" class="btn btn-labeled btn-primary bg-color-yellow">
-				<span class="btn-label"><i class="glyphicon glyphicon-camera"></i></span>RRHH
-			</a> 
-			<a href="anual" class="btn btn-success btn-labeled"> <span
-				class="btn-label"><i class="glyphicon glyphicon-info-sign"></i></span>Finanzas
-			</a> 
+			<!-- ---------------------------------------------------- -->
+			<!-- ---------------------------------------------------- -->
+			
+
+			<a class="btn btn-success btn-sm" href="javascript:void(0);">Manufacturing</a>
+			<a class="btn btn-warning btn-sm" href="javascript:void(0);">Sales</a>
+			<a class="btn btn-info btn-sm" href="javascript:void(0);">Distribution</a>
+			<a class="btn btn-success btn-sm" href="javascript:void(0);">RRHH</a>
+			<a class="btn btn-warning btn-sm" href="javascript:void(0);">Finances</a>
 			<a href="salir" class="btn btn-labeled btn-danger"> <span
 				class="btn-label"><i class="fa fa-sign-out"></i></span>Salir
 			</a>
+			
+			<!-- ---------------------------------------------------- -->
+			<!-- ---------------------------------------------------- -->
 		</div>
 
 
@@ -182,40 +179,48 @@ tr:last-child {
 
 								<table class="table table-striped table-bordered" width="100%">
 									<thead>
+										<div class="row">
+										<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+											<h1 class="page-title txt-color-blueDark">
+												<i class="fa fa-list-alt fa-fw "></i> 
+												
+												<span><c:out value="${navegacion}" />
+												</span>
+											</h1>
+										</div>
+									</div>
 										<tr>
-											<td colspan="20" align="left">
-											<h4><strong><c:out value="${navegacion}" /> (<strong><c:out value="${tit}" /> -- <strong><c:out value="${m3r}" />)</strong></h4></td>
 										</tr>
 										<tr>
 											<th style="text-align: center; color: blue;">Nombre
 											</th>
-											<th style="text-align: center; color: blue;">Prom 2014
+											<th style="text-align: center; color: blue;">Prom <c:out value="${anio-1}"/>
 											</th>
-											<th style="text-align: center; color: blue;">Prom 2015
+											<th style="text-align: center; color: blue;">Prom <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">ENE 2015
+											<th style="text-align: center; color: blue;">ENE <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">FEB 2015
+											<th style="text-align: center; color: blue;">FEB <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">MAR 2015
+											<th style="text-align: center; color: blue;">MAR <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">ABR 2015
+											<th style="text-align: center; color: blue;">ABR <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">MAY 2015
+											<th style="text-align: center; color: blue;">MAY <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">JUN 2015
+											<th style="text-align: center; color: blue;">JUN <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">JUL 2015
+											<th style="text-align: center; color: blue;">JUL <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">AGO 2015
+											<th style="text-align: center; color: blue;">AGO <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">SEP 2015
+											<th style="text-align: center; color: blue;">SEP <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">OCT 2015
+											<th style="text-align: center; color: blue;">OCT <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">NOV 2015
+											<th style="text-align: center; color: blue;">NOV <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">DIC 2015
+											<th style="text-align: center; color: blue;">DIC <c:out value="${anio}"/>
 											</th>
 											<!-- <th style="text-align: center; color: blue;">Graph
 											</th>
@@ -232,7 +237,7 @@ tr:last-child {
 												bgcolor="#EFF2EF">
 												<td><a id="modal" href="#">${ kpi.ind_cod } (${ kpi.ind })</a></td>
 												<td>0</td>
-												<td><fmt:formatNumber value="${kpi.promMvevalRealAnoActual}" type="number" /></td> 
+												<td>0</td> 
 												<c:forEach items="${kpi.lista}" var="val"
 													varStatus="loopCounter">
 														<td nowrap>
