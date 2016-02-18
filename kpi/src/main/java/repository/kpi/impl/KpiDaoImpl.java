@@ -48,10 +48,11 @@ public class KpiDaoImpl implements KpiDao {
 		String sql="";
 		if (!ses.getDash_nia().equals("Todas")){
 			sql = " AND k.mvecia='"+ses.getDash_nia()+"' ";
-			System.out.print("Region: "+ses.getDash_region()+"--------------");
-			
 		}
-		sql += " AND k.mveano='"+ses.getAnio()+"' ";
+		if (!ses.getDash_region().equals("Todas")){
+			sql += " AND k.mvereg='"+ses.getDash_region()+"' ";
+		}
+	
 		// Lee todos los indicadores de la base de datos
 		for (Cfg cfg : indicadores) {
 
@@ -59,11 +60,12 @@ public class KpiDaoImpl implements KpiDao {
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
-							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ sql
+									+ " AND k.mveano='"+ses.getAnio()+"' "
 									+ " GROUP BY k.mveano , k.mvemes, k.mvedes"
 									+ " ORDER BY k.mvedes, k.mveano , k.mvemes asc")
 					.getResultList();
@@ -110,7 +112,7 @@ public class KpiDaoImpl implements KpiDao {
 		    @SuppressWarnings("unchecked")
 		    List<Object[]> prom = em
 					.createQuery(
-							"Select k.mveano as mveano, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
@@ -136,7 +138,7 @@ public class KpiDaoImpl implements KpiDao {
 		    
 			if (list.get(1).getMvedes() != null){
 				valor.add(new reporte(list.get(1).getMvedes(), cfg.getIndicador(), 
-						cfg.getUnidad(), "Real", "Presup.",
+						cfg.getUnidad(), "Real", "Budgeted",
 						anioAntReal,
 						anioAntPres,
 						promMvevalRealAnoActual, 
@@ -154,7 +156,14 @@ public class KpiDaoImpl implements KpiDao {
 	public List<reporte> listKipDrill(session ses) {
 		List<reporte> valor = new LinkedList<reporte>();
 		java.math.BigDecimal promedio = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
-
+		String sql="";
+		if (!ses.getDash_nia().equals("Todas")){
+			sql = " AND k.mvecia='"+ses.getDash_nia()+"' ";
+		}
+		if (!ses.getDash_region().equals("Todas")){
+			sql += " AND k.mvereg='"+ses.getDash_region()+"' ";
+		}
+		
 		@SuppressWarnings("unchecked")
 		List<Object[]> result = em
 		.createQuery(
@@ -162,6 +171,7 @@ public class KpiDaoImpl implements KpiDao {
 						+ " From Kpi as k where k.mveind = '"
 						+ ses.getIndicador_drill()
 						+ "' "
+						+ sql
 						+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k.mvemes, k.mvedes, k."+ses.getCampo_descripcion()
 						+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mvedes, k.mveano , k.mvemes asc")
 		.getResultList();

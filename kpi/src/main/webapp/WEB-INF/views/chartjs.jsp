@@ -94,12 +94,13 @@ tr:last-child {
 		<input type="hidden" id="p" value="${param['p']}"/>
 		<!-- #HEADER -->
 			<header id="header">
-		<div id="logo-group">
-			<!-- PLACE YOUR LOGO HERE -->
-			<span id="logo"> <img
-				src="<c:url value="/resources/img/logo.png"/>" alt="SmartAdmin">
-			</span>
-			<!-- END LOGO PLACEHOLDER -->
+		
+		<div id="logos" style="width: 100%">
+			<img src="<c:url value="/resources/img/adm/Panasa_Colombia.png"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Paveca_Venezuela.jpg"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Painsa_Guatemala.JPG"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/GBP_Trinidad.jpg"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Papisa_Panama.gif"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
 		</div>
 
 		<!-- pulled right: nav area -->

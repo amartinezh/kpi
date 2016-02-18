@@ -92,12 +92,12 @@ tr:last-child {
 
 	<!-- HEADER -->
 	<header id="header">
-		<div id="logo-group">
-			<!-- PLACE YOUR LOGO HERE -->
-			<span id="logo"> <img
-				src="<c:url value="/resources/img/logo.png"/>" alt="SmartAdmin">
-			</span>
-			<!-- END LOGO PLACEHOLDER -->
+		<div id="logos" style="width: 100%">
+			<img src="<c:url value="/resources/img/adm/Panasa_Colombia.png"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Paveca_Venezuela.jpg"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Painsa_Guatemala.JPG"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/GBP_Trinidad.jpg"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Papisa_Panama.gif"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
 		</div>
 
 		<!-- pulled right: nav area -->
@@ -192,19 +192,19 @@ tr:last-child {
 										<tr>
 										</tr>
 										<tr>
-											<th style="text-align: center; color: blue;">Nombre
+											<th style="text-align: center; color: blue;">Description
 											</th>
-											<th style="text-align: center; color: blue;">Prom <c:out value="${anio-1}"/>
+											<th style="text-align: center; color: blue;">Average <c:out value="${anio-1}"/>
 											</th>
-											<th style="text-align: center; color: blue;">Prom <c:out value="${anio}"/>
+											<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">ENE <c:out value="${anio}"/>
+											<th style="text-align: center; color: blue;">JAN <c:out value="${anio}"/>
 											</th>
 											<th style="text-align: center; color: blue;">FEB <c:out value="${anio}"/>
 											</th>
 											<th style="text-align: center; color: blue;">MAR <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">ABR <c:out value="${anio}"/>
+											<th style="text-align: center; color: blue;">APR <c:out value="${anio}"/>
 											</th>
 											<th style="text-align: center; color: blue;">MAY <c:out value="${anio}"/>
 											</th>
@@ -212,7 +212,7 @@ tr:last-child {
 											</th>
 											<th style="text-align: center; color: blue;">JUL <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">AGO <c:out value="${anio}"/>
+											<th style="text-align: center; color: blue;">AUG <c:out value="${anio}"/>
 											</th>
 											<th style="text-align: center; color: blue;">SEP <c:out value="${anio}"/>
 											</th>
@@ -220,7 +220,7 @@ tr:last-child {
 											</th>
 											<th style="text-align: center; color: blue;">NOV <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">DIC <c:out value="${anio}"/>
+											<th style="text-align: center; color: blue;">DEC <c:out value="${anio}"/>
 											</th>
 											<!-- <th style="text-align: center; color: blue;">Graph
 											</th>
@@ -241,7 +241,7 @@ tr:last-child {
 												<c:forEach items="${kpi.lista}" var="val"
 													varStatus="loopCounter">
 														<td nowrap>
-														<fmt:formatNumber value="${val.mveval}" type="number" />
+														<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
 														</td>
 											
 												</c:forEach>
