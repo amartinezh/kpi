@@ -172,6 +172,7 @@ public class KpiDaoImpl implements KpiDao {
 						+ ses.getIndicador_drill()
 						+ "' "
 						+ sql
+						+ " AND k.mveano='"+ses.getAnio()+"' "
 						+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k.mvemes, k.mvedes, k."+ses.getCampo_descripcion()
 						+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mvedes, k.mveano , k.mvemes asc")
 		.getResultList();
@@ -209,7 +210,7 @@ public class KpiDaoImpl implements KpiDao {
 			
 			// OJO
 			valor.add(new reporte(result.get(x)[0].toString(), result.get(x)[1].toString(), 
-					"", "Real", "Presup.",
+					"", "Real", "Budgeted",
 					promedio, 
 					promedio,
 					promedio, 

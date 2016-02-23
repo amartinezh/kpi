@@ -184,10 +184,11 @@ tr:last-child {
 											<h1 class="page-title txt-color-blueDark">
 												<i class="fa fa-list-alt fa-fw "></i> 
 												
-												<span><c:out value="${navegacion}" />
+												<span><c:out value="${navegacion}" /> >> <b> ${param["ind1c4d3s"]} </b>	
 												</span>
 											</h1>
 										</div>
+										
 									</div>
 										<tr>
 										</tr>
