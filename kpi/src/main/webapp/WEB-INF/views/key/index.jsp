@@ -4,7 +4,7 @@
 <html lang="en-us" id="extr-page">
 	<head>
 		<meta charset="utf-8">
-		<title>Grand Bay</title>
+		<title>Balanced Scorecard</title>
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -65,8 +65,14 @@
 
 			<!-- MAIN CONTENT -->
 			<div id="content" class="container">
-
-				<div class="row">
+				<div id="logos" style="width: 100%">
+			<img src="<c:url value="/resources/img/adm/Panasa_Colombia.png"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Paveca_Venezuela.jpg"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Painsa_Guatemala.JPG"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/GBP_Trinidad.jpg"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Papisa_Panama.gif"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+		</div>
+				<div class="row" >
 					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 						<div class="well no-padding">
 							<!--  <form action="index.html" id="login-form" class="smart-form client-form"> -->
