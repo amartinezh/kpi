@@ -15,6 +15,5 @@ public interface UserManager extends Serializable {
     public User getUser(User user);
     public void deleteUser(String id);
     public boolean editUser(User user);
-    public Map<String, String> obtenerDatos();
 
 }

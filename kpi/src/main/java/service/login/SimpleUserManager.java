@@ -44,8 +44,5 @@ public class SimpleUserManager implements UserManager {
 	public boolean editUser(User user) {
 		return userDao.editUser(user);
 	}
-	
-	public Map<String, String> obtenerDatos() {
-		return userDao.obtenerDatos();
-	}
+
 }

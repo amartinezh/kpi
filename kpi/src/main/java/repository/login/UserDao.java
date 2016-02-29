@@ -13,6 +13,5 @@ public interface UserDao {
     public void deleteUser(String id);
     public User getUser(User user);
     public boolean editUser(User user);
-    public Map<String, String> obtenerDatos();
 
 }
