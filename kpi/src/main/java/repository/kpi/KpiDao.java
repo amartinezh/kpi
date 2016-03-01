@@ -10,7 +10,9 @@ import domain.session.session;
 
 public interface KpiDao {
 
-	public List<reporte> listKip(session ses);
-	public List<reporte> listKipDrill(session ses);
+	public List<reporte> listSales(session ses);
+	public List<reporte> listSalesMonth(session ses);
+	public List<reporte> listSalesQuarterly(session ses);
+	public List<reporte> listSalesDrill(session ses);
 
 }

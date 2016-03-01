@@ -123,11 +123,29 @@ img.transparent {
 			
 			<label for="email" class="glyphicon glyphicon-search" rel="tooltip" title="" data-original-title="email"></label>
 		</div>
-		 <div class="icon-addon addon-md">
+		<div class="icon-addon addon-md">
         	<select class="form-control input-sm col-sm-2" id="anio" class="anio"
 				name="anio" onclick="anio()">
 				<option value="2015">2015</option>
 				<option value="2016">2016</option>
+			</select>
+			<label for="email" class="glyphicon glyphicon-search" rel="tooltip" title="" data-original-title="email"></label>
+		</div>
+		<div class="icon-addon addon-md">
+        	<select class="form-control input-sm col-sm-2" id="mes" class="mes"
+				name="mes" onclick="mes()">
+				<option value="1">January</option>
+				<option value="2">February</option>
+				<option value="3">March</option>
+				<option value="4">April</option>
+				<option value="5">May</option>
+				<option value="6">June</option>
+				<option value="7">July</option>
+				<option value="8">August</option>
+				<option value="9">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>
 			</select>
 			<label for="email" class="glyphicon glyphicon-search" rel="tooltip" title="" data-original-title="email"></label>
 		</div>
@@ -201,29 +219,7 @@ img.transparent {
 											</th>
 											<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
 											</th>
-											<th colspan="2" style="text-align: center; color: blue;">JAN <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">FEB <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">MAR <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">APR <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">MAY <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">JUN <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">JUL <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">AUG <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">SEP <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">OCT <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">NOV <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">DEC <c:out value="${anio}"/>
+											<th colspan="2" style="text-align: center; color: blue;">${elmes} <c:out value="${anio}"/>
 											</th>
 											<th  style="text-align: center; color: blue;">Graph
 											</th>
@@ -265,7 +261,7 @@ img.transparent {
 												</c:forEach>
 												
 												<td><img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
-												</td>
+												<!-- </td>  -->
 												
 											</tr>
 											<tr>
@@ -445,6 +441,7 @@ img.transparent {
 							$("#nia").val("${c1a}");
 							$("#moneda").val("${cur}");
 							$("#anio").val("${anio}");
+							$("#mes").val("${mes+1}");
 							var t="${tas}";
 							var c1a="${c1a}";
 							var curr="${cur}";
@@ -591,8 +588,6 @@ img.transparent {
 							var otable = $('#datatable_fixed_column')
 									.DataTable(
 											{
-												fixedColumns: true,
-												   fixedHeader: true
 												//"bFilter": false,
 												//"bInfo": false,
 												//"bLengthChange": false
@@ -1055,6 +1050,25 @@ img.transparent {
 				url : "anio",
 				data : {
 					anio : dato
+				},
+				success : function(data) {
+					//alert(dato);
+					location.reload();
+				},
+				error : function(data) {
+					alert("no");
+					
+				}
+			});
+		}
+		
+		function mes() {
+			var dato=document.getElementById("mes").value;
+			$.ajax({
+				type : "POST",
+				url : "mes",
+				data : {
+					mes : dato
 				},
 				success : function(data) {
 					//alert(dato);

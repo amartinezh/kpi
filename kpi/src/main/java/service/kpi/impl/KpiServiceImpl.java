@@ -16,12 +16,20 @@ public class KpiServiceImpl implements KpiService {
 	@Autowired
 	private KpiDao kpiDao;
 	
-	public List<reporte> listKip(session ses) {
-		return kpiDao.listKip(ses);
+	public List<reporte> listSales(session ses) {
+		return kpiDao.listSales(ses);
 	}
 	
-	public List<reporte> listKipDrill(session ses) {
-		return kpiDao.listKipDrill(ses);
+	public List<reporte> listSalesMonth(session ses) {
+		return kpiDao.listSalesMonth(ses);
+	}
+	
+	public List<reporte> listSalesQuarterly(session ses) {
+		return kpiDao.listSalesQuarterly(ses);
+	}
+	
+	public List<reporte> listSalesDrill(session ses) {
+		return kpiDao.listSalesDrill(ses);
 	}
 
 }
