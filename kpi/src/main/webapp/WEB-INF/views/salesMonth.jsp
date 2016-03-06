@@ -134,18 +134,18 @@ img.transparent {
 		<div class="icon-addon addon-md">
         	<select class="form-control input-sm col-sm-2" id="mes" class="mes"
 				name="mes" onclick="mes()">
-				<option value="1">January</option>
-				<option value="2">February</option>
-				<option value="3">March</option>
-				<option value="4">April</option>
-				<option value="5">May</option>
-				<option value="6">June</option>
-				<option value="7">July</option>
-				<option value="8">August</option>
-				<option value="9">September</option>
-				<option value="10">October</option>
-				<option value="11">November</option>
-				<option value="12">December</option>
+				<option value="0">January</option>
+				<option value="1">February</option>
+				<option value="2">March</option>
+				<option value="3">April</option>
+				<option value="4">May</option>
+				<option value="5">June</option>
+				<option value="6">July</option>
+				<option value="7">August</option>
+				<option value="8">September</option>
+				<option value="9">October</option>
+				<option value="10">November</option>
+				<option value="11">December</option>
 			</select>
 			<label for="email" class="glyphicon glyphicon-search" rel="tooltip" title="" data-original-title="email"></label>
 		</div>
@@ -187,7 +187,7 @@ img.transparent {
 
 							<!-- widget content -->
 							<div class="widget-body no-padding">
-								
+								<h1><strong>${tit}</strong></h1>
 								<div id="dialog-message" title="Drill Down">
 									<div id="opc" width="1500" height="100" style="background-color:#ffffff;">
 										
@@ -441,7 +441,7 @@ img.transparent {
 							$("#nia").val("${c1a}");
 							$("#moneda").val("${cur}");
 							$("#anio").val("${anio}");
-							$("#mes").val("${mes+1}");
+							$("#mes").val("${mes}");
 							var t="${tas}";
 							var c1a="${c1a}";
 							var curr="${cur}";

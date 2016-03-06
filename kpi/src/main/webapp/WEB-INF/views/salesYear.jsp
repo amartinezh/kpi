@@ -169,7 +169,7 @@ img.transparent {
 
 							<!-- widget content -->
 							<div class="widget-body no-padding">
-								
+								<div class="row"><h1><strong>${tit}</strong></h1>
 								<div id="dialog-message" title="Drill Down">
 									<div id="opc" width="1500" height="100" style="background-color:#ffffff;">
 										
@@ -178,12 +178,12 @@ img.transparent {
 
 								<table class="table table-striped table-bordered" width="100%">
 									<thead>
-									<div class="row">
+									
 										<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-											<h1 class="page-title txt-color-blueDark">
+											<h1 class="page-title txt-color-blueDark"> 
 												<i class="fa fa-list-alt fa-fw "></i> 
 												
-												<span><c:out value="${navegacion}" />
+												<span><c:out value="${navegacion}" /> 
 												</span>
 											</h1>
 										</div>

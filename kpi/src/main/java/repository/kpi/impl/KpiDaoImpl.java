@@ -3,9 +3,15 @@ package repository.kpi.impl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -402,6 +408,9 @@ public class KpiDaoImpl implements KpiDao {
 		if (!ses.getDash_region().equals("Todas")){
 			sql += " AND k.mvereg='"+ses.getDash_region()+"' ";
 		}
+		if (ses.getOp().equals("M")){
+			sql += " AND k.mvemes='"+ses.getMes()+"' ";
+		}
 		
 		@SuppressWarnings("unchecked")
 		List<Object[]> result = em
@@ -417,37 +426,31 @@ public class KpiDaoImpl implements KpiDao {
 		.getResultList();
 
 		List<Kpi> list = new LinkedList<Kpi>();
-		String cod_ant=result.get(0)[0].toString();
-		String cod="";
 		
 		int x=0;
 		while (x<result.size()){
-			cod=result.get(x)[0].toString();
-			//System.out.println(x+ " " + cod + " " + cod_ant + " " + result.get(x)[1].toString());
 			
 			// Se inician los 12 meses
 			list = new LinkedList<Kpi>();
 			for (int i = 0; i < 12; i++) {
 				list.add(new Kpi("2015", "" + (i + 1)));
 			}
-			int cantidadMesesResultantes=1;
-			bucle1:
-			do{
-				if (x >= result.size()-2) break bucle1;
+			//System.out.println(x+ " Actual: " + result.get(x)[0].toString() + " Anterior: " + result.get( (x==0?x:x-1)   )[0].toString() + " " );
+			if (  result.get(x)[0].toString().equals(result.get( (x==0?x:x-1)   )[0].toString())  ){
+				while(result.get(x)[0].toString().equals(result.get( (x==0?x:x-1)   )[0].toString())){
+					//System.out.println("Entro al while");
+					list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMveval(new BigDecimal(result.get(x)[5].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
+					list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMvevpe(new BigDecimal(result.get(x)[6].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+					promedio=promedio.add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+					x++;
+				}
+				x--;
+			}
+			else{
 				list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMveval(new BigDecimal(result.get(x)[5].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
 				list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMvevpe(new BigDecimal(result.get(x)[6].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				promedio=promedio.add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
-				cod_ant=result.get(x)[0].toString();
-				x++;
-				//cantidadMesesResultantes++;
-			}while( cod.equals(cod_ant));
-			//promedio=promedio.divide(new BigDecimal(cantidadMesesResultantes), 2, RoundingMode.HALF_UP);
-			
-			System.out.println("Cliente: "+result.get(x)[1].toString() + " Meses " + cantidadMesesResultantes + " Promedio " + promedio);
-			
-			cod_ant=result.get(x)[0].toString();
-			
-			// OJO
+			}
 			valor.add(new reporte(result.get(x)[0].toString(), result.get(x)[1].toString(), 
 					"", "Real", "Budgeted",
 					promedio, 
@@ -460,6 +463,8 @@ public class KpiDaoImpl implements KpiDao {
 			promedio = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		}
 		System.out.println("cantidadMesesResultantes: "+x);
+		
+	      
 		return valor;
 	}
 

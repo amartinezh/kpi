@@ -68,7 +68,7 @@
 					<!-- <a href="javascript:void(0);" class="username text-left"> <c:out value="${r3g	}" /> </a> -->
 					<h1> <c:out value="${tit}" /></h1>
 					<a class="btn btn-success btn-lg" href="#">Manufacturing</a>
-					<a class="btn btn-warning btn-lg" href="${view}">Sales</a>
+					<a class="btn btn-warning btn-lg" href="${view}?t=${tit}&op10=${op10}">Sales</a>
 					<a class="btn btn-info btn-lg" href="#">Distribution</a>
 					<a class="btn btn-success btn-lg" href="#">Human Resources</a>
 					<a class="btn btn-warning btn-lg" href="#">Finances</a>

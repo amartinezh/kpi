@@ -30,10 +30,12 @@ public class session implements Serializable{
 	private String indicador_drill; // del filtro para el drill
 	private String anio;
 	private String mes;
+	private String op;
 	
 	public session(){
 		java.util.Calendar c = java.util.Calendar.getInstance();
 		setAnio(Integer.toString(c.get(java.util.Calendar.YEAR)));
+		this.op="-";
 	}
 	
 	public session(String moneda, String dash_region, String dash_nia, String dash_moneda, String dash_tasa) {
@@ -43,9 +45,10 @@ public class session implements Serializable{
 		this.dash_nia = dash_nia;
 		this.dash_moneda = dash_moneda;
 		this.dash_tasa = dash_tasa;
+		this.op="-";
 		java.util.Calendar c = java.util.Calendar.getInstance();
 		setAnio(Integer.toString(c.get(java.util.Calendar.YEAR)));
-		setMes(Integer.toString(c.get(java.util.Calendar.MONTH)));
+		setMes(Integer.toString(   (c.get(java.util.Calendar.MONTH)   )));
 	}
 
 	@Override
@@ -68,6 +71,7 @@ public class session implements Serializable{
 		result = prime * result + ((levels == null) ? 0 : levels.hashCode());
 		result = prime * result + ((mes == null) ? 0 : mes.hashCode());
 		result = prime * result + ((moneda == null) ? 0 : moneda.hashCode());
+		result = prime * result + ((op == null) ? 0 : op.hashCode());
 		result = prime * result + tipoUsuario;
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
@@ -162,6 +166,11 @@ public class session implements Serializable{
 			if (other.moneda != null)
 				return false;
 		} else if (!moneda.equals(other.moneda))
+			return false;
+		if (op == null) {
+			if (other.op != null)
+				return false;
+		} else if (!op.equals(other.op))
 			return false;
 		if (tipoUsuario != other.tipoUsuario)
 			return false;
@@ -329,6 +338,12 @@ public class session implements Serializable{
 	public void setMes(String mes) {
 		this.mes = mes;
 	}
-	
-	
+
+	public String getOp() {
+		return op;
+	}
+
+	public void setOp(String op) {
+		this.op = op;
+	}
 }

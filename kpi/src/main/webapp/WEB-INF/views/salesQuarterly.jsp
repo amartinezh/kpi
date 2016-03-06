@@ -169,7 +169,7 @@ img.transparent {
 
 							<!-- widget content -->
 							<div class="widget-body no-padding">
-								
+								<h1><strong>${tit}</strong></h1>
 								<div id="dialog-message" title="Drill Down">
 									<div id="opc" width="1500" height="100" style="background-color:#ffffff;">
 										
@@ -190,7 +190,7 @@ img.transparent {
 									</div>
 										<tr>
 										</tr>
-										<tr >
+										<tr>
 											<th style="text-align: center; color: blue;">Indicator
 											</th>
 											<th style="text-align: center; color: blue;">Unit Of Mesure
@@ -201,29 +201,13 @@ img.transparent {
 											</th>
 											<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
 											</th>
-											<th colspan="2" style="text-align: center; color: blue;">JAN <c:out value="${anio}"/>
+											<th colspan="2" style="text-align: center; color: blue;">Q1 
 											</th>
-											<th colspan="2" style="text-align: center; color: blue;">FEB <c:out value="${anio}"/>
+											<th colspan="2" style="text-align: center; color: blue;">Q2 
 											</th>
-											<th colspan="2" style="text-align: center; color: blue;">MAR <c:out value="${anio}"/>
+											<th colspan="2" style="text-align: center; color: blue;">Q3 
 											</th>
-											<th colspan="2" style="text-align: center; color: blue;">APR <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">MAY <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">JUN <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">JUL <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">AUG <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">SEP <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">OCT <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">NOV <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">DEC <c:out value="${anio}"/>
+											<th colspan="2" style="text-align: center; color: blue;">Q4 
 											</th>
 											<th  style="text-align: center; color: blue;">Graph
 											</th>
