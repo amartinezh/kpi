@@ -441,7 +441,7 @@ img.transparent {
 							$("#nia").val("${c1a}");
 							$("#moneda").val("${cur}");
 							$("#anio").val("${anio}");
-							$("#mes").val("${mes}");
+							$("#mes").val("${mes-1}");
 							var t="${tas}";
 							var c1a="${c1a}";
 							var curr="${cur}";
@@ -1064,6 +1064,7 @@ img.transparent {
 		
 		function mes() {
 			var dato=document.getElementById("mes").value;
+			dato=parseInt(dato)+1;
 			$.ajax({
 				type : "POST",
 				url : "mes",

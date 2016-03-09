@@ -140,7 +140,7 @@ public class salesController {
 					"Currency: " + currencyService.getCurrency(((session) model.asMap().get("user_inicio")).getDash_moneda()).get(0).getDescripcion() + " >> " +
 					(  ((session) model.asMap().get("user_inicio")).getDash_tasa()=="mvevap"?"Average":"Month Rate") +
 					" >> Year: " + ((session) model.asMap().get("user_inicio")).getAnio() +
-					" >> Month: " + Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())]
+					" >> Month: " + Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())-1]
 					);
 			
 			model.addAttribute("regionList", regionService.getListRegion());
@@ -154,7 +154,7 @@ public class salesController {
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
 			model.addAttribute("mes",((session) model.asMap().get("user_inicio")).getMes());
-			model.addAttribute("elmes", Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())]);
+			model.addAttribute("elmes", Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())-1]);
 			return "salesMonth";
 		} else {
 			return "redirect:/index/ingreso";

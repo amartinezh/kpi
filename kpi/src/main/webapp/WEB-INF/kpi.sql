@@ -266,7 +266,21 @@ INSERT INTO gestion.currency(currency_id, currency_desc) VALUES ('0', 'USD');
 INSERT INTO gestion.currency(currency_id, currency_desc) VALUES ('1', 'LOCAL');
 INSERT INTO gestion.type_users(id, descripcion) VALUES ('1', 'gestionistrador');
 INSERT INTO gestion.type_users(id, descripcion)VALUES ('2', 'Usuario');
+
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('1', 'c4ca4238a0b923820dcc509a6f75849b','1' , '01', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('panasa', 'c4ca4238a0b923820dcc509a6f75849b','1' , '01', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('biopacol', 'c4ca4238a0b923820dcc509a6f75849b','1' , '05', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('paveca', 'c4ca4238a0b923820dcc509a6f75849b','1' , '10', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('defo', 'c4ca4238a0b923820dcc509a6f75849b','1' , '24', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('panama', 'c4ca4238a0b923820dcc509a6f75849b','1' , '50', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('grandbay', 'c4ca4238a0b923820dcc509a6f75849b','1' , '30', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('trinidad', 'c4ca4238a0b923820dcc509a6f75849b','1' , '33', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('nicaragua', 'c4ca4238a0b923820dcc509a6f75849b','1' , '12', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('costarica', 'c4ca4238a0b923820dcc509a6f75849b','1' , '14', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('salvador', 'c4ca4238a0b923820dcc509a6f75849b','1' , '16', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('honduras', 'c4ca4238a0b923820dcc509a6f75849b','1' , '17', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('ecologica', 'c4ca4238a0b923820dcc509a6f75849b','1' , '18', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('internacional', 'c4ca4238a0b923820dcc509a6f75849b','1' , '20', '1');
 
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN001', 'SUM', 'Comercial', '', 'Ventas', 'Own Cases', 'V');
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN002', 'SUM', 'Comercial', '', 'Ventas', 'TM', 'V');

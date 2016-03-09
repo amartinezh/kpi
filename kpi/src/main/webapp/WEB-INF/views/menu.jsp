@@ -82,17 +82,17 @@
 						    <c:when test="${r3g == 'COL' }">
 						       <img src="<c:url value="/resources/img/adm/Panasa_Colombia.png"/>" style="z-index: -1;  max-width: 20%; height: auto;" alt="SmartAdmin">
 						    </c:when>
-						    <c:when test="${r3g == VEN }">
-						        <img src="<c:url value="/resources/img/adm/Paveca_Venezuela.jpg"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+						    <c:when test="${r3g == 'VEN' }">
+						        <img src="<c:url value="/resources/img/adm/Paveca_Venezuela.jpg"/>" style="z-index: -1;  max-width: 20%; height: auto;" alt="Sistemas">
 						    </c:when>
-						    <c:when test="${r3g == GUA }">
-						    	<img src="<c:url value="/resources/img/adm/Painsa_Guatemala.JPG"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+						    <c:when test="${r3g == 'GUA' }">
+						    	<img src="<c:url value="/resources/img/adm/Painsa_Guatemala.JPG"/>" style="z-index: -1;  max-width: 20%; height: auto;" alt="Sistemas">
 						    </c:when>
-						    <c:when test="${r3g == TRI }">
-						    	<img src="<c:url value="/resources/img/adm/GBP_Trinidad.jpg"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+						    <c:when test="${r3g == 'TRI' }">
+						    	<img src="<c:url value="/resources/img/adm/GBP_Trinidad.jpg"/>" style="z-index: -1;  max-width: 20%; height: auto;" alt="Sistemas">
 						    </c:when>
-						    <c:when test="${r3g == PAN }">
-						    	<img src="<c:url value="/resources/img/adm/Papisa_Panama.gif"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+						    <c:when test="${r3g == 'PAN' }">
+						    	<img src="<c:url value="/resources/img/adm/Papisa_Panama.gif"/>" style="z-index: -1;  max-width: 20%; height: auto;" alt="Sistemas">
 						    </c:when>
 						    
 						    <c:otherwise>
