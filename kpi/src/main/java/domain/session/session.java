@@ -48,7 +48,7 @@ public class session implements Serializable{
 		this.op="-";
 		java.util.Calendar c = java.util.Calendar.getInstance();
 		setAnio(Integer.toString(c.get(java.util.Calendar.YEAR)));
-		setMes(Integer.toString(   (c.get(java.util.Calendar.MONTH)   )));
+		setMes(Integer.toString(   (c.get(java.util.Calendar.MONTH)+1   )));
 	}
 
 	@Override

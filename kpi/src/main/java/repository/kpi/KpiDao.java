@@ -14,5 +14,5 @@ public interface KpiDao {
 	public List<reporte> listSalesMonth(session ses);
 	public List<reporte> listSalesQuarterly(session ses);
 	public List<reporte> listSalesDrill(session ses);
-
+	public List<reporte> listSalesDrillMonth(session ses);
 }

@@ -3,15 +3,8 @@ package repository.kpi.impl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,7 +16,6 @@ import domain.adm.Cfg;
 import domain.kpi.Kpi;
 import domain.kpi.reporte;
 import domain.session.session;
-import repository.adm.CfgDao;
 import repository.kpi.KpiDao;
 import service.adm.CfgService;
 
@@ -175,7 +167,7 @@ public class KpiDaoImpl implements KpiDao {
 		if (!ses.getDash_region().equals("Todas")){
 			sql += " AND k.mvereg='"+ses.getDash_region()+"' ";
 		}
-		sql += " AND k.mvemes='"+ses.getMes()+"' ";
+		//sql += " AND k.mvemes='"+ses.getMes()+"' ";
 		// Lee todos los indicadores de la base de datos
 		for (Cfg cfg : indicadores) {
 
@@ -189,6 +181,7 @@ public class KpiDaoImpl implements KpiDao {
 									+ "' "
 									+ sql
 									+ " AND k.mveano='"+ses.getAnio()+"' "
+									+ " AND k.mvemes='"+ses.getMes()+"' "
 									+ " GROUP BY k.mveano , k.mvemes, k.mvedes"
 									+ " ORDER BY k.mvedes, k.mveano , k.mvemes asc")
 					.getResultList();
@@ -213,7 +206,7 @@ public class KpiDaoImpl implements KpiDao {
 
 				list.get(0).setMvedes(r[2].toString());
 
-				promMvevalRealAnoActual=promMvevalRealAnoActual.add(new java.math.BigDecimal(r[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+				//promMvevalRealAnoActual=promMvevalRealAnoActual.add(new java.math.BigDecimal(r[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				promMvevpePresupuestadoAnoActual=promMvevpePresupuestadoAnoActual.add(new java.math.BigDecimal(r[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				meses++;
 			}
@@ -232,12 +225,12 @@ public class KpiDaoImpl implements KpiDao {
 									+ cfg.getIndicador()
 									+ "' "
 									+ " and mveano = " + (Integer.parseInt(ses.getAnio()) - 1)
-									+ sql
+									//+ sql
 									//+ " AND k.mvecia='"+ses.getDash_nia()+"' "
 									+ " GROUP BY k.mveano"
 									+ " ORDER BY k.mveano asc")
 					.getResultList();
-				
+		    
 		    if (prom.size() > 0){
 		    	//System.out.println("-----------"+prom.get(0)[0].toString()+"----------------------");
 				anioAntReal = new java.math.BigDecimal(prom.get(0)[1].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
@@ -247,6 +240,31 @@ public class KpiDaoImpl implements KpiDao {
 				anioAntReal = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 				anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 			}
+		    
+		    // Se obtiene el promedio del PRESENTE año por cada línea generada, todo el año
+			
+		    @SuppressWarnings("unchecked")
+		    List<Object[]> promAnioActual = em
+					.createQuery(
+							"Select k.mveano as mveano, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
+									+ " From Kpi as k where k.mveind = '"
+									+ cfg.getIndicador()
+									+ "' "
+									+ " and mveano = " + (Integer.parseInt(ses.getAnio()))
+									+ sql
+									+ " GROUP BY k.mveano"
+									+ " ORDER BY k.mveano asc")
+					.getResultList();
+		    
+		    if (promAnioActual.size() > 0){
+		    	promMvevalRealAnoActual= new java.math.BigDecimal(promAnioActual.get(0)[1].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+			}
+			else{
+				promMvevalRealAnoActual = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+				anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+			}
+		    
+		    
 			
 			// Se va agregando a la hoja de reporte cada línea para luego ser mostrada en la vista
 			// llega tal cual se mostrará
@@ -436,20 +454,42 @@ public class KpiDaoImpl implements KpiDao {
 				list.add(new Kpi("2015", "" + (i + 1)));
 			}
 			//System.out.println(x+ " Actual: " + result.get(x)[0].toString() + " Anterior: " + result.get( (x==0?x:x-1)   )[0].toString() + " " );
+			// Va comparando el nombre del indicador que está en la posición 0
+			// Éste if compara si cambia el codigo del indicador, la idea es detectar los cambios como una ruptura
+			// Si es igual arranca con un while para ir recogiendo todos los meses, el problema que resuleve es 
+			// en el SQL llegan a manera de filas todos los meses
 			if (  result.get(x)[0].toString().equals(result.get( (x==0?x:x-1)   )[0].toString())  ){
-				while(result.get(x)[0].toString().equals(result.get( (x==0?x:x-1)   )[0].toString())){
-					//System.out.println("Entro al while");
+				while( result.get(x)[0].toString().equals(result.get( (x==0?x:x-1)   )[0].toString()) ){
+					System.out.println("Entro al while ["+x+"] - "+result.get(x)[0].toString());
 					list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMveval(new BigDecimal(result.get(x)[5].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
 					list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMvevpe(new BigDecimal(result.get(x)[6].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 					promedio=promedio.add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 					x++;
+					if (x==result.size())
+						break;
 				}
 				x--;
 			}
+			// Si no es igual el else monta el primero (deb ser enero) luego de la ruptura y arranca
+			// de nuevo con otro while para agregar todos los meses mientras el registro sea igual.
 			else{
 				list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMveval(new BigDecimal(result.get(x)[5].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
 				list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMvevpe(new BigDecimal(result.get(x)[6].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				promedio=promedio.add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+				x++;
+				if (x==result.size())
+					break;
+				while( result.get(x)[0].toString().equals(result.get( (x==0?x:x-1)   )[0].toString()) ){
+					System.out.println("Entro al while2 ["+x+"] - "+result.get(x)[0].toString());
+					list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMveval(new BigDecimal(result.get(x)[5].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
+					list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMvevpe(new BigDecimal(result.get(x)[6].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+					promedio=promedio.add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+					x++;
+					if (x==result.size())
+						break;
+				}
+				x--;
+
 			}
 			valor.add(new reporte(result.get(x)[0].toString(), result.get(x)[1].toString(), 
 					"", "Real", "Budgeted",
@@ -469,5 +509,57 @@ public class KpiDaoImpl implements KpiDao {
 	}
 
 	// //////////////////////////////////////////////////////////////////////////////////
+	
+	// //////////////////////////////////////////////////////////////////////////////////
+
+		public List<reporte> listSalesDrillMonth(session ses) {
+			List<reporte> valor = new LinkedList<reporte>();
+			java.math.BigDecimal promedio = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
+			String sql="";
+			if (!ses.getDash_nia().equals("Todas")){
+				sql = " AND k.mvecia='"+ses.getDash_nia()+"' ";
+			}
+			if (!ses.getDash_region().equals("Todas")){
+				sql += " AND k.mvereg='"+ses.getDash_region()+"' ";
+			}
+			//if (ses.getOp().equals("M")){
+			sql += " AND k.mvemes='"+ses.getMes()+"' ";
+			//}
+			
+			@SuppressWarnings("unchecked")
+			List<Object[]> result = em
+			.createQuery(
+					"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
+							+ " From Kpi as k where k.mveind = '"
+							+ ses.getIndicador_drill()
+							+ "' "
+							+ sql
+							+ " AND k.mveano='"+ses.getAnio()+"' "
+							+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k.mvemes, k.mvedes, k."+ses.getCampo_descripcion()
+							+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mvedes, k.mveano , k.mvemes asc")
+			.getResultList();
+
+			List<Kpi> list = new LinkedList<Kpi>();
+			list.add(new Kpi("2000", ses.getMes() ));
+			System.out.println("Tamaño"+list.size());
+			int meses=0;
+			// Se va colocando cada registro en la hoja de resultado
+			for (Object[] r : result) {
+				list.get(0).setMveval(
+						new BigDecimal(r[3].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
+
+				list.get(0).setMvevpe(
+						new BigDecimal(r[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+
+				list.get(0).setMvedes(r[2].toString());
+
+				meses++;
+			}
+			meses=(meses==0?1:meses);
+			
+			return valor;
+		}
+
+		// //////////////////////////////////////////////////////////////////////////////////
 
 }

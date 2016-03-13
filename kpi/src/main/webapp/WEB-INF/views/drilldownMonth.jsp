@@ -193,29 +193,7 @@ tr:last-child {
 											</th>
 											<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
 											</th>
-											<th style="text-align: center; color: blue;">JAN <c:out value="${anio}"/>
-											</th>
-											<th style="text-align: center; color: blue;">FEB <c:out value="${anio}"/>
-											</th>
-											<th style="text-align: center; color: blue;">MAR <c:out value="${anio}"/>
-											</th>
-											<th style="text-align: center; color: blue;">APR <c:out value="${anio}"/>
-											</th>
-											<th style="text-align: center; color: blue;">MAY <c:out value="${anio}"/>
-											</th>
-											<th style="text-align: center; color: blue;">JUN <c:out value="${anio}"/>
-											</th>
-											<th style="text-align: center; color: blue;">JUL <c:out value="${anio}"/>
-											</th>
-											<th style="text-align: center; color: blue;">AUG <c:out value="${anio}"/>
-											</th>
-											<th style="text-align: center; color: blue;">SEP <c:out value="${anio}"/>
-											</th>
-											<th style="text-align: center; color: blue;">OCT <c:out value="${anio}"/>
-											</th>
-											<th style="text-align: center; color: blue;">NOV <c:out value="${anio}"/>
-											</th>
-											<th style="text-align: center; color: blue;">DEC <c:out value="${anio}"/>
+											<th colspan="2" style="text-align: center; color: blue;">${elmes} <c:out value="${anio}"/>
 											</th>
 											<!-- <th style="text-align: center; color: blue;">Graph
 											</th>

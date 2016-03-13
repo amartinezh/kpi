@@ -317,7 +317,7 @@ public class salesController {
 	///////////////////////////////////////////////////////////////////////////////////
 	
 	@RequestMapping(value = "/drilldown", method = RequestMethod.GET)
-	public String drilldown(@RequestParam String m3r, @RequestParam String ind1c4, @RequestParam String ind1c4d3s, @RequestParam String ll4v3, @RequestParam String d3s, Model model) {
+	public String drilldown(@RequestParam String m3r, @RequestParam String ind1c4, @RequestParam String ind1c4d3s, @RequestParam String ll4v3, @RequestParam String d3s, @RequestParam String op10n, Model model) {
 		if (model.containsAttribute("user_inicio") == true) {
 			String r=((session) model.asMap().get("user_inicio")).getDash_region();
 			String n=((session) model.asMap().get("user_inicio")).getDash_nia();
@@ -328,7 +328,7 @@ public class salesController {
 			((session) model.asMap().get("user_inicio")).setCampo_descripcion(d3s);
 			((session) model.asMap().get("user_inicio")).setIndicador_drill(ind1c4);
 			
-			model.addAttribute("valor", kpiService.listSalesDrill((session) model.asMap().get("user_inicio")));
+			
 			model.addAttribute("tit",ind1c4d3s);
 			model.addAttribute("m3r",m3r);
 			
@@ -337,15 +337,39 @@ public class salesController {
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
+			model.addAttribute("mes",((session) model.asMap().get("user_inicio")).getMes()+1);
+			model.addAttribute("elmes", Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())-1]);
+			
+			String mesNavegacion="";
+			if (op10n.equals("M"))
+				mesNavegacion=" >> Month: " + Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())-1];
 			
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
 					"Company: " + n + " >> " +
 					"currency: " + currencyService.getCurrency(((session) model.asMap().get("user_inicio")).getDash_moneda()).get(0).getDescripcion() + " >> " +
 					(  ((session) model.asMap().get("user_inicio")).getDash_tasa()=="mvevap"?"Average":"Month Rate") +
-					" >> Year: " + ((session) model.asMap().get("user_inicio")).getAnio()
+					" >> Year: " + ((session) model.asMap().get("user_inicio")).getAnio()+
+					mesNavegacion
 					);
-			return "drilldown";
+			if (op10n.equals("M")){
+				model.addAttribute("valor", kpiService.listSalesDrillMonth((session) model.asMap().get("user_inicio")));
+				return "drilldownMonth";
+			}
+			else{
+				if (op10n.equals("Q")){
+					return "drilldownQuarterly";
+				}
+				else{
+					if (op10n.equals("Y")){
+						model.addAttribute("valor", kpiService.listSalesDrill((session) model.asMap().get("user_inicio")));
+						return "drilldown";
+					}
+					else{
+						return "redirect:/index/ingreso";
+					}
+				}
+			}
 					
 		} else {
 			return "redirect:/index/ingreso";
@@ -375,50 +399,10 @@ public class salesController {
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////////////////
-	/// Método del controlador para llamar la vista de planes de acción ///
-
-	/* @RequestMapping(value = "/plan", method = RequestMethod.GET)
-	public String carga2(@RequestParam String ind1c4, Model model) {
-		if (model.containsAttribute("user_inicio") == true) {
-			((session) model.asMap().get("user_inicio")).setIndicador(ind1c4);
-			model.asMap().put("plan", new Plan());
-			model.asMap().put("listPlan", planService.listarPlan());
-			((session) model.asMap().get("user_inicio")).setInterfaz("plan");
-
-			return "gestion/plan";
-		} else {
-			return "redirect:/index/ingreso";
-		}
-	} */
-
 	@RequestMapping(value = "/salir", method = RequestMethod.GET)
 	public String salir(Model model, SessionStatus status) {
 		status.setComplete();
 		
 		return "redirect:/index/ingreso";
 	}
-
-	/* @RequestMapping(value = "/agregar", method = RequestMethod.POST)
-	public @ResponseBody String agregar(@RequestParam int plan_id, @RequestParam String indicador,
-			@RequestParam String problema_encontrado, @RequestParam String impacto_discrepancia,
-			@RequestParam String plan_accion, @RequestParam String tipo, @RequestParam String responsable,
-			@RequestParam String resultado_esperado, @RequestParam String fecha_compromiso, @RequestParam String estado,
-
-			Map<String, Object> model) {
-		java.util.Date date = new java.util.Date();
-		java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
-
-		Plan obj = new Plan(plan_id, indicador, date, problema_encontrado, impacto_discrepancia, plan_accion, tipo,
-				responsable, resultado_esperado, date, estado);
-		System.out.println("aqui");
-		planService.agregarPlan(obj);
-		return "<span class='responsiveExpander'></span><a class='btn btn-success btn-circle btn-sx'"
-				+ " onclick=\"con('" + obj.getPlan_id() + "', '" + obj.getIndicador() + "', $(this)"
-				+ ")\"><i class='fa fa-edit'></i></a> <a class='btn btn-danger btn-circle' onclick='borrar("
-				+ obj.getPlan_id()
-				+ ", $(this))'><i class='fa fa-trash-o'></i></a><span class='responsiveExpander'></span>:::"
-				+ obj.getIndicador();
-	}
-     */
 }

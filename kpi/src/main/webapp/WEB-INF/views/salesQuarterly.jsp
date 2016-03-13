@@ -175,130 +175,126 @@ img.transparent {
 										
 									</div>
 								</div>
-
-								<table class="table table-striped table-bordered" width="100%">
-									<thead>
-									<div class="row">
-										<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-											<h1 class="page-title txt-color-blueDark">
-												<i class="fa fa-list-alt fa-fw "></i> 
-												
-												<span><c:out value="${navegacion}" />
-												</span>
-											</h1>
-										</div>
-									</div>
-										<tr>
-										</tr>
-										<tr>
-											<th style="text-align: center; color: blue;">Indicator
-											</th>
-											<th style="text-align: center; color: blue;">Unit Of Mesure
-											</th>
-											<th style="text-align: center; color: blue;">Type
-											</th>
-											<th style="text-align: center; color: blue;">Average <c:out value="${anio-1}"/>
-											</th>
-											<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">Q1 
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">Q2 
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">Q3 
-											</th>
-											<th colspan="2" style="text-align: center; color: blue;">Q4 
-											</th>
-											<th  style="text-align: center; color: blue;">Graph
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${valor}" var="kpi"
-											varStatus="loopCounter">
-											<tr 
-												onMouseOver="this.style.background = '#FFFFFF';this.style.color='#15B700'"
-												onMouseOut="this.style.background='#EFF2EF';this.style.color=''"
-												bgcolor="#EFF2EF">
-												
-												
-												
-												<td rowspan="2"><a id="modal" href="#" onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
-												
-												<td rowspan="2">${ kpi.unidad }</td>
-												<td>${kpi.tipoUno}</td>
-												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
-												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
-												<c:forEach items="${kpi.lista}" var="val"
-													varStatus="loopCounter">
-														<td nowrap>
-														<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
-														</td>
-														
-														<td valign="middle" rowspan="2">
-															<c:choose>
-															    <c:when test="${val.mveval > kpi.promMvevalRealAnoActual}">
-															    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
-															    </c:when>    
-															    <c:otherwise>
-															        <img src="<c:url value="/resources/img/adm/rojo.png"/>" alt="Rojo" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
-															    </c:otherwise>
-															</c:choose>
-														</td>
-														<c:set var="real" value="${real};${val.mveval}"/>
-												</c:forEach>
-												
-												<td><img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
-												</td>
-												
-											</tr>
-											<tr>
-												<td>${kpi.tipoDos}</td>
-												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
-												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
-												
-												<c:forEach items="${kpi.lista}" var="val"
-													varStatus="loopCounter">
-														<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /></td>
-														<c:set var="presupuestado" value="${presupuestado};${val.mvevpe}"/>
-												</c:forEach>
-												
-												<td><img onclick="graph('${real}', '${presupuestado}', '${ kpi.ind }')" src="<c:url value="/resources/img/adm/graph.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
-											</tr>
-										</c:forEach>
-										<tr>
-											<td colspan="20" align="center"></td>
-										</tr>
-										<!-- <tr>
-											<td colspan="11" align="center"></td>
-										</tr>
-										 <tr>
-											<td colspan="11" align="center">Usuario: <c:out
-													value="${usuarioactuall}" /></td>
-										</tr>
-										 -->
-									</tbody>
-								</table>
 							</div>
-							<div style="float: right;">
-								<strong>Usuario: </strong>${usuarioactuall}</div>
 							<!-- end widget content -->
-
 						</div>
 						<!-- end widget div -->
-
 					</div>
 					<!-- end widget -->
-
 				</article>
 				<!-- WIDGET END -->
-
 			</div>
-
 			<!-- end row -->
-
 			<!-- end row -->
-
+			<c:set var="color" value="success"/>
+			<table class="table table-bordered" width="100%">
+				<thead>
+				<div class="row">
+					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+						<h1 class="page-title txt-color-blueDark">
+							<i class="fa fa-list-alt fa-fw "></i> 
+							
+							<span><c:out value="${navegacion}" />
+							</span>
+						</h1>
+					</div>
+				</div>
+					<tr>
+					</tr>
+					<tr>
+						<th style="text-align: center; color: blue;">Indicator
+						</th>
+						<th style="text-align: center; color: blue;">Unit Of Mesure
+						</th>
+						<th style="text-align: center; color: blue;">Type
+						</th>
+						<th style="text-align: center; color: blue;">Average <c:out value="${anio-1}"/>
+						</th>
+						<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">Q1 
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">Q2 
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">Q3 
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">Q4 
+						</th>
+						<th  style="text-align: center; color: blue;">Graph
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${valor}" var="kpi"
+						varStatus="loopCounter">
+						<tr class="${color}">
+							
+							<td rowspan="2"><a id="modal" href="#" onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
+							<td rowspan="2">${ kpi.unidad }</td>
+							<td>${kpi.tipoUno}</td>
+							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+							<c:forEach items="${kpi.lista}" var="val"
+								varStatus="loopCounter">
+									<td nowrap>
+									<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
+									</td>
+									
+									<td valign="middle" rowspan="2">
+										<c:choose>
+										    <c:when test="${val.mveval > kpi.promMvevalRealAnoActual}">
+										    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
+										    </c:when>    
+										    <c:otherwise>
+										        <img src="<c:url value="/resources/img/adm/rojo.png"/>" alt="Rojo" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
+										    </c:otherwise>
+										</c:choose>
+									</td>
+									<c:set var="real" value="${real};${val.mveval}"/>
+							</c:forEach>
+							
+							<td><img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
+							</td>
+							
+						</tr>
+						<tr class="${color}">
+							<td>${kpi.tipoDos}</td>
+							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
+							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
+							
+							<c:forEach items="${kpi.lista}" var="val"
+								varStatus="loopCounter">
+									<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /></td>
+									<c:set var="presupuestado" value="${presupuestado};${val.mvevpe}"/>
+							</c:forEach>
+							
+							<td><img onclick="graph('${real}', '${presupuestado}', '${ kpi.ind }')" src="<c:url value="/resources/img/adm/graph.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
+						</tr>
+						<c:choose>
+							<c:when test="${color=='success'}">
+								<c:set var="color" value="warning"/>
+						    </c:when>    
+						    <c:otherwise>
+								<c:set var="color" value="success"/>
+						    </c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<tr>
+						<td colspan="20" align="center"></td>
+					</tr>
+					<!-- <tr>
+						<td colspan="11" align="center"></td>
+					</tr>
+					 <tr>
+						<td colspan="11" align="center">Usuario: <c:out
+								value="${usuarioactuall}" /></td>
+					</tr>
+					 -->
+				</tbody>
+			</table>
+			<div style="float: right;">
+				<strong>Usuario: </strong>${usuarioactuall}
+			</div>
 		</section>
 		<!-- end widget grid -->
 
@@ -1065,7 +1061,7 @@ img.transparent {
 		
 		function drilldown_controller(indicador, nombre_filtro, campo_llave, campo_des, indicador_des) {
 			//indicador_des = indicador_des.replace("%", "");
-			window.location="drilldown?m3r="+nombre_filtro+"&ind1c4="+indicador+"&ind1c4d3s="+encodeURIComponent(indicador_des)+"&ll4v3="+campo_llave+"&d3s="+campo_des;
+			window.location="drilldown?m3r="+nombre_filtro+"&ind1c4="+indicador+"&ind1c4d3s="+encodeURIComponent(indicador_des)+"&ll4v3="+campo_llave+"&d3s="+campo_des+"&op10n=M";
 		}
 		
 		function opciones_detalle(indicador, indicador_des){
