@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
-<title>Grand Bay</title>
+<title>Scoredcard</title>
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -193,11 +193,13 @@ tr:last-child {
 											</th>
 											<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
 											</th>
-											<th colspan="2" style="text-align: center; color: blue;">${elmes} <c:out value="${anio}"/>
+											<th colspan="2" style="text-align: center; color: blue;">Q1 
 											</th>
-											<!-- <th style="text-align: center; color: blue;">Graph
+											<th colspan="2" style="text-align: center; color: blue;">Q2 
 											</th>
-											<th style="text-align: center; color: blue;">Drill Down  -->
+											<th colspan="2" style="text-align: center; color: blue;">Q3 
+											</th>
+											<th colspan="2" style="text-align: center; color: blue;">Q4 
 											</th>
 										</tr>
 									</thead>

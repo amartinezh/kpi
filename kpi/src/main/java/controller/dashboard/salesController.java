@@ -352,12 +352,14 @@ public class salesController {
 					" >> Year: " + ((session) model.asMap().get("user_inicio")).getAnio()+
 					mesNavegacion
 					);
+			System.out.println(op10n+"--------------------");
 			if (op10n.equals("M")){
 				model.addAttribute("valor", kpiService.listSalesDrillMonth((session) model.asMap().get("user_inicio")));
 				return "drilldownMonth";
 			}
 			else{
 				if (op10n.equals("Q")){
+					model.addAttribute("valor", kpiService.listSalesDrillQuarterly((session) model.asMap().get("user_inicio")));
 					return "drilldownQuarterly";
 				}
 				else{

@@ -1061,7 +1061,7 @@ img.transparent {
 		
 		function drilldown_controller(indicador, nombre_filtro, campo_llave, campo_des, indicador_des) {
 			//indicador_des = indicador_des.replace("%", "");
-			window.location="drilldown?m3r="+nombre_filtro+"&ind1c4="+indicador+"&ind1c4d3s="+encodeURIComponent(indicador_des)+"&ll4v3="+campo_llave+"&d3s="+campo_des+"&op10n=M";
+			window.location="drilldown?m3r="+nombre_filtro+"&ind1c4="+indicador+"&ind1c4d3s="+encodeURIComponent(indicador_des)+"&ll4v3="+campo_llave+"&d3s="+campo_des+"&op10n=Q";
 		}
 		
 		function opciones_detalle(indicador, indicador_des){

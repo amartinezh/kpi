@@ -33,6 +33,10 @@ public class KpiServiceImpl implements KpiService {
 	}
 
 	public List<reporte> listSalesDrillMonth(session ses) {
-		return kpiDao.listSalesDrill(ses);
+		return kpiDao.listSalesDrillMonth(ses);
+	}
+	
+	public List<reporte> listSalesDrillQuarterly(session ses) {
+		return kpiDao.listSalesDrillQuarterly(ses);
 	}
 }

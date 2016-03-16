@@ -231,8 +231,8 @@ tr:last-child {
 												onMouseOut="this.style.background='#EFF2EF';this.style.color=''"
 												bgcolor="#EFF2EF">
 												<td><a id="modal" href="#">${ kpi.ind_cod } (${ kpi.ind })</a></td>
-												<td>0</td>
-												<td>0</td> 
+												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
 												<c:forEach items="${kpi.lista}" var="val"
 													varStatus="loopCounter">
 														<td nowrap>

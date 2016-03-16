@@ -11,4 +11,5 @@ public interface KpiService {
 	public List<reporte> listSalesQuarterly(session ses);
 	public List<reporte> listSalesDrill(session ses);
 	public List<reporte> listSalesDrillMonth(session ses);
+	public List<reporte> listSalesDrillQuarterly(session ses);
 }
