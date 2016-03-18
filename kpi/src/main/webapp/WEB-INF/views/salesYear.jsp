@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en-us">
@@ -137,7 +138,7 @@ img.transparent {
 				<i class="fa fa-sign-out">
 				</i>
 			</span>
-			Atras
+			Back
 		</a>
 		</div>
 		<!-- end pulled right: nav area -->
@@ -255,17 +256,17 @@ img.transparent {
 							
 							<td rowspan="2">${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 									<td nowrap>
-									<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
+									<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
 									</td>
 									
 									<td valign="middle" rowspan="2">
 										<c:choose>
-										    <c:when test="${val.mveval > kpi.promMvevalRealAnoActual}">
+										    <c:when test="${val.mveval gt val.mvevpe}">
 										    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
 										    </c:when>    
 										    <c:otherwise>
@@ -282,12 +283,12 @@ img.transparent {
 						</tr>
 						<tr class="${color}">
 							<td>${kpi.tipoDos}</td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
+							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 							
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
-									<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /></td>
+									<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 									<c:set var="presupuestado" value="${presupuestado};${val.mvevpe}"/>
 							</c:forEach>
 							

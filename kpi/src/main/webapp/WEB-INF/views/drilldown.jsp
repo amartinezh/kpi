@@ -124,13 +124,13 @@ tr:last-child {
 			</ul>
 			<a href="#" onclick="window.history.back()" class="btn btn-labeled btn-success">
 				<span class="btn-label"><i
-					class="glyphicon glyphicon-chevron-left"></i></span>Atras
+					class="glyphicon glyphicon-chevron-left"></i></span>Back
 			</a>
 			<!-- ---------------------------------------------------- -->
 			<!-- ---------------------------------------------------- -->
 			
 			<a href="salir" class="btn btn-labeled btn-danger"> <span
-				class="btn-label"><i class="fa fa-sign-out"></i></span>Salir
+				class="btn-label"><i class="fa fa-sign-out"></i></span>Exit
 			</a>
 			
 			<!-- ---------------------------------------------------- -->

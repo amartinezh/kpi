@@ -124,13 +124,13 @@ tr:last-child {
 			</ul>
 			<a href="#" onclick="window.history.back()" class="btn btn-labeled btn-success">
 				<span class="btn-label"><i
-					class="glyphicon glyphicon-chevron-left"></i></span>Atras
+					class="glyphicon glyphicon-chevron-left"></i></span>Back
 			</a>
 			<!-- ---------------------------------------------------- -->
 			<!-- ---------------------------------------------------- -->
 			
 			<a href="salir" class="btn btn-labeled btn-danger"> <span
-				class="btn-label"><i class="fa fa-sign-out"></i></span>Salir
+				class="btn-label"><i class="fa fa-sign-out"></i></span>Exit
 			</a>
 			
 			<!-- ---------------------------------------------------- -->
@@ -193,13 +193,13 @@ tr:last-child {
 											</th>
 											<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
 											</th>
-											<th colspan="2" style="text-align: center; color: blue;">Q1 
+											<th style="text-align: center; color: blue;">Q1 
 											</th>
-											<th colspan="2" style="text-align: center; color: blue;">Q2 
+											<th style="text-align: center; color: blue;">Q2 
 											</th>
-											<th colspan="2" style="text-align: center; color: blue;">Q3 
+											<th style="text-align: center; color: blue;">Q3 
 											</th>
-											<th colspan="2" style="text-align: center; color: blue;">Q4 
+											<th style="text-align: center; color: blue;">Q4 
 											</th>
 										</tr>
 									</thead>

@@ -71,9 +71,9 @@
 					<a class="btn btn-warning btn-lg" href="${view}?t=${tit}&op10=${op10}">Sales</a>
 					<a class="btn btn-info btn-lg" href="#">Distribution</a>
 					<a class="btn btn-success btn-lg" href="#">Human Resources</a>
-					<a class="btn btn-warning btn-lg" href="#">Finances</a>
+					<a class="btn btn-warning btn-lg" href="#">Finance</a>
 					<br><br><a href="inicio" class="btn btn-labeled btn-danger btn-lg"> <span
-						class="btn-label"><i class="fa fa-sign-out"></i></span>Atras
+						class="btn-label"><i class="fa fa-sign-out"></i></span>Back
 					</a>
 				</div>
 				<div class="well  well-light text-center">
