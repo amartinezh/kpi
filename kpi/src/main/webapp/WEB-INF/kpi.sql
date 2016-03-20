@@ -281,6 +281,7 @@ INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VA
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('honduras', 'c4ca4238a0b923820dcc509a6f75849b','1' , '17', '1');
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('ecologica', 'c4ca4238a0b923820dcc509a6f75849b','1' , '18', '1');
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('internacional', 'c4ca4238a0b923820dcc509a6f75849b','1' , '20', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('americo.valles', '88d18cda8bdc4f750137ecb61156c4f0','1' , '01', '1');
 
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN001', 'SUM', 'Comercial', '', 'Ventas', 'Own Cases', 'V');
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN002', 'SUM', 'Comercial', '', 'Ventas', 'TM', 'V');

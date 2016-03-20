@@ -131,28 +131,8 @@ tr:last-child {
 			<!-- ---------------------------------------------------- -->
 			<!-- ---------------------------------------------------- -->
 
-			<a href="#" onclick="window.history.back()" class="btn btn-labeled btn-success">
-				<span class="btn-label"><i
-					class="glyphicon glyphicon-chevron-left"></i></span>Atras
-			</a> 
-			
-			<a href="historico" class="btn btn-labeled btn-primary bg-color-yellow">
-				<span class="btn-label"><i class="glyphicon glyphicon-camera"></i></span>Manufactura
-			</a> 
-			<a href="anual" class="btn btn-success btn-labeled"> <span
-				class="btn-label"><i class="glyphicon glyphicon-info-sign"></i></span>Ventas
-			</a> 
-			<a href="actualizar" class="btn btn-labeled btn-info"> <span
-				class="btn-label"><i class="glyphicon glyphicon-refresh"></i></span>Distribución
-			</a>
-			<a href="historico" class="btn btn-labeled btn-primary bg-color-yellow">
-				<span class="btn-label"><i class="glyphicon glyphicon-camera"></i></span>RRHH
-			</a> 
-			<a href="anual" class="btn btn-success btn-labeled"> <span
-				class="btn-label"><i class="glyphicon glyphicon-info-sign"></i></span>Finanzas
-			</a> 
-			<a href="salir" class="btn btn-labeled btn-danger"> <span
-				class="btn-label"><i class="fa fa-sign-out"></i></span>Salir
+			<a href="#" onclick="window.history.back()" class="btn btn-labeled btn-danger"> <span
+				class="btn-label"><i class="fa fa-sign-out"></i></span>Back
 			</a>
 			<!-- end logout button -->
 
