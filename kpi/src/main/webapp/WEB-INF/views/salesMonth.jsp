@@ -252,8 +252,16 @@
 							
 							<td rowspan="2">${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							<c:choose>
+								<c:when test="${fn:contains(kpi.unidad, '%')}">
+									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
+									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
+						    	</c:when>    
+						    	<c:otherwise>
+									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+						    	</c:otherwise>
+							</c:choose>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 									<td nowrap>
@@ -280,9 +288,16 @@
 						</tr>
 						<tr class="${color}">
 							<td>${kpi.tipoDos}</td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-							
+							<c:choose>
+								<c:when test="${fn:contains(kpi.unidad, '%')}">
+									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" />%</td>
+									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" />%</td>
+						    	</c:when>    
+						    	<c:otherwise>
+									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
+									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
+						    	</c:otherwise>
+							</c:choose>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 									<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>

@@ -233,14 +233,28 @@ img.transparent {
 							<td rowspan="2"><a id="modal" href="#" onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
 							<td rowspan="2">${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							<c:choose>
+								<c:when test="${fn:contains(kpi.unidad, '%')}">
+									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
+									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
+						    	</c:when>    
+						    	<c:otherwise>
+									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+						    	</c:otherwise>
+							</c:choose>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 									<td nowrap>
-									<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
+										<c:choose>
+											<c:when test="${fn:contains(kpi.unidad, '%')}">
+												<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />
+									    	</c:when>    
+									    	<c:otherwise>
+												<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
+									    	</c:otherwise>
+								    	</c:choose>
 									</td>
-									
 									<td valign="middle" rowspan="2">
 										<c:choose>
 										    <c:when test="${val.mveval gt kpi.promMvevalRealAnoActual}">
@@ -260,9 +274,16 @@ img.transparent {
 						</tr>
 						<tr class="${color}">
 							<td>${kpi.tipoDos}</td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-							<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-							
+							<c:choose>
+								<c:when test="${fn:contains(kpi.unidad, '%')}">
+									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" />%</td>
+									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" />%</td>
+						    	</c:when>    
+						    	<c:otherwise>
+									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
+									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
+						    	</c:otherwise>
+							</c:choose>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 									<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
@@ -501,8 +522,8 @@ img.transparent {
 							    };
 
 							    // render chart
-							    var ctx = document.getElementById("lineChart").getContext("2d");
-							    var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+							    //var ctx = document.getElementById("lineChart").getContext("2d");
+							    //var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
 							
 
 							document.getElementById('region').value="${navega.dash_region}";
@@ -1352,6 +1373,8 @@ img.transparent {
 		}
 		
 		function drilldown(indicador, cosa) {
+			var Something = $(this).closest('td').text();
+			alert(Something);
 			$( "#opc" ).html('');
 			$( "#opc" ).append(opciones_detalle(indicador, cosa.innerHTML));
 			//tit=cosa.innerHTML;
