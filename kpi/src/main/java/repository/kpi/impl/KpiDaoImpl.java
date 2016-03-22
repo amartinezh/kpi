@@ -37,6 +37,13 @@ public class KpiDaoImpl implements KpiDao {
 	}
 
 	// listSales //////////////////////////////////////////////////////////////////////////////////
+	// listSales //////////////////////////////////////////////////////////////////////////////////
+	// listSales //////////////////////////////////////////////////////////////////////////////////
+	// listSales //////////////////////////////////////////////////////////////////////////////////
+	// listSales //////////////////////////////////////////////////////////////////////////////////
+	// listSales //////////////////////////////////////////////////////////////////////////////////
+	// listSales //////////////////////////////////////////////////////////////////////////////////
+	// listSales //////////////////////////////////////////////////////////////////////////////////
 
 	public List<reporte> listSales(session ses) {
 		List<reporte> valor = new LinkedList<reporte>();
@@ -273,9 +280,8 @@ public class KpiDaoImpl implements KpiDao {
 		    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
 		    	operacion[1]="(avg(k.mvevpe))";
 		    }
-		    
 		    	
-		    	// Se obtiene el promedio del PRESENTE año por cada línea generada, todo el año
+		    // Se obtiene el promedio del PRESENTE año por cada línea generada, todo el año
 		    @SuppressWarnings("unchecked")
 		    List<Object[]> promAnioActual = em
 					.createQuery(
@@ -546,12 +552,26 @@ public class KpiDaoImpl implements KpiDao {
 	}
 	
 	// //////////////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////////////////
 
 	public List<reporte> listSalesDrill(session ses) {
 		List<reporte> valor = new LinkedList<reporte>();
 		java.math.BigDecimal promedio = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal anioAntReal = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+		java.math.BigDecimal ultimoValor = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+		List<java.math.BigDecimal> totales = new LinkedList<java.math.BigDecimal>();
+		
+		for (int i = 0; i < 12; i++) {
+			totales.add(promedio);
+		}
 		String sql="";
 		if (!ses.getDash_nia().equals("Todas")){
 			sql = " AND k.mvecia='"+ses.getDash_nia()+"' ";
@@ -579,7 +599,7 @@ public class KpiDaoImpl implements KpiDao {
 		List<Kpi> list = new LinkedList<Kpi>();
 		
 		int x=0;
-		int meses=0;
+		int meses=0;boolean primeraLinea=true;
 		while (x<result.size()){
 			meses=1;
 			// Se inician los 12 meses
@@ -587,6 +607,7 @@ public class KpiDaoImpl implements KpiDao {
 			for (int i = 0; i < 12; i++) {
 				list.add(new Kpi("2015", "" + (i + 1)));
 			}
+			ultimoValor = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 			//System.out.println(x+ " Actual: " + result.get(x)[0].toString() + " Anterior: " + result.get( (x==0?x:x-1)   )[0].toString() + " " );
 			// Va comparando el nombre del indicador que está en la posición 0
 			// Éste if compara si cambia el codigo del indicador, la idea es detectar los cambios como una ruptura
@@ -598,6 +619,8 @@ public class KpiDaoImpl implements KpiDao {
 					list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMveval(new BigDecimal(result.get(x)[5].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
 					list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMvevpe(new BigDecimal(result.get(x)[6].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 					promedio=promedio.add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+					ultimoValor=new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+					totales.set((Integer.parseInt(result.get(x)[3].toString())+1), totales.get(Integer.parseInt(result.get(x)[3].toString())+1).add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN)));
 					x++;meses++;
 					if (x==result.size())
 						break;
@@ -610,6 +633,8 @@ public class KpiDaoImpl implements KpiDao {
 				list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMveval(new BigDecimal(result.get(x)[5].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
 				list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMvevpe(new BigDecimal(result.get(x)[6].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 				promedio=promedio.add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+				ultimoValor=new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+				totales.set(Integer.parseInt(result.get(x)[3].toString())+1, totales.get(Integer.parseInt(result.get(x)[3].toString())+1).add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN)));
 				x++;
 				if (x==result.size())
 					break;
@@ -618,17 +643,23 @@ public class KpiDaoImpl implements KpiDao {
 					list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMveval(new BigDecimal(result.get(x)[5].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
 					list.get(Integer.parseInt(result.get(x)[3].toString())-1).setMvevpe(new BigDecimal(result.get(x)[6].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 					promedio=promedio.add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+					ultimoValor=new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+					totales.set(Integer.parseInt(result.get(x)[3].toString())+1, totales.get(Integer.parseInt(result.get(x)[3].toString())+1).add(new java.math.BigDecimal(result.get(x)[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN)));
 					x++;meses++;
 					if (x==result.size())
 						break;
 				}
 				x--;
-
 			}
 			
-			// Se calcula el promedio del año actual
+			// Se calcula el promedio del año actual, se resta el último mes registrado para
+			// No tenerlo en cuenta
+			if (primeraLinea){ meses-=2; primeraLinea=false;}
+			else meses--;
 			meses=(meses==0?1:meses);
+			promedio=promedio.subtract(ultimoValor);
 			promedio=promedio.divide(new BigDecimal(meses), 2, RoundingMode.HALF_UP);
+			totales.set(1, totales.get(1).add(promedio));
 			
 			//Se obtiene el promedio del año anterior por cada línea generada
 			@SuppressWarnings("unchecked")
@@ -652,6 +683,8 @@ public class KpiDaoImpl implements KpiDao {
 				anioAntReal = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 				anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 			}
+		    totales.set(0, totales.get(0).add(anioAntReal));
+		    System.out.println("totlaes"+totales);
 			valor.add(new reporte(result.get(x)[0].toString(), result.get(x)[1].toString(), 
 					"", "Actual", "Budget",
 					anioAntReal, 
@@ -659,18 +692,15 @@ public class KpiDaoImpl implements KpiDao {
 					promedio, 
 					promedio,
 					new ArrayList<Kpi>(list),""));
-			
 			x++;
-			promedio = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
+			promedio = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 		}
-		System.out.println("cantidadMesesResultantes: "+x);
-		
-	      
+		ses.setTotales(totales);
 		return valor;
 	}
 
 	// //////////////////////////////////////////////////////////////////////////////////
-	
+	// listSalesDrillMonth //////////////////////////////////////////////////////////////
 	// //////////////////////////////////////////////////////////////////////////////////
 
 		public List<reporte> listSalesDrillMonth(session ses) {
@@ -684,17 +714,30 @@ public class KpiDaoImpl implements KpiDao {
 			
 			String sql="";
 			if (!ses.getDash_nia().equals("Todas")){
-				sql = " k.mvecia='"+ses.getDash_nia()+"' ";
+				sql = " AND k.mvecia='"+ses.getDash_nia()+"' ";
 			}
 			if (!ses.getDash_region().equals("Todas")){
 				sql += " AND k.mvereg='"+ses.getDash_region()+"' ";
 			}
+			
+			String operacion[] = new String [2];
+			System.out.println("Operacion:"+ses.getOp());
+		    if (ses.getOp().equals("-")){
+		    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
+		    	operacion[1]="(sum(k.mvevpe))";
+		    }
+		    else{
+		    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
+		    	operacion[1]="(avg(k.mvevpe))";
+		    }
 			// Se trae todo de la base de datos filtrando por la llave seleccionada
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 			.createQuery(
-					"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, k.mvemes as mvemes, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
-							+ " From Kpi as k WHERE "
+					"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, k.mvemes as mvemes, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
+							+ " From Kpi as k where k.mveind = '"
+							+ ses.getIndicador_drill()
+							+ "'"
 							+ sql
 							+ " AND k.mvemes='"+ses.getMes()+"' "
 							+ " AND k.mveano='"+ses.getAnio()+"' "
@@ -720,10 +763,13 @@ public class KpiDaoImpl implements KpiDao {
 				@SuppressWarnings("unchecked")
 				List<Object[]> promedioAnioAnterior = em
 				.createQuery(
-						"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
-								+ " From Kpi as k where k."+ses.getCampo_llave()+" = '"
+						"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
+								+ " From Kpi as k where k.mveind = '"
+								+ ses.getIndicador_drill()
+								+ "'"
+								+ " AND k."+ses.getCampo_llave()+" = '"
 								+ r[0].toString()
-								+ "' AND "
+								+ "' "
 								+ sql
 								+ " AND k.mveano='"+(Integer.parseInt(ses.getAnio())-1)+"' "
 								+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k."+ses.getCampo_descripcion()
@@ -742,10 +788,13 @@ public class KpiDaoImpl implements KpiDao {
 			    @SuppressWarnings("unchecked")
 			    List<Object[]> promedioAnio = em
 						.createQuery(
-								"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
-										+ " From Kpi as k where k."+ses.getCampo_llave()+" = '"
+								"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
+										+ " From Kpi as k where k.mveind = '"
+										+ ses.getIndicador_drill()
+										+ "'"
+										+ " AND k."+ses.getCampo_llave()+" = '"
 										+ r[0].toString()
-										+ "' AND "
+										+ "' "
 										+ sql
 										+ " AND k.mveano='"+ses.getAnio()+"' "
 										+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano, k."+ses.getCampo_descripcion()
@@ -777,7 +826,12 @@ public class KpiDaoImpl implements KpiDao {
 		}
 
 		// //////////////////////////////////////////////////////////////////////////////////
-		
+		// listSalesDrillQuarterly //////////////////////////////////////////////////////////
+		// listSalesDrillQuarterly //////////////////////////////////////////////////////////
+		// listSalesDrillQuarterly //////////////////////////////////////////////////////////
+		// listSalesDrillQuarterly //////////////////////////////////////////////////////////
+		// listSalesDrillQuarterly //////////////////////////////////////////////////////////
+		// listSalesDrillQuarterly //////////////////////////////////////////////////////////
 		// //////////////////////////////////////////////////////////////////////////////////
 
 		public List<reporte> listSalesDrillQuarterly(session ses) {

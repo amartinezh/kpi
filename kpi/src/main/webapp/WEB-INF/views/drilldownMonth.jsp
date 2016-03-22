@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en-us">
@@ -202,19 +203,44 @@ tr:last-child {
 										</tr>
 									</thead>
 									<tbody>
+										<c:set var="totalAnt" value="0"/>
+										<c:set var="totalActual" value="0"/>
+										<c:set var="totalMonth" value="0"/>
+										<c:set var="numLineas" value="0"/>
 										<c:forEach items="${valor}" var="kpi"
 											varStatus="loopCounter">
 											<tr 
 												onMouseOver="this.style.background = '#FFFFFF';this.style.color='#15B700'"
 												onMouseOut="this.style.background='#EFF2EF';this.style.color=''"
 												bgcolor="#EFF2EF">
+												<c:set var="numLineas" value="${loopCounter.count}"/>
 												<td><a id="modal" href="#">${ kpi.ind_cod } (${ kpi.ind })</a></td>
-												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
-												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td> 
+												<c:set var="simbolo" value="${param['s1m']}"/>
+												<c:choose>
+													<c:when test="${fn:contains(simbolo, 'p')}">
+														<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
+														<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
+											    	</c:when>    
+											    	<c:otherwise>
+														<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+														<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+											    	</c:otherwise>
+												</c:choose>
+												<c:set var="totalAnt" value="${totalAnt+kpi.promMvevalRealAnoAnt}"/>
+												<c:set var="totalActual" value="${totalActual+kpi.promMvevalRealAnoActual}"/>
 												<c:forEach items="${kpi.lista}" var="val"
 													varStatus="loopCounter">
 														<td nowrap>
-														<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
+														<c:choose>
+															<c:when test="${fn:contains(simbolo, 'p')}">
+																<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />%
+													    	</c:when>    
+													    	<c:otherwise>
+																<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
+													    	</c:otherwise>
+														</c:choose>
+														
+														<c:set var="totalMonth" value="${totalMonth+val.mveval}"/>
 														</td>
 											
 												</c:forEach>
@@ -222,18 +248,22 @@ tr:last-child {
 												<td><img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>  -->
 											</tr>
 											
+											
 										</c:forEach>
-										<tr>
-											<td colspan="20" align="center"></td>
+										<tr><td></td>
+											<c:choose>
+												<c:when test="${fn:contains(simbolo, 'p')}">
+													<td><fmt:formatNumber pattern="###,##0.0" value="${totalAnt div numLineas}" type="number" />%</td>
+													<td><fmt:formatNumber pattern="###,##0.0" value="${totalActual div numLineas} " type="number" />%</td>
+													<td><fmt:formatNumber pattern="###,##0.0" value="${totalMonth div numLineas}" type="number" />%</td>
+										    	</c:when>    
+										    	<c:otherwise>
+													<td><fmt:formatNumber pattern="###,##0.0" value="${totalAnt}" type="number" /></td>
+													<td><fmt:formatNumber pattern="###,##0.0" value="${totalActual}" type="number" /></td>
+													<td><fmt:formatNumber pattern="###,##0.0" value="${totalMonth}" type="number" /></td>
+										    	</c:otherwise>
+											</c:choose>
 										</tr>
-										<!-- <tr>
-											<td colspan="11" align="center"></td>
-										</tr>
-										 <tr>
-											<td colspan="11" align="center">Usuario: <c:out
-													value="${usuarioactuall}" /></td>
-										</tr>
-										 -->
 									</tbody>
 								</table>
 							</div>
@@ -424,7 +454,7 @@ tr:last-child {
 							$('#dt_basic')
 									.dataTable(
 											{
-												"sDom" : "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"
+												"sDom" : "<'dt-toolbar'<'col-xs-12 fixed col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"
 														+ "t"
 														+ "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
 												"autoWidth" : true,

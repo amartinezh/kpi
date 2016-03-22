@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en-us">
@@ -224,6 +225,11 @@ tr:last-child {
 										</tr>
 									</thead>
 									<tbody>
+										<c:set var="totalAnt" value="0"/>
+										<c:set var="totalActual" value="0"/>
+										<c:set var="totalMonth" value="0"/>
+										<c:set var="totalMonths" value="0"/>
+										<c:set var="numLineas" value="0"/>
 										<c:forEach items="${valor}" var="kpi"
 											varStatus="loopCounter">
 											<tr 
@@ -231,20 +237,53 @@ tr:last-child {
 												onMouseOut="this.style.background='#EFF2EF';this.style.color=''"
 												bgcolor="#EFF2EF">
 												<td><a id="modal" href="#">${ kpi.ind_cod } (${ kpi.ind })</a></td>
-												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
-												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+												<c:set var="simbolo" value="${param['s1m']}"/>
+												<c:choose>
+													<c:when test="${fn:contains(simbolo, 'p')}">
+														<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
+														<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
+											    	</c:when>    
+											    	<c:otherwise>
+														<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+														<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+											    	</c:otherwise>
+												</c:choose>
+												<c:set var="totalAnt" value="${totalAnt+kpi.promMvevalRealAnoAnt}"/>
+												<c:set var="totalActual" value="${totalActual+kpi.promMvevalRealAnoActual}"/>
 												<c:forEach items="${kpi.lista}" var="val"
 													varStatus="loopCounter">
 														<td nowrap>
-														<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
+														<c:choose>
+															<c:when test="${fn:contains(simbolo, 'p')}">
+																<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />%
+													    	</c:when>    
+													    	<c:otherwise>
+																<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
+													    	</c:otherwise>
+														</c:choose>
+														<c:set var="totalMonth" value="${totalMonth+val.mveval}"/>
 														</td>
-											
 												</c:forEach>
+												
 												<!--  <td><img onclick="graph()" src="<c:url value="/resources/img/adm/graph.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
 												<td><img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>  -->
 											</tr>
-											
 										</c:forEach>
+										
+										<tr><td>Total</td>
+										<c:forEach items="${totales}" var="tot"	varStatus="loopCounter">
+											<td nowrap>
+											<c:choose>
+												<c:when test="${fn:contains(simbolo, 'p')}">
+													<fmt:formatNumber pattern="###,##0.0" value="${tot}" type="number" />%
+										    	</c:when>    
+										    	<c:otherwise>
+													<fmt:formatNumber pattern="###,###" value="${tot}" type="number" />
+										    	</c:otherwise>
+											</c:choose>
+											</td>
+										</c:forEach>
+										</tr>
 										<tr>
 											<td colspan="20" align="center"></td>
 										</tr>
@@ -446,10 +485,11 @@ tr:last-child {
 							$('#dt_basic')
 									.dataTable(
 											{
-												"sDom" : "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"
+												"sDom" : "<'dt-toolbar'<'col-xs-12 fixed col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"
 														+ "t"
 														+ "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
 												"autoWidth" : true,
+												fixedColumns: true,
 												"preDrawCallback" : function() {
 													// Initialize the responsive datatables helper once.
 													if (!responsiveHelper_dt_basic) {
@@ -470,7 +510,7 @@ tr:last-child {
 											});
 
 							/* END BASIC */
-
+							//new $('#dt_basic').fn.dataTable.FixedColumns(table);
 							/* COLUMN FILTER  */
 							var otable = $('#datatable_fixed_column')
 									.DataTable(

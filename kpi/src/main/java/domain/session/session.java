@@ -31,6 +31,7 @@ public class session implements Serializable{
 	private String anio;
 	private String mes;
 	private String op;
+	List<java.math.BigDecimal> totales;
 	
 	public session(){
 		java.util.Calendar c = java.util.Calendar.getInstance();
@@ -73,6 +74,7 @@ public class session implements Serializable{
 		result = prime * result + ((moneda == null) ? 0 : moneda.hashCode());
 		result = prime * result + ((op == null) ? 0 : op.hashCode());
 		result = prime * result + tipoUsuario;
+		result = prime * result + ((totales == null) ? 0 : totales.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
 		return result;
@@ -173,6 +175,11 @@ public class session implements Serializable{
 		} else if (!op.equals(other.op))
 			return false;
 		if (tipoUsuario != other.tipoUsuario)
+			return false;
+		if (totales == null) {
+			if (other.totales != null)
+				return false;
+		} else if (!totales.equals(other.totales))
 			return false;
 		if (usuario == null) {
 			if (other.usuario != null)
@@ -346,4 +353,14 @@ public class session implements Serializable{
 	public void setOp(String op) {
 		this.op = op;
 	}
+
+	public List<java.math.BigDecimal> getTotales() {
+		return totales;
+	}
+
+	public void setTotales(List<java.math.BigDecimal> totales) {
+		this.totales = totales;
+	}
+
+	
 }

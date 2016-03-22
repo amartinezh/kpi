@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en-us">
@@ -211,12 +212,28 @@ tr:last-child {
 												onMouseOut="this.style.background='#EFF2EF';this.style.color=''"
 												bgcolor="#EFF2EF">
 												<td><a id="modal" href="#">${ kpi.ind_cod } (${ kpi.ind })</a></td>
-												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
-												<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td> 
+												<c:set var="simbolo" value="${param['s1m']}"/>
+												<c:choose>
+													<c:when test="${fn:contains(simbolo, 'p')}">
+														<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
+														<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
+											    	</c:when>    
+											    	<c:otherwise>
+														<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+														<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+											    	</c:otherwise>
+												</c:choose> 
 												<c:forEach items="${kpi.lista}" var="val"
 													varStatus="loopCounter">
 														<td nowrap>
-														<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
+														<c:choose>
+															<c:when test="${fn:contains(simbolo, 'p')}">
+																<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />%
+													    	</c:when>    
+													    	<c:otherwise>
+																<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
+													    	</c:otherwise>
+														</c:choose>
 														</td>
 											
 												</c:forEach>
