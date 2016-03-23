@@ -552,9 +552,9 @@ public class KpiDaoImpl implements KpiDao {
 	}
 	
 	// //////////////////////////////////////////////////////////////////////////////////
-	// //////////////////////////////////////////////////////////////////////////////////
-	// //////////////////////////////////////////////////////////////////////////////////
-	// //////////////////////////////////////////////////////////////////////////////////
+	// listSalesDrill////////////////////////////////////////////////////////////////////
+	// listSalesDrill////////////////////////////////////////////////////////////////////
+	// listSalesDrill////////////////////////////////////////////////////////////////////
 	// //////////////////////////////////////////////////////////////////////////////////
 	// //////////////////////////////////////////////////////////////////////////////////
 	// //////////////////////////////////////////////////////////////////////////////////
@@ -583,10 +583,21 @@ public class KpiDaoImpl implements KpiDao {
 		//	sql += " AND k.mvemes='"+ses.getMes()+"' ";
 		//}
 		
+		String operacion[] = new String [2];
+		System.out.println("Operacion:"+ses.getOp());
+	    if (ses.getOp().equals("-")){
+	    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
+	    	operacion[1]="(sum(k.mvevpe))";
+	    }
+	    else{
+	    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
+	    	operacion[1]="(avg(k.mvevpe))";
+	    }
+		
 		@SuppressWarnings("unchecked")
 		List<Object[]> result = em
 		.createQuery(
-				"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
+				"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
 						+ " From Kpi as k where k.mveind = '"
 						+ ses.getIndicador_drill()
 						+ "' "
@@ -665,7 +676,7 @@ public class KpiDaoImpl implements KpiDao {
 			@SuppressWarnings("unchecked")
 			List<Object[]> promedioAnioAnterior = em
 			.createQuery(
-					"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
+					"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
 							+ " From Kpi as k where k."+ses.getCampo_llave()+" = '"
 							+ result.get(x)[0].toString()
 							+ "'  "
@@ -695,6 +706,12 @@ public class KpiDaoImpl implements KpiDao {
 			x++;
 			promedio = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 		}
+		if (ses.getOp().equals("p")){
+			for(int i=0; i < totales.size(); i++){
+				if (totales.get(i).compareTo(new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN))>=0)
+					totales.set(i, totales.get(i).divide(new java.math.BigDecimal(valor.size()).setScale(3, BigDecimal.ROUND_HALF_EVEN)));
+			}
+	    }
 		ses.setTotales(totales);
 		return valor;
 	}
