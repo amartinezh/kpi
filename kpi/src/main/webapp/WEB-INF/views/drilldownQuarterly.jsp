@@ -242,6 +242,20 @@ tr:last-child {
 											</tr>
 											
 										</c:forEach>
+										<tr><td>Total</td>
+										<c:forEach items="${totales}" var="tot"	varStatus="loopCounter">
+											<td nowrap>
+											<c:choose>
+												<c:when test="${fn:contains(simbolo, 'p')}">
+													<fmt:formatNumber pattern="###,##0.0" value="${tot}" type="number" />%
+										    	</c:when>    
+										    	<c:otherwise>
+													<fmt:formatNumber pattern="###,###" value="${tot}" type="number" />
+										    	</c:otherwise>
+											</c:choose>
+											</td>
+										</c:forEach>
+										</tr>
 										<tr>
 											<td colspan="20" align="center"></td>
 										</tr>

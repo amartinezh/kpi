@@ -362,6 +362,7 @@ public class salesController {
 			else{
 				if (op10n.equals("Q")){
 					model.addAttribute("valor", kpiService.listSalesDrillQuarterly((session) model.asMap().get("user_inicio")));
+					model.addAttribute("totales",((session) model.asMap().get("user_inicio")).getTotales());
 					return "drilldownQuarterly";
 				}
 				else{
