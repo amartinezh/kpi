@@ -10,13 +10,18 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import domain.adm.Region;
 import domain.adm.TypeUser;
 import domain.login.User;
 import repository.login.UserDao;
+import service.adm.CompanyService;
+import service.adm.RegionService;
+import service.login.UserManager;
 
 @Repository
 public class JPAUserDao implements UserDao {
@@ -45,8 +50,9 @@ public class JPAUserDao implements UserDao {
 						+ p + "'").getResultList();
 		if (results.isEmpty())
 			return null;
-		else
+		else{
 			return results.get(0);
+		}
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)

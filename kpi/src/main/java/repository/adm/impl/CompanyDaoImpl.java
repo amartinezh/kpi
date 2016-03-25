@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.adm.Company;
+import domain.adm.Region;
 import repository.adm.CompanyDao;
 
 @Repository
@@ -51,5 +52,16 @@ public class CompanyDaoImpl implements CompanyDao {
 	@Transactional
 	public List<Company> listCompany__(String id) {
 		return em.createQuery("SELECT C FROM Company as C where C.id = '"+id+"'").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Region getCompanyRegion(String id) {
+		List <Region> results = em.createQuery("SELECT R FROM Region as R WHERE R.region_id = '"+id+"'").getResultList();
+		if (results.isEmpty())
+			return null;
+		else{
+			return results.get(0);
+		}
 	}
 }

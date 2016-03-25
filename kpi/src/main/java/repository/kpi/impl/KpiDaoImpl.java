@@ -3,11 +3,8 @@ package repository.kpi.impl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.TreeMap;
 
 import javax.persistence.EntityManager;

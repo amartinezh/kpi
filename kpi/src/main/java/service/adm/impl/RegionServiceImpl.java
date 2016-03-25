@@ -22,4 +22,8 @@ public class RegionServiceImpl implements RegionService{
 	public List<Region> getListRegion() {
 		return cfgDao.getListRegion();
 	}
+	
+	public Region getRegion_(String region) {
+		return  cfgDao.getRegion_(region);
+	}
 }

@@ -6,7 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import domain.kpi.Kpi;;;
+import domain.kpi.Kpi;
+import domain.login.User;;;
 
 @SuppressWarnings("serial")
 public class session implements Serializable{
@@ -39,7 +40,7 @@ public class session implements Serializable{
 		this.op="-";
 	}
 	
-	public session(String moneda, String dash_region, String dash_nia, String dash_moneda, String dash_tasa) {
+	public session(String moneda, String dash_region, String dash_nia, String dash_moneda, String dash_tasa, User user) {
 		super();
 		this.moneda = moneda;
 		this.dash_region = dash_region;
@@ -47,6 +48,8 @@ public class session implements Serializable{
 		this.dash_moneda = dash_moneda;
 		this.dash_tasa = dash_tasa;
 		this.op="-";
+		this.usuario=user.getId();
+		this.tipoUsuario=user.getType().getId();
 		java.util.Calendar c = java.util.Calendar.getInstance();
 		setAnio(Integer.toString(c.get(java.util.Calendar.YEAR)));
 		setMes(Integer.toString(   (c.get(java.util.Calendar.MONTH)+1   )));

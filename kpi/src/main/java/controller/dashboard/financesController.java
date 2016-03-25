@@ -29,6 +29,7 @@ public class financesController {
 	@Autowired
 	private KpiService kpiService;
 	
+	
 	@Autowired
 	private service.adm.RegionService regionService;
 	

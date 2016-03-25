@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import domain.adm.Region;
 import domain.login.User;
 import domain.session.session;
 import repository.kpi.KpiDao;
@@ -35,7 +36,7 @@ public class IndexController {
 
 	@Autowired
 	private UserManager userManager;
-
+	
 	@Autowired
 	private TypeUserService typeUserService;
 
@@ -63,8 +64,7 @@ public class IndexController {
 		} else {
 			User uss = userManager.val(user.getId(), user.getPass());
 			if (uss != null) {
-				
-				model.addAttribute("user_inicio", new session("mveval", uss.getComp().getRegion_id().getRegion_id(), uss.getComp().getId(), "0", "mvevap"));
+				model.addAttribute("user_inicio", new session("mveval", uss.getComp().getRegion_id().getRegion_id(), uss.getComp().getId(), "0", "mvevap", uss));
 				return "redirect:/indicadores/inicio";
 			} else {
 				model.addAttribute("user", new User());

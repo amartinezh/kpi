@@ -34,4 +34,10 @@ public class RegionDaoImpl implements RegionDao {
 	public List<Region> getListRegion() {
 		return em.createQuery("SELECT R FROM Region as R").getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Region getRegion_(String region) {
+		return (Region) em.createQuery("SELECT R FROM Region as R WHERE R.region_id = '"+region+"'").getResultList().get(0);
+	}
 }

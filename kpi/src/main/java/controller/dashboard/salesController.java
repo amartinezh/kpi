@@ -53,6 +53,16 @@ public class salesController {
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
+			model.addAttribute("usuario",((session) model.asMap().get("user_inicio")).getUsuario());
+			model.addAttribute("tipo",((session) model.asMap().get("user_inicio")).getTipoUsuario());
+			if (((session) model.asMap().get("user_inicio")).getTipoUsuario() == 2) {
+				model.addAttribute("companyList", companyService.listCompany(((session) model.asMap().get("user_inicio")).getDash_region()));
+			} else {
+				if (((session) model.asMap().get("user_inicio")).getTipoUsuario() == 3) {
+					model.addAttribute("companyList", companyService.listCompany("Todas"));
+				}
+			}
+			
 			return "dashboard";
 		} else {
 			return "redirect:/index/ingreso";
@@ -60,11 +70,12 @@ public class salesController {
 	}
 	
 	@RequestMapping(value = "/menu", method = RequestMethod.GET)
-	public String menu(Model model, @RequestParam String t, @RequestParam String r3g, @RequestParam String op10) {
+	public String menu(Model model, @RequestParam String t, @RequestParam String r3g, @RequestParam String op10, @RequestParam String nia) {
 		if (model.containsAttribute("user_inicio") == true) {
 			model.addAttribute("tit",t);
 			model.addAttribute("r3g",r3g);
 			model.addAttribute("op10",op10);
+			((session) model.asMap().get("user_inicio")).setDash_nia(nia);
 			switch (Integer.parseInt(op10)) {
             	case 1: 
             		model.addAttribute("view","salesMonth");
@@ -354,7 +365,6 @@ public class salesController {
 					" >> Year: " + ((session) model.asMap().get("user_inicio")).getAnio()+
 					mesNavegacion
 					);
-			System.out.println(op10n+"--------------------");
 			if (op10n.equals("M")){
 				model.addAttribute("valor", kpiService.listSalesDrillMonth((session) model.asMap().get("user_inicio")));
 				return "drilldownMonth";

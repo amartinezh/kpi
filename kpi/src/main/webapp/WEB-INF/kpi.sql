@@ -264,8 +264,9 @@ INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('20', 'GUA', 
 
 INSERT INTO gestion.currency(currency_id, currency_desc) VALUES ('0', 'USD');
 INSERT INTO gestion.currency(currency_id, currency_desc) VALUES ('1', 'LOCAL');
-INSERT INTO gestion.type_users(id, descripcion) VALUES ('1', 'gestionistrador');
-INSERT INTO gestion.type_users(id, descripcion)VALUES ('2', 'Usuario');
+INSERT INTO gestion.type_users(id, descripcion) VALUES ('1', 'Usuario');
+INSERT INTO gestion.type_users(id, descripcion)VALUES ('2', 'Regional');
+INSERT INTO gestion.type_users(id, descripcion)VALUES ('3', 'Superuser');
 
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('1', 'c4ca4238a0b923820dcc509a6f75849b','1' , '01', '1');
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('panasa', 'c4ca4238a0b923820dcc509a6f75849b','1' , '01', '1');

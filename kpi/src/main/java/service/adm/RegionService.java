@@ -5,5 +5,6 @@ import domain.adm.Region;
 
 public interface RegionService {
 	public List<Region> getRegion(String region);
+	public Region getRegion_(String region);
 	public List<Region> getListRegion();
 }
