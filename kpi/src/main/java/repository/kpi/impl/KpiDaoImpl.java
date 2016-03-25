@@ -864,14 +864,10 @@ public class KpiDaoImpl implements KpiDao {
 			java.math.BigDecimal anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 			
 			java.math.BigDecimal totalAverageActual = new java.math.BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
-			java.math.BigDecimal totalAverageQ1 = new java.math.BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
-			java.math.BigDecimal totalAverageQ2 = new java.math.BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
-			java.math.BigDecimal totalAverageQ3 = new java.math.BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
-			java.math.BigDecimal totalAverageQ4 = new java.math.BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 			
 			List<java.math.BigDecimal> totales = new LinkedList<java.math.BigDecimal>();
 			
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 6; i++) {
 				totales.add(totalAverageActual);
 			}
 			
@@ -882,11 +878,22 @@ public class KpiDaoImpl implements KpiDao {
 			if (!ses.getDash_region().equals("Todas")){
 				sql += " AND k.mvereg='"+ses.getDash_region()+"' ";
 			}
+			
+			String operacion[] = new String [2];
+			System.out.println("Operacion:"+ses.getOp());
+		    if (ses.getOp().equals("-")){
+		    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
+		    	operacion[1]="(sum(k.mvevpe))";
+		    }
+		    else{
+		    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
+		    	operacion[1]="(avg(k.mvevpe))";
+		    }
 			// Se trae todo de la base de datos filtrando por la llave seleccionada
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 			.createQuery(
-					"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, k.mvemes as mvemes, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
+					"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, k.mvemes as mvemes, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
 							+ " From Kpi as k where k.mveind = '"
 							+ ses.getIndicador_drill()
 							+ "' "
@@ -896,7 +903,6 @@ public class KpiDaoImpl implements KpiDao {
 							+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mveano , k.mvemes asc")
 			.getResultList();
 
-			int meses=0;
 			int quarterly=2;
 			
 			// Lista para cada linea del treMap, hay una por cada renglón
@@ -904,8 +910,8 @@ public class KpiDaoImpl implements KpiDao {
 			TreeMap<String, String> valor_row_rotulos = new TreeMap<String, String>();
 			java.math.BigDecimal valor_tri = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 			TreeMap<String, List<BigDecimal>> tm = new TreeMap<String, List<BigDecimal>>();
-			// Se va colocando cada mes en la hoja de resultado
 			
+			// Se va colocando cada mes en la hoja de resultado
 			for (Object[] r : result) {
 				valor_row = new LinkedList<BigDecimal>();
 				for (int i = 0; i < 6; i++) {
@@ -915,7 +921,7 @@ public class KpiDaoImpl implements KpiDao {
 				@SuppressWarnings("unchecked")
 			    List<Object[]> promedioAnio = em
 						.createQuery(
-								"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, sum(k."+ses.getMoneda()+") as mveval, sum(k.mvevpe) as mvevpe"
+								"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
 										+ " From Kpi as k where k."+ses.getCampo_llave()+" = '"
 										+ r[0].toString()
 										+ "'  "
@@ -949,63 +955,66 @@ public class KpiDaoImpl implements KpiDao {
 						}
 					}
 				}
-				
-				// Mira si ya estaba en el HasTree
-				if (tm.get(r[0].toString()) != null){
-					
-					// Toma lo que trae el trimestre y lo acumula con el valor del mes que llega
-					valor_row=tm.get(r[0].toString()); // Toma todos los trimestres que tiene esa key, ejemplo BA para bodegas
-					valor_tri=tm.get(r[0].toString()).get(quarterly); // y toma el valor del trimestre específico
-					valor_tri=valor_tri.add(new java.math.BigDecimal(r[4].toString()).setScale(0, BigDecimal.ROUND_HALF_EVEN));
-					// Lo agrega en la lista que corresponde al todo el año, trimestre por trimestre
-					valor_row.set(quarterly, valor_tri);
-					
-					// Se tiene en otro treMap las descripciones debido a que son String y el de valores el BigDecimal
-					valor_row_rotulos.put(r[0].toString(), r[1].toString());
-					valor_row.set(0, anioAntReal);
-					
-					if (Mes != Integer.parseInt(ses.getMes())-1){
-					promedioReal=promedioReal.add(valor_row.get(1));
-					valor_row.set(1, valor_tri);
+				if (Mes != Integer.parseInt(ses.getMes())-1){
+					// Mira si ya estaba en el HasTree
+					if (tm.get(r[0].toString()) != null){
+						
+						// Toma lo que trae el trimestre y lo acumula con el valor del mes que llega
+						valor_row=tm.get(r[0].toString()); // Toma todos los trimestres que tiene esa key, ejemplo BA para bodegas
+						valor_tri=tm.get(r[0].toString()).get(quarterly+1); // y toma el valor del trimestre específico
+						valor_tri=valor_tri.add(new java.math.BigDecimal(r[4].toString()).setScale(0, BigDecimal.ROUND_HALF_EVEN));
+						// Lo agrega en la lista que corresponde al todo el año, trimestre por trimestre
+						valor_row.set(quarterly+1, valor_tri);
+						
+						// Ésta línea guarda el Mes, que se usa para promediar
+						valor_row.set(0, new BigDecimal(r[3].toString()).setScale(0, BigDecimal.ROUND_HALF_EVEN));
+						
+						// Se tiene en otro treMap las descripciones debido a que son String y el de valores el BigDecimal
+						valor_row_rotulos.put(r[0].toString(), r[1].toString());
+						valor_row.set(1, anioAntReal);
+						
+						if (Mes != Integer.parseInt(ses.getMes())-1){
+							promedioReal=promedioReal.add(valor_row.get(2));
+							valor_row.set(2, valor_tri);
+						}
+						
+						//System.out.println("Modificando: "+r[0].toString()+" con:"+valor_row);
+						tm.put(r[0].toString(), valor_row);
+						valor_row=tm.get(r[0].toString());
+						//System.out.println("Quedando: "+valor_row);
+						
 					}
-					
-					//System.out.println("Modificando: "+r[0].toString()+" con:"+valor_row);
-					tm.put(r[0].toString(), valor_row);
-					valor_row=tm.get(r[0].toString());
-					//System.out.println("Quedando: "+valor_row);
-					
-				}
-				else{
-					valor_row.set(quarterly, new BigDecimal(r[4].toString()).setScale(0, BigDecimal.ROUND_HALF_EVEN));
-					
-					valor_row.set(0, anioAntReal);
-					
-					if (Mes != Integer.parseInt(ses.getMes())-1){
-						promedioReal=new BigDecimal(r[4].toString()).setScale(0, BigDecimal.ROUND_HALF_EVEN);
-						valor_row.set(1, promedioReal);
+					else{
+						valor_row.set(quarterly+1, new BigDecimal(r[4].toString()).setScale(0, BigDecimal.ROUND_HALF_EVEN));
+						
+						// Ésta línea guarda el Mes, que se usa para promediar
+						valor_row.set(0, new BigDecimal(r[3].toString()).setScale(0, BigDecimal.ROUND_HALF_EVEN));
+						valor_row.set(1, anioAntReal);
+						
+						if (Mes != Integer.parseInt(ses.getMes())-1){
+							promedioReal=new BigDecimal(r[4].toString()).setScale(0, BigDecimal.ROUND_HALF_EVEN);
+							valor_row.set(2, promedioReal);
+						}
+						//System.out.println("EEEEsto es: "+valor_row.get(quarterly));
+						tm.put(r[0].toString(), valor_row);
+						
+						
+						valor_row_rotulos.put(r[0].toString(), r[1].toString());
+						//System.out.println(r[0].toString()+": Creando: "+" con:"+valor_row);
+						valor_row=tm.get(r[0].toString());
+						//System.out.println(r[0].toString()+": Quedando: "+valor_row);
 					}
-					//System.out.println("EEEEsto es: "+valor_row.get(quarterly));
-					tm.put(r[0].toString(), valor_row);
-					
-					
-					valor_row_rotulos.put(r[0].toString(), r[1].toString());
-					//System.out.println(r[0].toString()+": Creando: "+" con:"+valor_row);
-					valor_row=tm.get(r[0].toString());
-					//System.out.println(r[0].toString()+": Quedando: "+valor_row);
+					System.out.println(valor_row);
 				}
-				
-				
-				meses++;
-			}	
+			}
 			// Se crea un objeto lista para almacenar todo año (solo la línea del indicador)
-			int c=0;
 			List<Kpi> list = new LinkedList<Kpi>();
 			
 			// Se inician los 12 meses
-			for (int i = 0; i < 6; i++) {
-				list.add(new Kpi("2015", "" + (i + 1)));
-			}
-			System.out.println(tm);
+			//for (int i = 0; i < 4; i++) {
+			//	list.add(new Kpi("2015", "" + (i + 1)));
+			//}
+			
 			java.math.BigDecimal mes_por_mes = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 			for(java.util.Map.Entry<String, List<BigDecimal>> entry : tm.entrySet()) {
 				  String key = entry.getKey();
@@ -1019,25 +1028,36 @@ public class KpiDaoImpl implements KpiDao {
 					  list.add(new Kpi("2015", "" + (i + 1)));
 				  }
 				  valor_row=tm.get(key);
-				  c=0; // Para ignorar los totales de año (promedios) que se usan en el mismo renglón
-				  for (Iterator<BigDecimal> i = valor_row.iterator(); i.hasNext();) {
-					  if (c<2) i.next();
-					  else{
-						  list.get(c-2).setMveval(i.next());
-						  totales.set(0,totales.get(0).add(list.get(c).getMveval()));
-					  }
+				  
+				  // Se modifican los valores para promediarlos
+				  valor_row.set(1, valor_row.get(1).divide(valor_row.get(0)));
+				  valor_row.set(2, valor_row.get(2).divide(valor_row.get(0)));
+				  // Se colocan los totales del promedio anño anterior y actual, el anterior sale de un SQL
+				  // mientras que el que esta en la posición 1 sale sumando todos los meses y dividiendo por los meses
+				  // el mes por cada fila se guarda en la posición 1
+				  totales.set(0,totales.get(0).add( valor_row.get(1)  ) );
+				  totales.set(1,totales.get(1).add( valor_row.get(2)  ) );
+				  int c=0;
+				  for (int i=3; i< valor_row.size(); i++) {
+					  list.get(c).setMveval(   valor_row.get(i).divide(valor_row.get(0))   ); // Agrega cada reglón como saldrá en la vista
+					  totales.set(i-1,totales.get(i-1).add(list.get(c).getMveval())); // Totales de cada columna
 					  c++;
 				  }
 				  
 				  valor.add(new reporte(key, valor_row_rotulos.get(key), 
 							"", "Actual", "Budget",
-							value.get(0),
+							value.get(1),
 							anioAntPres,
-							value.get(1), 
-							value.get(1), // No se usa el presupuestado
+							value.get(2), 
+							value.get(2), // No se usa el presupuestado
 							new ArrayList<Kpi>(list),""));
 			}
-			
+			if (ses.getOp().equals("p")){
+				for(int i=0; i < totales.size(); i++){
+					if (totales.get(i).compareTo(new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN))>=0)
+						totales.set(i, totales.get(i).divide(new java.math.BigDecimal(valor.size()).setScale(3, BigDecimal.ROUND_HALF_EVEN)));
+				}
+		    }
 			ses.setTotales(totales);
 			
 			return valor;
