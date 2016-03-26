@@ -6,5 +6,5 @@ import domain.kpi.reporte;
 import domain.session.session;
 
 public interface FinancesService {
-	public List<reporte> listFinances(session ses);
+	public List<reporte> listFinance(session ses);
 }

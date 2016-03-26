@@ -16,7 +16,7 @@ public class FinancesServiceImpl implements FinancesService {
 	@Autowired
 	private FinancesDao FinanceDao;
 	
-	public List<reporte> listFinances(session ses) {
-		return FinanceDao.listFinances(ses);
+	public List<reporte> listFinance(session ses) {
+		return FinanceDao.listFinance(ses);
 	}
 }

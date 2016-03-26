@@ -69,7 +69,7 @@ public class financesController {
 			String n=((session) model.asMap().get("user_inicio")).getDash_nia();
 			if (!r.equals("Todas")) r = regionService.getRegion(((session) model.asMap().get("user_inicio")).getDash_region()).get(0).getDescripcion();
 			if (!n.equals("Todas")) n = companyService.listCompany__(((session) model.asMap().get("user_inicio")).getDash_nia()).get(0).getDescripcion();
-			model.addAttribute("valor", financesService.listFinances(((session) model.asMap().get("user_inicio"))));
+			model.addAttribute("valor", financesService.listFinance(((session) model.asMap().get("user_inicio"))));
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
 					"Company: " + n + " >> " +
@@ -109,7 +109,7 @@ public class financesController {
 			
 			((session) model.asMap().get("user_inicio")).setOp("M");
 			// Lista
-			model.addAttribute("valor", financesService.listFinances((session) model.asMap().get("user_inicio")));
+			model.addAttribute("valor", financesService.listFinance((session) model.asMap().get("user_inicio")));
 			
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
@@ -146,7 +146,7 @@ public class financesController {
 			String n=((session) model.asMap().get("user_inicio")).getDash_nia();
 			if (!r.equals("Todas")) r = regionService.getRegion(((session) model.asMap().get("user_inicio")).getDash_region()).get(0).getDescripcion();
 			if (!n.equals("Todas")) n = companyService.listCompany__(((session) model.asMap().get("user_inicio")).getDash_nia()).get(0).getDescripcion();
-			model.addAttribute("valor", financesService.listFinances(((session) model.asMap().get("user_inicio"))));
+			model.addAttribute("valor", financesService.listFinance(((session) model.asMap().get("user_inicio"))));
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
 					"Company: " + n + " >> " +
