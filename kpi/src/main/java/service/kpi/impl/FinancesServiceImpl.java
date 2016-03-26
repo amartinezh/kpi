@@ -9,7 +9,6 @@ import domain.kpi.reporte;
 import domain.session.session;
 import repository.kpi.FinancesDao;
 import service.kpi.FinancesService;
-import service.kpi.KpiService;
 
 @Service
 public class FinancesServiceImpl implements FinancesService {

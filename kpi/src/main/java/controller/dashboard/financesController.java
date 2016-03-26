@@ -1,25 +1,16 @@
 package controller.dashboard;
 
-import java.text.ParseException;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
-import domain.adm.Company;
-import domain.adm.Plan;
-import domain.adm.Region;
 import domain.session.session;
 //import service.gestion.PlanService;
-import service.kpi.KpiService;
+import service.kpi.FinancesService;;
 
 @Controller
 @RequestMapping("/indicadores")
@@ -27,8 +18,7 @@ import service.kpi.KpiService;
 public class financesController {
 
 	@Autowired
-	private KpiService kpiService;
-	
+	private FinancesService financesService;
 	
 	@Autowired
 	private service.adm.RegionService regionService;
@@ -71,7 +61,7 @@ public class financesController {
 		}
 	}
 	
-	@RequestMapping(value = "/financesYear", method = RequestMethod.GET)
+	@RequestMapping(value = "/financeYear", method = RequestMethod.GET)
 	public String financesYear(Model model, @RequestParam String t, @RequestParam String op10) {
 		if (model.containsAttribute("user_inicio") == true) {
 			model.addAttribute("tit",t);
@@ -79,7 +69,7 @@ public class financesController {
 			String n=((session) model.asMap().get("user_inicio")).getDash_nia();
 			if (!r.equals("Todas")) r = regionService.getRegion(((session) model.asMap().get("user_inicio")).getDash_region()).get(0).getDescripcion();
 			if (!n.equals("Todas")) n = companyService.listCompany__(((session) model.asMap().get("user_inicio")).getDash_nia()).get(0).getDescripcion();
-			model.addAttribute("valor", kpiService.listSales((session) model.asMap().get("user_inicio")));
+			model.addAttribute("valor", financesService.listFinances(((session) model.asMap().get("user_inicio"))));
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
 					"Company: " + n + " >> " +
@@ -102,7 +92,7 @@ public class financesController {
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
-			return "salesYear";
+			return "financeYear";
 		} else {
 			return "redirect:/index/ingreso";
 		}
@@ -119,7 +109,7 @@ public class financesController {
 			
 			((session) model.asMap().get("user_inicio")).setOp("M");
 			// Lista
-			model.addAttribute("valor", kpiService.listSalesMonth((session) model.asMap().get("user_inicio")));
+			model.addAttribute("valor", financesService.listFinances((session) model.asMap().get("user_inicio")));
 			
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
@@ -142,7 +132,7 @@ public class financesController {
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
 			model.addAttribute("mes",((session) model.asMap().get("user_inicio")).getMes());
 			model.addAttribute("elmes", Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())]);
-			return "salesMonth";
+			return "finance/financesMonth";
 		} else {
 			return "redirect:/index/ingreso";
 		}
@@ -156,7 +146,7 @@ public class financesController {
 			String n=((session) model.asMap().get("user_inicio")).getDash_nia();
 			if (!r.equals("Todas")) r = regionService.getRegion(((session) model.asMap().get("user_inicio")).getDash_region()).get(0).getDescripcion();
 			if (!n.equals("Todas")) n = companyService.listCompany__(((session) model.asMap().get("user_inicio")).getDash_nia()).get(0).getDescripcion();
-			model.addAttribute("valor", kpiService.listSalesQuarterly((session) model.asMap().get("user_inicio")));
+			model.addAttribute("valor", financesService.listFinances(((session) model.asMap().get("user_inicio"))));
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
 					"Company: " + n + " >> " +
