@@ -160,7 +160,10 @@ img.transparent {
 
 				<!-- NEW WIDGET START -->
 				<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
+					<div style="margin: 0 auto; display: block; position: absolute; right: 3%;">
+						<p style="font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;	font-size: 60px; font-style: normal; font-variant: normal; font-weight: bold; line-height: 44px; color:#ffffe6">
+						Finance</p>
+					</div>
 					<!-- Widget ID (each widget will need unique ID)-->
 					<div class="jarviswidget jarviswidget-color-darken far"
 						id="wid-id-0" data-widget-editbutton="false">
@@ -230,7 +233,7 @@ img.transparent {
 						varStatus="loopCounter">
 						<tr class="${color}">
 							
-							<td rowspan="2"><a id="modal" href="#" onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
+							<td rowspan="2"><a id="modal" href="#">${ kpi.ind }</a>
 							<td rowspan="2">${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
 							<c:choose>
@@ -268,7 +271,9 @@ img.transparent {
 									<c:set var="real" value="${real};${val.mveval}"/>
 							</c:forEach>
 							
-							<td><img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
+							<td>
+							<!-- <img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;">  -->
+							</td>
 							</td>
 							
 						</tr>
@@ -1068,10 +1073,10 @@ img.transparent {
 			});
 		}
 		
-		$('#modal').click(function() {
-			$('#dialog-message').dialog('open');
-			return false;
-		});
+		//$('#modal').click(function() {
+		//	$('#dialog-message').dialog('open');
+		//	return false;
+		//});
 		
 		$("#dialog-graph").dialog({
 			autoOpen : false,

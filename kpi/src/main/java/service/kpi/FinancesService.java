@@ -2,9 +2,11 @@ package service.kpi;
 
 import java.util.List;
 
-import domain.kpi.reporte;
+import domain.kpi.reporteFinance;
 import domain.session.session;
 
 public interface FinancesService {
-	public List<reporte> listFinance(session ses);
+	public List<reporteFinance> listFinance(session ses);
+	public List<reporteFinance> listFinanceMonth(session ses);
+	public List<reporteFinance> listFinanceQuarterly(session ses);
 }

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.adm.CfgFinance;
-import repository.adm.CfgDaoFinance;
+import repository.adm.CfgFinanceDao;
 
 @Repository
-public class CfgDaoFinanceImpl implements CfgDaoFinance {
+public class CfgDaoFinanceImpl implements CfgFinanceDao {
 
 	@PersistenceContext
 	private EntityManager em = null;
@@ -24,12 +24,12 @@ public class CfgDaoFinanceImpl implements CfgDaoFinance {
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<CfgFinance> getCfg(String indicador) {
-		return em.createQuery("SELECT C FROM Cfg as C WHERE C.indicador = '"+indicador+"'").getResultList();
+		return em.createQuery("SELECT C FROM CfgFinance as C WHERE C.indicador = '"+indicador+"'").getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<CfgFinance> getListCfg() {
-		return em.createQuery("SELECT C FROM Cfg as C").getResultList();
+		return em.createQuery("SELECT C FROM CfgFinance as C").getResultList();
 	}
 }

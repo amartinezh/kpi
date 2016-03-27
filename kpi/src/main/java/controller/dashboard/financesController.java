@@ -13,7 +13,7 @@ import domain.session.session;
 import service.kpi.FinancesService;;
 
 @Controller
-@RequestMapping("/indicadores")
+@RequestMapping("/finance")
 @SessionAttributes({ "user_inicio" })
 public class financesController {
 
@@ -34,31 +34,6 @@ public class financesController {
 	
 	private enum Months {
 		January, February, March, April, May, June, July, August, September, October, November, December;
-	}
-	
-	@RequestMapping(value = "/menufinances", method = RequestMethod.GET)
-	public String menuFinances(Model model, @RequestParam String t, @RequestParam String r3g, @RequestParam String op10) {
-		if (model.containsAttribute("user_inicio") == true) {
-			model.addAttribute("tit",t);
-			model.addAttribute("r3g",r3g);
-			model.addAttribute("op10",op10);
-			switch (Integer.parseInt(op10)) {
-            	case 1: 
-            		model.addAttribute("view","salesMonth");
-            		break;
-            	case 2: 
-            		model.addAttribute("view","salesYear");
-            		break;
-            	case 3: 
-            		model.addAttribute("view", "salesQuarterly");
-            		break;
-            	default:
-            		break;
-			}
-			return "menu";
-		} else {
-			return "redirect:/index/ingreso";
-		}
 	}
 	
 	@RequestMapping(value = "/financeYear", method = RequestMethod.GET)
@@ -92,13 +67,13 @@ public class financesController {
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
-			return "financeYear";
+			return "finance/financeYear";
 		} else {
 			return "redirect:/index/ingreso";
 		}
 	}
 	
-	@RequestMapping(value = "/financesMonth", method = RequestMethod.GET)
+	@RequestMapping(value = "/financeMonth", method = RequestMethod.GET)
 	public String financesMonth(Model model, @RequestParam String t, @RequestParam String op10) {
 		if (model.containsAttribute("user_inicio") == true) {
 			model.addAttribute("tit",t);
@@ -109,7 +84,7 @@ public class financesController {
 			
 			((session) model.asMap().get("user_inicio")).setOp("M");
 			// Lista
-			model.addAttribute("valor", financesService.listFinance((session) model.asMap().get("user_inicio")));
+			model.addAttribute("valor", financesService.listFinanceMonth((session) model.asMap().get("user_inicio")));
 			
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
@@ -117,7 +92,7 @@ public class financesController {
 					"Currency: " + currencyService.getCurrency(((session) model.asMap().get("user_inicio")).getDash_moneda()).get(0).getDescripcion() + " >> " +
 					(  ((session) model.asMap().get("user_inicio")).getDash_tasa()=="mvevap"?"Average":"Month Rate") +
 					" >> Year: " + ((session) model.asMap().get("user_inicio")).getAnio() +
-					" >> Month: " + Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())]
+					" >> Month: " + Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())-1]
 					);
 			
 			model.addAttribute("regionList", regionService.getListRegion());
@@ -131,14 +106,14 @@ public class financesController {
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
 			model.addAttribute("mes",((session) model.asMap().get("user_inicio")).getMes());
-			model.addAttribute("elmes", Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())]);
-			return "finance/financesMonth";
+			model.addAttribute("elmes", Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())-1]);
+			return "finance/financeMonth";
 		} else {
 			return "redirect:/index/ingreso";
 		}
 	}
 	
-	@RequestMapping(value = "/financesQuarterly", method = RequestMethod.GET)
+	@RequestMapping(value = "/financeQuarterly", method = RequestMethod.GET)
 	public String financesQuarterly(Model model, @RequestParam String t) {
 		if (model.containsAttribute("user_inicio") == true) {
 			model.addAttribute("tit",t);
@@ -146,7 +121,7 @@ public class financesController {
 			String n=((session) model.asMap().get("user_inicio")).getDash_nia();
 			if (!r.equals("Todas")) r = regionService.getRegion(((session) model.asMap().get("user_inicio")).getDash_region()).get(0).getDescripcion();
 			if (!n.equals("Todas")) n = companyService.listCompany__(((session) model.asMap().get("user_inicio")).getDash_nia()).get(0).getDescripcion();
-			model.addAttribute("valor", financesService.listFinance(((session) model.asMap().get("user_inicio"))));
+			model.addAttribute("valor", financesService.listFinanceQuarterly(((session) model.asMap().get("user_inicio"))));
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
 					"Company: " + n + " >> " +
@@ -164,7 +139,122 @@ public class financesController {
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
-			return "salesQuarterly";
+			return "/finance/financeQuarterly";
+		} else {
+			return "redirect:/index/ingreso";
+		}
+	}
+	
+	// /////////////////////////////////////////////////////////////////////////////////
+	// / Método del controlador para cambiar la vista cuando seleccione
+	// diferente moneda
+	// /////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////
+
+	@RequestMapping(value = "/cia", method = RequestMethod.POST)
+	public String cia(@RequestParam String r3g, @RequestParam String c1a,
+			Model model) {
+		if (model.containsAttribute("user_inicio") == true) {
+			((session) model.asMap().get("user_inicio")).setDash_region(r3g);
+			((session) model.asMap().get("user_inicio")).setDash_nia(c1a);
+			return "dashboard";
+		} else {
+			return "redirect:/index/ingreso";
+		}
+	}
+
+	// /////////////////////////////////////////////////////////////////////////////////
+	// / Método del controlador para cambiar la vista cuando seleccione
+	// diferente moneda
+	// /////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////
+
+	@RequestMapping(value = "/moneda", method = RequestMethod.POST)
+	public String agrega(@RequestParam String m3r, @RequestParam String t4s4,
+			Model model) {
+		if (model.containsAttribute("user_inicio") == true) {
+			if (m3r.equals("0")) {
+				if (t4s4.equals("p")) {
+					((session) model.asMap().get("user_inicio"))
+							.setMoneda("mvevap");
+				} else {
+					((session) model.asMap().get("user_inicio"))
+							.setMoneda("mveval");
+				}
+				((session) model.asMap().get("user_inicio"))
+						.setDash_moneda("0");
+				return "dashboard";
+			} else if (m3r.equals("1")) {
+				((session) model.asMap().get("user_inicio"))
+						.setDash_moneda("1");
+				((session) model.asMap().get("user_inicio"))
+						.setMoneda("mvevac");
+				return "dashboard";
+			} else {
+				return "redirect:/index/ingreso";
+			}
+		} else {
+			return "redirect:/index/ingreso";
+		}
+	}
+
+	// /////////////////////////////////////////////////////////////////////////////////
+	// / Método del controlador para cambiar la vista cuando seleccione
+	// diferente tasa
+	// /////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////
+
+	@RequestMapping(value = "/tasa", method = RequestMethod.POST)
+	public String tasa(@RequestParam String t4s4, Model model) {
+		if (model.containsAttribute("user_inicio") == true) {
+			if (t4s4.equals("p")) {
+				((session) model.asMap().get("user_inicio"))
+						.setDash_tasa("mvevap");
+				return "dashboard";
+			} else if (t4s4.equals("m")) {
+				((session) model.asMap().get("user_inicio"))
+						.setDash_tasa("mvevpe");
+				return "dashboard";
+			} else {
+				return "redirect:/index/ingreso";
+			}
+		} else {
+			return "redirect:/index/ingreso";
+		}
+	}
+
+	// /////////////////////////////////////////////////////////////////////////////////
+	// / Método del controlador para cambiar la vista cuando seleccione
+	// diferente Año
+	// /////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////
+
+	@RequestMapping(value = "/anio", method = RequestMethod.POST)
+	public String anio(@RequestParam String anio, Model model) {
+		if (model.containsAttribute("user_inicio") == true) {
+			((session) model.asMap().get("user_inicio")).setAnio(anio);
+			return "dashboard";
+		} else {
+			return "redirect:/index/ingreso";
+		}
+	}
+
+	// /////////////////////////////////////////////////////////////////////////////////
+	// / Método del controlador para cambiar la vista cuando seleccione
+	// diferente Año
+	// /////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////
+
+	@RequestMapping(value = "/mes", method = RequestMethod.POST)
+	public String mes(@RequestParam String mes, Model model) {
+		if (model.containsAttribute("user_inicio") == true) {
+			((session) model.asMap().get("user_inicio")).setMes(mes);
+			return "salesMonth";
 		} else {
 			return "redirect:/index/ingreso";
 		}

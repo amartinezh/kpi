@@ -75,16 +75,20 @@ public class salesController {
 			model.addAttribute("tit",t);
 			model.addAttribute("r3g",r3g);
 			model.addAttribute("op10",op10);
-			((session) model.asMap().get("user_inicio")).setDash_nia(nia);
+			if (!nia.equals("n"))
+				((session) model.asMap().get("user_inicio")).setDash_nia(nia);
 			switch (Integer.parseInt(op10)) {
             	case 1: 
             		model.addAttribute("view","salesMonth");
+            		model.addAttribute("viewFinance","/finance/financeMonth");
             		break;
             	case 2: 
             		model.addAttribute("view","salesYear");
+            		model.addAttribute("viewFinance","/finance/financeYear");
             		break;
             	case 3: 
             		model.addAttribute("view", "salesQuarterly");
+            		model.addAttribute("viewFinance","/finance/financeQuarterly");
             		break;
             	default:
             		break;

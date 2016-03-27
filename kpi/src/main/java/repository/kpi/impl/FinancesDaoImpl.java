@@ -3,15 +3,8 @@ package repository.kpi.impl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,14 +12,12 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import domain.adm.Cfg;
-import domain.kpi.Kpi;
-import domain.kpi.reporte;
+import domain.adm.CfgFinance;
+import domain.kpi.Finance;
+import domain.kpi.reporteFinance;
 import domain.session.session;
-import repository.adm.CfgDao;
 import repository.kpi.FinancesDao;
-import repository.kpi.KpiDao;
-import service.adm.CfgService;
+import service.adm.CfgFinanceService;
 
 @Repository
 public class FinancesDaoImpl implements FinancesDao {
@@ -35,7 +26,7 @@ public class FinancesDaoImpl implements FinancesDao {
 	private EntityManager em = null;
 
 	@Autowired
-	private CfgService cfgService;
+	private CfgFinanceService  cfgFinanceService;
 
 	public void setEm(EntityManager em) {
 		this.em = em;
@@ -48,9 +39,9 @@ public class FinancesDaoImpl implements FinancesDao {
 	// listFinances //////////////////////////////////////////////////////////////////////////////////
 	// listFinances //////////////////////////////////////////////////////////////////////////////////
 
-	public List<reporte> listFinance(session ses) {
-		List<reporte> valor = new LinkedList<reporte>();
-		List<Cfg> indicadores = cfgService.getListCfg();
+	public List<reporteFinance> listFinance(session ses) {
+		List<reporteFinance> valor = new LinkedList<reporteFinance>();
+		List<CfgFinance> indicadores = cfgFinanceService.getListCfg();
 		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		
@@ -66,14 +57,14 @@ public class FinancesDaoImpl implements FinancesDao {
 		}
 	
 		// Lee todos los indicadores de la base de datos
-		for (Cfg cfg : indicadores) {
+		for (CfgFinance cfg : indicadores) {
 
 			// Va a la base de datos y toma para cada indicador
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
 							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Finance as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ sql
@@ -83,11 +74,11 @@ public class FinancesDaoImpl implements FinancesDao {
 					.getResultList();
 
 			// Se crea un objeto lista para almacenar todo año (solo la línea del indicador)
-			List<Kpi> list = new LinkedList<Kpi>();
+			List<Finance> list = new LinkedList<Finance>();
 			
 			// Se inician los 12 meses
 			for (int i = 0; i < 12; i++) {
-				list.add(new Kpi("2015", "" + (i + 1)));
+				list.add(new Finance("2015", "" + (i + 1)));
 			}
 			int meses=0;
 			// Se va colocando cada mes en la hoja de resultado
@@ -125,7 +116,7 @@ public class FinancesDaoImpl implements FinancesDao {
 		    List<Object[]> prom = em
 					.createQuery(
 							"Select k.mveano as mveano, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Finance as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ " and mveano = " + (Integer.parseInt(ses.getAnio()) - 1)
@@ -149,13 +140,13 @@ public class FinancesDaoImpl implements FinancesDao {
 			// llega tal cual se mostrará
 		    
 			if (list.get(1).getMvedes() != null){
-				valor.add(new reporte(list.get(1).getMvedes(), cfg.getIndicador(), 
+				valor.add(new reporteFinance(list.get(1).getMvedes(), cfg.getIndicador(), 
 						cfg.getUnidad(), "Real", "Budgeted",
 						anioAntReal,
 						anioAntPres,
 						promMvevalRealAnoActual, 
 						promMvevpePresupuestadoAnoActual,
-						new ArrayList<Kpi>(list),cfg.getTipo()));
+						new ArrayList<Finance>(list),cfg.getTipo()));
 			}
 			promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 			promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
@@ -175,9 +166,9 @@ public class FinancesDaoImpl implements FinancesDao {
 	// listFinanceMonth //////////////////////////////////////////////////////////////////////////////////
 	// listFinanceMonth //////////////////////////////////////////////////////////////////////////////////
 
-	public List<reporte> listFinanceMonth(session ses) {
-		List<reporte> valor = new LinkedList<reporte>();
-		List<Cfg> indicadores = cfgService.getListCfg();
+	public List<reporteFinance> listFinanceMonth(session ses) {
+		List<reporteFinance> valor = new LinkedList<reporteFinance>();
+		List<CfgFinance> indicadores = cfgFinanceService.getListCfg();
 		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		
@@ -193,14 +184,14 @@ public class FinancesDaoImpl implements FinancesDao {
 		}
 		//sql += " AND k.mvemes='"+ses.getMes()+"' ";
 		// Lee todos los indicadores de la base de datos
-		for (Cfg cfg : indicadores) {
+		for (CfgFinance cfg : indicadores) {
 
 			// Va a la base de datos y toma para cada indicador
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
 							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Finance as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ sql
@@ -211,13 +202,13 @@ public class FinancesDaoImpl implements FinancesDao {
 					.getResultList();
 
 			// Se crea un objeto lista para almacenar todo año (solo la línea del indicador)
-			List<Kpi> list = new LinkedList<Kpi>();
+			List<Finance> list = new LinkedList<Finance>();
 			
 			// Se inician los 12 meses
 			//for (int i = 0; i < 12; i++) {
-			//	list.add(new Kpi("2015", "" + (i + 1)));
+			//	list.add(new Finance("2015", "" + (i + 1)));
 			//}
-			list.add(new Kpi("2000", ses.getMes() ));
+			list.add(new Finance("2000", ses.getMes() ));
 			System.out.println("Tamaño"+list.size());
 			int meses=0;
 			// Se va colocando cada mes en la hoja de resultado
@@ -255,7 +246,7 @@ public class FinancesDaoImpl implements FinancesDao {
 		    List<Object[]> prom = em
 					.createQuery(
 							"Select k.mveano as mveano, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Finance as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ " and mveano = " + (Integer.parseInt(ses.getAnio()) - 1)
@@ -290,7 +281,7 @@ public class FinancesDaoImpl implements FinancesDao {
 		    List<Object[]> promAnioActual = em
 					.createQuery(
 							"Select k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Finance as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ " and mveano = " + (Integer.parseInt(ses.getAnio()))
@@ -317,13 +308,13 @@ public class FinancesDaoImpl implements FinancesDao {
 			// llega tal cual se mostrará
 		    
 			if (list.get(0).getMvedes() != null){
-				valor.add(new reporte(list.get(0).getMvedes(), cfg.getIndicador(), 
+				valor.add(new reporteFinance(list.get(0).getMvedes(), cfg.getIndicador(), 
 						cfg.getUnidad(), "Actual", "Budget",
 						anioAntReal,
 						anioAntPres,
 						promMvevalRealAnoActual, 
 						promMvevpePresupuestadoAnoActual,
-						new ArrayList<Kpi>(list),cfg.getTipo()));
+						new ArrayList<Finance>(list),cfg.getTipo()));
 			}
 			promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 			promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
@@ -340,9 +331,9 @@ public class FinancesDaoImpl implements FinancesDao {
 	// listFinanceQuarterly //////////////////////////////////////////////////////////////////////////////////
 	// listFinanceQuarterly //////////////////////////////////////////////////////////////////////////////////
 
-	public List<reporte> listFinanceQuarterly(session ses) {
-		List<reporte> valor = new LinkedList<reporte>();
-		List<Cfg> indicadores = cfgService.getListCfg();
+	public List<reporteFinance> listFinanceQuarterly(session ses) {
+		List<reporteFinance> valor = new LinkedList<reporteFinance>();
+		List<CfgFinance> indicadores = cfgFinanceService.getListCfg();
 		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		
@@ -380,14 +371,14 @@ public class FinancesDaoImpl implements FinancesDao {
 		}
 	
 		// Lee todos los indicadores de la base de datos
-		for (Cfg cfg : indicadores) {
+		for (CfgFinance cfg : indicadores) {
 
 			// Va a la base de datos y toma para cada indicador
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
 							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Finance as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ sql
@@ -397,11 +388,11 @@ public class FinancesDaoImpl implements FinancesDao {
 					.getResultList();
 
 			// Se crea un objeto lista para almacenar todo año (solo la línea del indicador)
-			List<Kpi> list = new LinkedList<Kpi>();
+			List<Finance> list = new LinkedList<Finance>();
 			
 			// Se inician los 12 meses
 			for (int i = 0; i < 4; i++) {
-				list.add(new Kpi("2015", "" + (i + 1)));
+				list.add(new Finance("2015", "" + (i + 1)));
 			}
 			// Se va colocando cada mes en la hoja de resultado
 			for (Object[] r : result) {
@@ -504,7 +495,7 @@ public class FinancesDaoImpl implements FinancesDao {
 		    List<Object[]> prom = em
 					.createQuery(
 							"Select k.mveano as mveano, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Finance as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ " and mveano = " + (Integer.parseInt(ses.getAnio()) - 1)
@@ -528,13 +519,13 @@ public class FinancesDaoImpl implements FinancesDao {
 			// llega tal cual se mostrará
 		    
 			if (list.get(1).getMvedes() != null){
-				valor.add(new reporte(list.get(1).getMvedes(), cfg.getIndicador(), 
+				valor.add(new reporteFinance(list.get(1).getMvedes(), cfg.getIndicador(), 
 						cfg.getUnidad(), "Actual", "Budget",
 						anioAntReal,
 						anioAntPres,
 						promMvevalRealAnoActual, 
 						promMvevpePresupuestadoAnoActual,
-						new ArrayList<Kpi>(list),cfg.getTipo()));
+						new ArrayList<Finance>(list),cfg.getTipo()));
 			}
 			promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 			promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);

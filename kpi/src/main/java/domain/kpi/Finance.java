@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @IdClass(FinancePK.class)
 @Table(name = "indfin", schema = "finances")
-public class Finances {
+public class Finance {
 	
 	private static final long serialVersionUID = -9068113467850707780L;
 	
@@ -178,7 +178,7 @@ public class Finances {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Finances other = (Finances) obj;
+		Finance other = (Finance) obj;
 		if (mveano == null) {
 			if (other.mveano != null)
 				return false;
@@ -240,6 +240,26 @@ public class Finances {
 		} else if (!mvevpe.equals(other.mvevpe))
 			return false;
 		return true;
+	}
+	
+	public Finance(String mveano, String mvemes) {
+		this.mveano = mveano;
+		this.mvemes = mvemes;
+		this.mveval = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
+		this.mvevac = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);;
+		this.mvevap = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);;
+		this.mvevpe = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);;
+	}
+	
+	public Finance(String mveano, String mvemes, BigDecimal mveval, BigDecimal mvevac, BigDecimal mvevap,
+			BigDecimal mvevpe) {
+		super();
+		this.mveano = mveano;
+		this.mvemes = mvemes;
+		this.mveval = mveval;
+		this.mvevac = mvevac;
+		this.mvevap = mvevap;
+		this.mvevpe = mvevpe;
 	}
 
 }
