@@ -70,7 +70,7 @@
 					<a class="btn btn-success btn-lg" href="#">Manufacturing</a>
 					<a class="btn btn-warning btn-lg" href="${view}?t=${tit}&op10=${op10}">Sales</a>
 					<a class="btn btn-info btn-lg" href="#">Distribution</a>
-					<a class="btn btn-success btn-lg" href="#">Human Resources</a>
+					<a class="btn btn-success btn-lg" href="<c:url value="${viewHuman}"/>?t=${tit}&op10=${op10}">Human Resources</a>
 					<a class="btn btn-warning btn-lg" href="<c:url value="${viewFinance}"/>?t=${tit}&op10=${op10}">Finance</a>
 					<br><br><a href="inicio" class="btn btn-labeled btn-danger btn-lg"> <span
 						class="btn-label"><i class="fa fa-sign-out"></i></span>Back

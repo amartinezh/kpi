@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -81,20 +80,20 @@
 	media="screen and (max-device-width: 320px)">
 
 <style type="text/css">
-	tr:last-child {
-		color: #ff0000;
-		font-weight: bold;
-	}
-	
-	.transp-block {
-	    background: #000 url(watermark.jpg) no-repeat;
-	    width: 575px;
-	    height: 335px;
-	}
-	img.transparent {
-	    filter:alpha(opacity=75);
-	    opacity:.75;
-	}
+tr:last-child {
+	color: #ff0000;
+	font-weight: bold;
+}
+
+.transp-block {
+    background: #000 url(watermark.jpg) no-repeat;
+    width: 575px;
+    height: 335px;
+}
+img.transparent {
+    filter:alpha(opacity=75);
+    opacity:.75;
+}
 </style>
 
 </head>
@@ -125,29 +124,11 @@
 			
 			<label for="email" class="glyphicon glyphicon-search" rel="tooltip" title="" data-original-title="email"></label>
 		</div>
-		<div class="icon-addon addon-md">
+		 <div class="icon-addon addon-md">
         	<select class="form-control input-sm col-sm-2" id="anio" class="anio"
 				name="anio" onclick="anio()">
 				<option value="2015">2015</option>
 				<option value="2016">2016</option>
-			</select>
-			<label for="email" class="glyphicon glyphicon-search" rel="tooltip" title="" data-original-title="email"></label>
-		</div>
-		<div class="icon-addon addon-md">
-        	<select class="form-control input-sm col-sm-2" id="mes" class="mes"
-				name="mes" onclick="mes()">
-				<option value="0">January</option>
-				<option value="1">February</option>
-				<option value="2">March</option>
-				<option value="3">April</option>
-				<option value="4">May</option>
-				<option value="5">June</option>
-				<option value="6">July</option>
-				<option value="7">August</option>
-				<option value="8">September</option>
-				<option value="9">October</option>
-				<option value="10">November</option>
-				<option value="11">December</option>
 			</select>
 			<label for="email" class="glyphicon glyphicon-search" rel="tooltip" title="" data-original-title="email"></label>
 		</div>
@@ -181,24 +162,29 @@
 				<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<div style="margin: 0 auto; display: block; position: absolute; right: 3%;">
 						<p style="font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;	font-size: 60px; font-style: normal; font-variant: normal; font-weight: bold; line-height: 44px; color:#ffffe6">
-						Sales</p>
+						Human</p>
 					</div>
 					<!-- Widget ID (each widget will need unique ID)-->
 					<div class="jarviswidget jarviswidget-color-darken far"
 						id="wid-id-0" data-widget-editbutton="false">
+
 						<!-- widget div-->
 						<div>
+
 							<!-- widget content -->
 							<div class="widget-body no-padding">
-								<h1><strong>${tit}</strong></h1>
+								<div class="row"><h1><strong>${tit}</strong></h1>
 								<div id="dialog-message" title="Drill Down">
 									<div id="opc" width="1500" height="100" style="background-color:#ffffff;">
 										
 									</div>
 								</div>
+
+								
 							</div>
 							
 							<!-- end widget content -->
+
 						</div>
 						<!-- end widget div -->
 
@@ -209,19 +195,20 @@
 				<!-- WIDGET END -->
 
 			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-					<h1 class="page-title txt-color-blueDark">
-						<i class="fa fa-list-alt fa-fw "></i> 
-						
-						<span><c:out value="${navegacion}" />
-						</span>
-					</h1>
-				</div>
-			</div>
+			<!-- end row -->
+			<!-- end row -->
 			<c:set var="color" value="success"/>
-			<table class="table table-bordered" width="100%">
+			<table class="table table-bordered" width="100%" id="gral">
 				<thead>
+					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+						<h1 class="page-title txt-color-blueDark"> 
+							<i class="fa fa-list-alt fa-fw "></i> 
+							
+							<span><c:out value="${navegacion}" /> 
+							</span>
+						</h1>
+					</div>
+				</div>
 					<tr>
 					</tr>
 					<tr >
@@ -235,7 +222,29 @@
 						</th>
 						<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">${elmes} <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">JAN <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">FEB <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">MAR <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">APR <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">MAY <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">JUN <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">JUL <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">AUG <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">SEP <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">OCT <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">NOV <c:out value="${anio}"/>
+						</th>
+						<th colspan="2" style="text-align: center; color: blue;">DEC <c:out value="${anio}"/>
 						</th>
 						<th  style="text-align: center; color: blue;">Graph
 						</th>
@@ -244,14 +253,9 @@
 				<tbody>
 					<c:forEach items="${valor}" var="kpi"
 						varStatus="loopCounter">
-						<!-- <tr 
-							onMouseOver="this.style.background = '#FFFFFF';this.style.color='#15B700'"
-							onMouseOut="this.style.background='#EFF2EF';this.style.color=''"
-							bgcolor="#EFF2EF" class="${color}">  -->
-							
 						<tr class="${color}">
-
-							<td rowspan="2"><a id="modal" href="#" onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
+							
+							<td rowspan="2"><a id="modal" href="#">${ kpi.ind }</a>
 							
 							<td rowspan="2">${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
@@ -270,9 +274,10 @@
 									<td nowrap>
 									<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
 									</td>
+									
 									<td valign="middle" rowspan="2">
 										<c:choose>
-										    <c:when test="${val.mveval gt kpi.promMvevalRealAnoActual}">
+										    <c:when test="${val.mveval gt val.mvevpe}">
 										    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
 										    </c:when>    
 										    <c:otherwise>
@@ -284,13 +289,14 @@
 							</c:forEach>
 							
 							<td>
-								<img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;">
-								<img onclick="graph('${real}', '${presupuestado}', '${ kpi.ind }')" src="<c:url value="/resources/img/adm/graph.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;">
+							<!--  <img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;">  -->
+							</td>
 							</td>
 							
 						</tr>
 						<tr class="${color}">
 							<td>${kpi.tipoDos}</td>
+							
 							<c:choose>
 								<c:when test="${fn:contains(kpi.unidad, '%')}">
 									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" />%</td>
@@ -301,14 +307,14 @@
 									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
 						    	</c:otherwise>
 							</c:choose>
+							
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 									<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 									<c:set var="presupuestado" value="${presupuestado};${val.mvevpe}"/>
 							</c:forEach>
-							<td>
-							</td>
 							
+							<td><img onclick="graph('${real}', '${presupuestado}', '${ kpi.ind }')" src="<c:url value="/resources/img/adm/graph.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
 						</tr>
 						<c:choose>
 							<c:when test="${color=='success'}">
@@ -335,10 +341,6 @@
 			<div style="float: right;">
 				<strong>Usuario: </strong>${usuarioactuall}
 			</div>
-			<!-- end row -->
-
-			<!-- end row -->
-
 		</section>
 		<!-- end widget grid -->
 
@@ -469,7 +471,6 @@
 							$("#nia").val("${c1a}");
 							$("#moneda").val("${cur}");
 							$("#anio").val("${anio}");
-							$("#mes").val("${mes-1}");
 							var t="${tas}";
 							var c1a="${c1a}";
 							var curr="${cur}";
@@ -545,12 +546,12 @@
 							    };
 
 							    // render chart
-							    var ctx = document.getElementById("lineChart").getContext("2d");
-							    var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+							    //var ctx = document.getElementById("lineChart").getContext("2d");
+							    //var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
 							
 
-							document.getElementById('region').value="${navega.dash_region}";
-							document.getElementById('nia').value="${navega.dash_nia}";
+							//document.getElementById('region').value="${navega.dash_region}";
+							//document.getElementById('nia').value="${navega.dash_nia}";
 							document.getElementById('moneda').value="${navega.dash_moneda}";
 							document.getElementById('tasa').value="${navega.dash_tasa}";
 							pageSetUp();
@@ -616,6 +617,7 @@
 							var otable = $('#datatable_fixed_column')
 									.DataTable(
 											{
+											
 												//"bFilter": false,
 												//"bInfo": false,
 												//"bLengthChange": false
@@ -1090,31 +1092,12 @@
 			});
 		}
 		
-		function mes() {
-			var dato=document.getElementById("mes").value;
-			dato=parseInt(dato)+1;
-			$.ajax({
-				type : "POST",
-				url : "mes",
-				data : {
-					mes : dato
-				},
-				success : function(data) {
-					//alert(dato);
-					location.reload();
-				},
-				error : function(data) {
-					alert("no");
-					
-				}
-			});
-		}
-		
-		$('#modal').click(function() {
+		/* 
+			$('#modal').click(function() {
 			$('#dialog-message').dialog('open');
 			return false;
 		});
-		
+		*/
 		$("#dialog-graph").dialog({
 			autoOpen : false,
 			modal : true,
@@ -1125,7 +1108,7 @@
 		
 		function drilldown_controller(indicador, nombre_filtro, campo_llave, campo_des, indicador_des, sim) {
 			//indicador_des = indicador_des.replace("%", "");
-			window.location="drilldown?m3r="+nombre_filtro+"&ind1c4="+indicador+"&ind1c4d3s="+encodeURIComponent(indicador_des)+"&ll4v3="+campo_llave+"&d3s="+campo_des+"&op10n=M"+"&s1m="+sim;
+			window.location="drilldown?m3r="+nombre_filtro+"&ind1c4="+indicador+"&ind1c4d3s="+encodeURIComponent(indicador_des)+"&ll4v3="+campo_llave+"&d3s="+campo_des+"&op10n=Y"+"&s1m="+sim;
 		}
 		
 		function opciones_detalle(indicador, indicador_des, cosa_this){
@@ -1148,7 +1131,6 @@
 			opc[14]='<img onclick="drilldown_controller(\''+indicador+'\', \'Linea Articulo\', \'mvesr3\', \'mvesn3\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/lineaarticulo.png"/>" style="width: 48px; height: 48px"> Línea Artículo<br>';
 			opc[15]='<img onclick="drilldown_controller(\''+indicador+'\', \'Categoria Articulo\', \'mvesr4\', \'mvesn4\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/categoriaarticulo.png"/>" style="width: 48px; height: 48px"> Categoría Artículo<br>';
 			opc[16]='<img onclick="drilldown_controller(\''+indicador+'\', \'Marca\', \'mvesr5\', \'mvesn5\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/marca.png"/>" style="width: 48px; height: 48px"> Marca <br>';
-			
 			var opciones = new Array();
 			switch (indicador) {
 			case "VEN001":

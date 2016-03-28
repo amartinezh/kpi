@@ -81,14 +81,17 @@ public class salesController {
             	case 1: 
             		model.addAttribute("view","salesMonth");
             		model.addAttribute("viewFinance","/finance/financeMonth");
+            		model.addAttribute("viewHuman","/human/humanMonth");
             		break;
             	case 2: 
             		model.addAttribute("view","salesYear");
             		model.addAttribute("viewFinance","/finance/financeYear");
+            		model.addAttribute("viewHuman","/human/humanYear");
             		break;
             	case 3: 
             		model.addAttribute("view", "salesQuarterly");
             		model.addAttribute("viewFinance","/finance/financeQuarterly");
+            		model.addAttribute("viewHuman","/human/humanQuarterly");
             		break;
             	default:
             		break;
