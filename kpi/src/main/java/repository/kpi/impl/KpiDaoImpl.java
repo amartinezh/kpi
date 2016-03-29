@@ -171,11 +171,11 @@ public class KpiDaoImpl implements KpiDao {
 	public List<reporte> listSalesMonth(session ses) {
 		List<reporte> valor = new LinkedList<reporte>();
 		List<Cfg> indicadores = cfgService.getListCfg();
-		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
-		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
+		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_EVEN);
+		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		
-		java.math.BigDecimal anioAntReal = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
-		java.math.BigDecimal anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+		java.math.BigDecimal anioAntReal = new java.math.BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_EVEN);
+		java.math.BigDecimal anioAntPres = new java.math.BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		
 		String sql="";
 		if (!ses.getDash_nia().equals("Todas")){
@@ -216,10 +216,10 @@ public class KpiDaoImpl implements KpiDao {
 			// Se va colocando cada mes en la hoja de resultado
 			for (Object[] r : result) {
 				list.get(0).setMveval(
-						new BigDecimal(r[3].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
+						new BigDecimal(r[3].toString()).setScale(8,	BigDecimal.ROUND_HALF_EVEN));
 
 				list.get(0).setMvevpe(
-						new BigDecimal(r[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
+						new BigDecimal(r[4].toString()).setScale(8, BigDecimal.ROUND_HALF_EVEN));
 
 				list.get(0).setMvedes(r[2].toString());
 
