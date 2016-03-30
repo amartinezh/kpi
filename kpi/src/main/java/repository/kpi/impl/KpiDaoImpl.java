@@ -186,13 +186,25 @@ public class KpiDaoImpl implements KpiDao {
 		}
 		//sql += " AND k.mvemes='"+ses.getMes()+"' ";
 		// Lee todos los indicadores de la base de datos
+		String operacion_primer_campo="";
+		String operacion_segundo_campo="";
+		
 		for (Cfg cfg : indicadores) {
-
+			System.out.println("Operación:"+cfg.getOperacion());
+			if (cfg.getOperacion().equals("AV2")){
+				 operacion_primer_campo="avg";
+				 operacion_segundo_campo="max";
+			}
+			else{
+				operacion_primer_campo=cfg.getOperacion();
+				operacion_segundo_campo=cfg.getOperacion();
+			}
+			
 			// Va a la base de datos y toma para cada indicador
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
-							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
@@ -247,7 +259,7 @@ public class KpiDaoImpl implements KpiDao {
 		    @SuppressWarnings("unchecked")
 		    List<Object[]> prom = em
 					.createQuery(
-							"Select k.mveano as mveano, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
@@ -274,8 +286,14 @@ public class KpiDaoImpl implements KpiDao {
 		    	operacion[1]="(sum(k.mvevpe)/2)";
 		    }
 		    else{
-		    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
-		    	operacion[1]="(avg(k.mvevpe))";
+		    	if (cfg.getOperacion().equals("AV2")){
+		    		operacion[0]="(avg(k."+ses.getMoneda()+"))";
+		    		operacion[1]="(max(k.mvevpe))";
+		    	}
+		    	else{
+		    		operacion[0]="(avg(k."+ses.getMoneda()+"))";
+		    		operacion[1]="(avg(k.mvevpe))";
+		    	}
 		    }
 		    	
 		    // Se obtiene el promedio del PRESENTE año por cada línea generada, todo el año
@@ -303,8 +321,6 @@ public class KpiDaoImpl implements KpiDao {
 				promMvevalRealAnoActual = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 				promMvevpePresupuestadoAnoActual = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 			}
-		    
-		    
 			
 			// Se va agregando a la hoja de reporte cada línea para luego ser mostrada en la vista
 			// llega tal cual se mostrará

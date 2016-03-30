@@ -30,6 +30,6 @@ public class CfgDaoImpl implements CfgDao {
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<Cfg> getListCfg() {
-		return em.createQuery("SELECT C FROM Cfg as C").getResultList();
+		return em.createQuery("SELECT C FROM Cfg as C order by C.indicador").getResultList();
 	}
 }

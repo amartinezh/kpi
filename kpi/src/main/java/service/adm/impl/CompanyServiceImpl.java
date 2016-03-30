@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import domain.adm.Company;
-import domain.adm.Region;
 import repository.adm.CompanyDao;
 import service.adm.CompanyService;
 
@@ -34,7 +33,7 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.listCompany__(id);
 	}
 	
-	public Region getCompanyRegion(String id){
+	public Company getCompanyRegion(String id){
 		return companyDao.getCompanyRegion(id);
 	}
 

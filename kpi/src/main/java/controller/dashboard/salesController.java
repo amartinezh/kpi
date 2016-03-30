@@ -48,6 +48,8 @@ public class salesController {
 	@RequestMapping(value = "/inicio", method = RequestMethod.GET)
 	public String inicio(Model model) {
 		if (model.containsAttribute("user_inicio") == true) {
+			((session) model.asMap().get("user_inicio")).setDash_region(companyService.getCompanyRegion(((session) model.asMap().get("user_inicio")).getDash_nia()).getRegion_id().getRegion_id());
+			System.out.println("------------La region: "+((session) model.asMap().get("user_inicio")).getDash_region());
 			model.addAttribute("r3g", ((session) model.asMap().get("user_inicio")).getDash_region());
 			model.addAttribute("c1a", ((session) model.asMap().get("user_inicio")).getDash_nia());
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
