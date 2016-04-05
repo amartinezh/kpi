@@ -251,7 +251,7 @@ img.transparent {
 									<td nowrap>
 										<c:choose>
 											<c:when test="${fn:contains(kpi.unidad, '%')}">
-												<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />
+												<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />%
 									    	</c:when>    
 									    	<c:otherwise>
 												<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
@@ -289,7 +289,15 @@ img.transparent {
 							</c:choose>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
-									<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+								<c:choose>
+									<c:when test="${fn:contains(kpi.unidad, '%')}">
+										<td><fmt:formatNumber pattern="###,##0.0" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							    	</c:when>    
+							    	<c:otherwise>
+							    		<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							    	</c:otherwise>
+								</c:choose>
+									
 									<c:set var="presupuestado" value="${presupuestado};${val.mvevpe}"/>
 							</c:forEach>
 							

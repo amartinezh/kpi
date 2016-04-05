@@ -1,9 +1,5 @@
 package controller.dashboard;
 
-import java.text.ParseException;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import domain.adm.Company;
 import domain.adm.Plan;
-import domain.adm.Region;
 import domain.session.session;
 //import service.gestion.PlanService;
 import service.kpi.KpiService;
@@ -77,8 +71,11 @@ public class salesController {
 			model.addAttribute("tit",t);
 			model.addAttribute("r3g",r3g);
 			model.addAttribute("op10",op10);
-			if (!nia.equals("n"))
+			
+			if (!nia.equals("n")){
 				((session) model.asMap().get("user_inicio")).setDash_nia(nia);
+				((session) model.asMap().get("user_inicio")).setDash_region(companyService.getCompanyRegion(nia).getRegion_id().getRegion_id());
+			}
 			switch (Integer.parseInt(op10)) {
             	case 1: 
             		model.addAttribute("view","salesMonth");
@@ -122,13 +119,9 @@ public class salesController {
 					);
 			
 			model.addAttribute("regionList", regionService.getListRegion());
-			//if (((session) model.asMap().get("user_inicio")).getDash_region().equals("Todas")){
-				model.addAttribute("currencyList", currencyService.listCurrency());
-			//}
-			//else{
-			//	model.addAttribute("currencyList", "0");
-			//}
+			model.addAttribute("currencyList", currencyService.listCurrency());
 			
+			model.addAttribute("op10",op10);
 			model.addAttribute("companyList", companyService.listCompany(((session) model.asMap().get("user_inicio")).getDash_region()));
 			model.addAttribute("r3g", ((session) model.asMap().get("user_inicio")).getDash_region());
 			model.addAttribute("c1a", ((session) model.asMap().get("user_inicio")).getDash_nia());
@@ -347,7 +340,6 @@ public class salesController {
 			((session) model.asMap().get("user_inicio")).setCampo_llave(ll4v3);
 			((session) model.asMap().get("user_inicio")).setCampo_descripcion(d3s);
 			((session) model.asMap().get("user_inicio")).setIndicador_drill(ind1c4);
-			
 			
 			model.addAttribute("tit",ind1c4d3s);
 			model.addAttribute("m3r",m3r);

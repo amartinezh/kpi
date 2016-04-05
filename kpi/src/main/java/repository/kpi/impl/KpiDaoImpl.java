@@ -28,6 +28,10 @@ public class KpiDaoImpl implements KpiDao {
 
 	@Autowired
 	private CfgService cfgService;
+	
+	private enum Indicadores {
+		VEN005, VEN008, VEN010, VEN011, VEN012, VEN013;
+	}
 
 	public void setEm(EntityManager em) {
 		this.em = em;
@@ -54,6 +58,7 @@ public class KpiDaoImpl implements KpiDao {
 		java.math.BigDecimal valorMesReal = new java.math.BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal valorMesPresupuesto = new java.math.BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		
+		
 		String sql="";
 		if (!ses.getDash_nia().equals("Todas")){
 			sql = " AND k.mvecia='"+ses.getDash_nia()+"' ";
@@ -61,18 +66,39 @@ public class KpiDaoImpl implements KpiDao {
 		if (!ses.getDash_region().equals("Todas")){
 			sql += " AND k.mvereg='"+ses.getDash_region()+"' ";
 		}
-	
+		String operacion_primer_campo="";
+		String operacion_segundo_campo="";
+		String filtro="";
 		// Lee todos los indicadores de la base de datos
 		for (Cfg cfg : indicadores) {
-
+			
+			System.out.println("Operación:"+cfg.getOperacion()+"Indicador:"+cfg.getIndicador());
+			if (cfg.getOperacion().equals("AV2")){
+				 operacion_primer_campo="avg";
+				 operacion_segundo_campo="max";
+			}
+			else{
+				operacion_primer_campo=cfg.getOperacion();
+				operacion_segundo_campo=cfg.getOperacion();
+			}
+			if ( cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN011") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") ){
+				operacion_primer_campo="max";
+				filtro = " AND k.mverid='1' ";
+			}
+			else{
+				filtro = "";
+			}
+			System.out.println("SQL: "+sql);
+			
 			// Va a la base de datos y toma para cada indicador
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
-							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
+									+ filtro
 									+ sql
 									+ " AND k.mveano='"+ses.getAnio()+"' "
 									+ " GROUP BY k.mveano , k.mvemes, k.mvedes"
@@ -90,8 +116,7 @@ public class KpiDaoImpl implements KpiDao {
 			// Se va colocando cada mes en la hoja de resultado
 			for (Object[] r : result) {
 				list.get(Integer.parseInt(r[1].toString())-1).setMveval(
-						new BigDecimal(r[3].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
-
+							new BigDecimal(r[3].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
 				list.get(Integer.parseInt(r[1].toString())-1).setMvevpe(
 						new BigDecimal(r[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 
@@ -119,10 +144,11 @@ public class KpiDaoImpl implements KpiDao {
 		    @SuppressWarnings("unchecked")
 		    List<Object[]> prom = em
 					.createQuery(
-							"Select k.mveano as mveano, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
+									+ filtro
 									+ " and mveano = " + (Integer.parseInt(ses.getAnio()) - 1)
 									+ sql
 									//+ " AND k.mvecia='"+ses.getDash_nia()+"' "
@@ -188,7 +214,7 @@ public class KpiDaoImpl implements KpiDao {
 		// Lee todos los indicadores de la base de datos
 		String operacion_primer_campo="";
 		String operacion_segundo_campo="";
-		
+		String filtro="";
 		for (Cfg cfg : indicadores) {
 			System.out.println("Operación:"+cfg.getOperacion());
 			if (cfg.getOperacion().equals("AV2")){
@@ -199,6 +225,13 @@ public class KpiDaoImpl implements KpiDao {
 				operacion_primer_campo=cfg.getOperacion();
 				operacion_segundo_campo=cfg.getOperacion();
 			}
+			if ( cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN011") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") ){
+				operacion_primer_campo="max";
+				filtro = " AND k.mverid='1' ";
+			}
+			else{
+				filtro = "";
+			}
 			
 			// Va a la base de datos y toma para cada indicador
 			@SuppressWarnings("unchecked")
@@ -208,6 +241,7 @@ public class KpiDaoImpl implements KpiDao {
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
+									+ filtro
 									+ sql
 									+ " AND k.mveano='"+ses.getAnio()+"' "
 									+ " AND k.mvemes='"+ses.getMes()+"' "
@@ -263,6 +297,7 @@ public class KpiDaoImpl implements KpiDao {
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
+									+ filtro
 									+ " and mveano = " + (Integer.parseInt(ses.getAnio()) - 1)
 									//+ sql
 									//+ " AND k.mvecia='"+ses.getDash_nia()+"' "
@@ -304,6 +339,7 @@ public class KpiDaoImpl implements KpiDao {
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
+									+ filtro
 									+ " and mveano = " + (Integer.parseInt(ses.getAnio()))
 									+ " AND k.mvemes<"+ses.getMes()+" "
 									+ sql
@@ -387,18 +423,37 @@ public class KpiDaoImpl implements KpiDao {
 		if (!ses.getDash_region().equals("Todas")){
 			sql += " AND k.mvereg='"+ses.getDash_region()+"' ";
 		}
-	
+		String operacion_primer_campo="";
+		String operacion_segundo_campo="";
+		String filtro="";
 		// Lee todos los indicadores de la base de datos
 		for (Cfg cfg : indicadores) {
 
+			System.out.println("Operación:"+cfg.getOperacion()+"Indicador:"+cfg.getIndicador());
+			if (cfg.getOperacion().equals("AV2")){
+				 operacion_primer_campo="avg";
+				 operacion_segundo_campo="max";
+			}
+			else{
+				operacion_primer_campo=cfg.getOperacion();
+				operacion_segundo_campo=cfg.getOperacion();
+			}
+			if ( cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN011") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") ){
+				operacion_primer_campo="max";
+				filtro = " AND k.mverid='1' ";
+			}
+			else{
+				filtro = "";
+			}
 			// Va a la base de datos y toma para cada indicador
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
-							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
+									+ filtro
 									+ sql
 									+ " AND k.mveano='"+ses.getAnio()+"' "
 									+ " GROUP BY k.mveano , k.mvemes, k.mvedes"
@@ -508,14 +563,15 @@ public class KpiDaoImpl implements KpiDao {
 			promMvevpePresupuestadoAnoActual=promMvevpePresupuestadoAnoActual.divide(new BigDecimal(totalQ), 2, RoundingMode.HALF_UP);
 			
 			// Se obtiene el promedio del año anterior por cada línea generada
-			
+			// 8QX5CL
 		    @SuppressWarnings("unchecked")
 		    List<Object[]> prom = em
 					.createQuery(
-							"Select k.mveano as mveano, "+cfg.getOperacion()+"(k."+ses.getMoneda()+") as mveval, "+cfg.getOperacion()+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
+									+ filtro
 									+ " and mveano = " + (Integer.parseInt(ses.getAnio()) - 1)
 									+ sql
 									//+ " AND k.mvecia='"+ses.getDash_nia()+"' "
@@ -597,6 +653,7 @@ public class KpiDaoImpl implements KpiDao {
 		//}
 		
 		String operacion[] = new String [2];
+		String filtro="";
 		System.out.println("Operacion:"+ses.getOp());
 	    if (ses.getOp().equals("-")){
 	    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
@@ -606,7 +663,14 @@ public class KpiDaoImpl implements KpiDao {
 	    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
 	    	operacion[1]="(avg(k.mvevpe))";
 	    }
-		
+	    System.out.println("Operación drill: "+ses.getIndicador_drill());
+	    if ( ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN011") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") ){
+	    	operacion[0]="(max(k."+ses.getMoneda()+"))";
+			filtro = " AND k.mverid='' ";
+		}
+		else{
+			filtro = "";
+		}
 		@SuppressWarnings("unchecked")
 		List<Object[]> result = em
 		.createQuery(
@@ -614,6 +678,7 @@ public class KpiDaoImpl implements KpiDao {
 						+ " From Kpi as k where k.mveind = '"
 						+ ses.getIndicador_drill()
 						+ "' "
+						+ filtro
 						+ sql
 						+ " AND k.mveano='"+ses.getAnio()+"' "
 						+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k.mvemes, k.mvedes, k."+ses.getCampo_descripcion()
@@ -686,29 +751,33 @@ public class KpiDaoImpl implements KpiDao {
 			totales.set(1, totales.get(1).add(promedio));
 			
 			//Se obtiene el promedio del año anterior por cada línea generada
-			@SuppressWarnings("unchecked")
-			List<Object[]> promedioAnioAnterior = em
-			.createQuery(
-					"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-							+ " From Kpi as k where k."+ses.getCampo_llave()+" = '"
-							+ result.get(x)[0].toString()
-							+ "'  "
-							+ sql
-							+ " AND k.mveano='"+(Integer.parseInt(ses.getAnio())-1)+"' "
-							+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k."+ses.getCampo_descripcion()
-							+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mveano  asc")
-			.getResultList();
+			System.out.println("Esto: "+list.get(0));
+			if (!ses.getCampo_llave().equals("mvecli")){
+				@SuppressWarnings("unchecked")
+				List<Object[]> promedioAnioAnterior = em
+				.createQuery(
+						"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
+								+ " From Kpi as k where k."+ses.getCampo_llave()+" = '"
+								+ result.get(x)[0].toString()
+								+ "'  "
+								+ filtro
+								+ sql
+								+ " AND k.mveano='"+(Integer.parseInt(ses.getAnio())-1)+"' "
+								+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k."+ses.getCampo_descripcion()
+								+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mveano  asc")
+				.getResultList();
+				if (promedioAnioAnterior.size() > 0){
+					anioAntReal = new java.math.BigDecimal(promedioAnioAnterior.get(0)[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+					anioAntPres = new java.math.BigDecimal(promedioAnioAnterior.get(0)[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+				}
+				else{
+					anioAntReal = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+					anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+				}
+			}
 		    
-		    if (promedioAnioAnterior.size() > 0){
-				anioAntReal = new java.math.BigDecimal(promedioAnioAnterior.get(0)[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
-				anioAntPres = new java.math.BigDecimal(promedioAnioAnterior.get(0)[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
-			}
-			else{
-				anioAntReal = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
-				anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
-			}
 		    totales.set(0, totales.get(0).add(anioAntReal));
-		    System.out.println("totlaes"+totales);
+		    //System.out.println("totlaes"+totales);
 			valor.add(new reporte(result.get(x)[0].toString(), result.get(x)[1].toString(), 
 					"", "Actual", "Budget",
 					anioAntReal, 
@@ -721,8 +790,9 @@ public class KpiDaoImpl implements KpiDao {
 		}
 		if (ses.getOp().equals("p")){
 			for(int i=0; i < totales.size(); i++){
-				if (totales.get(i).compareTo(new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN))>=0)
-					totales.set(i, totales.get(i).divide(new java.math.BigDecimal(valor.size()).setScale(3, BigDecimal.ROUND_HALF_EVEN)));
+				System.out.println("Totales: "+totales.get(i));
+				if (totales.get(i).compareTo(new java.math.BigDecimal(0).setScale(0, RoundingMode.HALF_UP))>=0)
+					totales.set(i, totales.get(i).divide(new java.math.BigDecimal(valor.size()).setScale(3, BigDecimal.ROUND_HALF_EVEN),2, RoundingMode.HALF_UP));
 			}
 	    }
 		ses.setTotales(totales);
@@ -757,6 +827,7 @@ public class KpiDaoImpl implements KpiDao {
 			}
 			
 			String operacion[] = new String [2];
+			String filtro="";
 			System.out.println("Operacion:"+ses.getOp());
 		    if (ses.getOp().equals("-")){
 		    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
@@ -766,6 +837,14 @@ public class KpiDaoImpl implements KpiDao {
 		    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
 		    	operacion[1]="(avg(k.mvevpe))";
 		    }
+		    System.out.println("Operación: "+ses.getIndicador_drill());
+		    if ( ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN011") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") ){
+		    	operacion[0]="(max(k."+ses.getMoneda()+"))";
+				filtro = " AND k.mverid='' ";
+			}
+			else{
+				filtro = "";
+			}
 			// Se trae todo de la base de datos filtrando por la llave seleccionada
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
@@ -774,6 +853,7 @@ public class KpiDaoImpl implements KpiDao {
 							+ " From Kpi as k where k.mveind = '"
 							+ ses.getIndicador_drill()
 							+ "'"
+							+ filtro
 							+ sql
 							+ " AND k.mvemes='"+ses.getMes()+"' "
 							+ " AND k.mveano='"+ses.getAnio()+"' "
@@ -806,6 +886,7 @@ public class KpiDaoImpl implements KpiDao {
 								+ " AND k."+ses.getCampo_llave()+" = '"
 								+ r[0].toString()
 								+ "' "
+								+ filtro
 								+ sql
 								+ " AND k.mveano='"+(Integer.parseInt(ses.getAnio())-1)+"' "
 								+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k."+ses.getCampo_descripcion()
@@ -831,6 +912,7 @@ public class KpiDaoImpl implements KpiDao {
 										+ " AND k."+ses.getCampo_llave()+" = '"
 										+ r[0].toString()
 										+ "' "
+										+ filtro
 										+ sql
 										+ " AND k.mveano='"+ses.getAnio()+"' "
 										+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano, k."+ses.getCampo_descripcion()
@@ -893,6 +975,7 @@ public class KpiDaoImpl implements KpiDao {
 			}
 			
 			String operacion[] = new String [2];
+			String filtro;
 			System.out.println("Operacion:"+ses.getOp());
 		    if (ses.getOp().equals("-")){
 		    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
@@ -902,6 +985,14 @@ public class KpiDaoImpl implements KpiDao {
 		    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
 		    	operacion[1]="(avg(k.mvevpe))";
 		    }
+		    System.out.println("Operación: "+ses.getIndicador_drill());
+		    if ( ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN011") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") ){
+		    	operacion[0]="(max(k."+ses.getMoneda()+"))";
+				filtro = " AND k.mverid='' ";
+			}
+			else{
+				filtro = "";
+			}
 			// Se trae todo de la base de datos filtrando por la llave seleccionada
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
@@ -910,6 +1001,7 @@ public class KpiDaoImpl implements KpiDao {
 							+ " From Kpi as k where k.mveind = '"
 							+ ses.getIndicador_drill()
 							+ "' "
+							+ filtro
 							+ sql
 							+ " AND k.mveano='"+ses.getAnio()+"' "
 							+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k.mvemes, k."+ses.getCampo_descripcion()
@@ -938,6 +1030,7 @@ public class KpiDaoImpl implements KpiDao {
 										+ " From Kpi as k where k."+ses.getCampo_llave()+" = '"
 										+ r[0].toString()
 										+ "'  "
+										+ filtro
 										+ sql
 										+ " AND k.mveano='"+(Integer.parseInt(ses.getAnio())-1)+"' "
 										+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano, k."+ses.getCampo_descripcion()

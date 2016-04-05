@@ -124,7 +124,7 @@ img.transparent {
 			
 			<label for="email" class="glyphicon glyphicon-search" rel="tooltip" title="" data-original-title="email"></label>
 		</div>
-		 <div class="icon-addon addon-md">
+		<div class="icon-addon addon-md">
         	<select class="form-control input-sm col-sm-2" id="anio" class="anio"
 				name="anio" onclick="anio()">
 				<option value="2015">2015</option>
@@ -271,9 +271,14 @@ img.transparent {
 							</c:choose>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
-									<td nowrap>
-									<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
-									</td>
+									<c:choose>
+										<c:when test="${fn:contains(kpi.unidad, '%')}">
+											<td nowrap><fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+								    	</c:when>    
+								    	<c:otherwise>
+											<td nowrap><fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+								    	</c:otherwise>
+									</c:choose>
 									
 									<td valign="middle" rowspan="2">
 										<c:choose>
@@ -308,7 +313,15 @@ img.transparent {
 							
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
-									<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+								<c:choose>
+									<c:when test="${fn:contains(kpi.unidad, '%')}">
+										<td><fmt:formatNumber pattern="###,##0.0" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							    	</c:when>    
+							    	<c:otherwise>
+							    		<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							    	</c:otherwise>
+								</c:choose>
+									
 									<c:set var="presupuestado" value="${presupuestado};${val.mvevpe}"/>
 							</c:forEach>
 							
@@ -464,6 +477,7 @@ img.transparent {
 							//document.getElementById("region").selectedIndex = "${r3g}";
 							//document.getElementById("nia").selectedIndex = "${c1a}";
 							//document.getElementById("moneda").selectedIndex = "${cur}";
+							clearTable();
 							
 							$("#region").val("${r3g}");
 							$("#nia").val("${c1a}");
@@ -962,6 +976,19 @@ img.transparent {
 			};
 
 		})(jQuery, window);
+		
+		function clearTable(){
+			var table = $("#mprDetailDataTable table tbody");
+			//alert(table);
+			table.find('tr').each(function (i) {
+		        var $tds = $(this).find('td'),
+		            colu = $tds.eq(0).text();
+		           
+		        // do something with productId, product, Quantity
+		        log('Row ' + (i + 1) + ':\nId: ' + colu
+		             );
+		    });
+		}
 		
 		function cargaRegiones(){
 			var r3g=$( "#region" ).val();
