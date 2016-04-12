@@ -203,7 +203,6 @@ img.transparent {
 					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 						<h1 class="page-title txt-color-blueDark"> 
 							<i class="fa fa-list-alt fa-fw "></i> 
-							
 							<span><c:out value="${navegacion}" /> 
 							</span>
 						</h1>
@@ -246,7 +245,7 @@ img.transparent {
 						</th>
 						<th colspan="2" style="text-align: center; color: blue;">DEC <c:out value="${anio}"/>
 						</th>
-						<th  style="text-align: center; color: blue;">Graph
+						<th style="text-align: center; color: blue;">Graph
 						</th>
 					</tr>
 				</thead>

@@ -902,29 +902,32 @@ public class KpiDaoImpl implements KpiDao {
 					anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 				}
 			    // Se obtiene el promedio del PRESENTE año por cada línea generada, todo el año
-			    @SuppressWarnings("unchecked")
-			    List<Object[]> promedioAnio = em
-						.createQuery(
-								"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-										+ " From Kpi as k where k.mveind = '"
-										+ ses.getIndicador_drill()
-										+ "'"
-										+ " AND k."+ses.getCampo_llave()+" = '"
-										+ r[0].toString()
-										+ "' "
-										+ filtro
-										+ sql
-										+ " AND k.mveano='"+ses.getAnio()+"' "
-										+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano, k."+ses.getCampo_descripcion()
-										+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mveano  asc")
-						.getResultList();
-			    
-			    if (promedioAnio.size() > 0){
-			    	promMvevalRealAnoActual= new java.math.BigDecimal(promedioAnio.get(0)[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
-			    	//System.out.println("-----------"+promMvevalRealAnoActual+"----------------------");
-				}
-				else{
-					promMvevalRealAnoActual = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+			    System.out.println("Esto: "+list.get(0));
+				if (!ses.getCampo_llave().equals("mvecli")){
+				    @SuppressWarnings("unchecked")
+				    List<Object[]> promedioAnio = em
+							.createQuery(
+									"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
+											+ " From Kpi as k where k.mveind = '"
+											+ ses.getIndicador_drill()
+											+ "'"
+											+ " AND k."+ses.getCampo_llave()+" = '"
+											+ r[0].toString()
+											+ "' "
+											+ filtro
+											+ sql
+											+ " AND k.mveano='"+ses.getAnio()+"' "
+											+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano, k."+ses.getCampo_descripcion()
+											+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mveano  asc")
+							.getResultList();
+				    
+				    if (promedioAnio.size() > 0){
+				    	promMvevalRealAnoActual= new java.math.BigDecimal(promedioAnio.get(0)[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+				    	//System.out.println("-----------"+promMvevalRealAnoActual+"----------------------");
+					}
+					else{
+						promMvevalRealAnoActual = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+					}
 				}
 				
 				// Se va agregando a la hoja de reporte cada línea para luego ser mostrada en la vista
@@ -1023,25 +1026,27 @@ public class KpiDaoImpl implements KpiDao {
 					valor_row.add( new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN));
 				}
 				// Primero se obtiene el promedio del año anterior
-				@SuppressWarnings("unchecked")
-			    List<Object[]> promedioAnio = em
-						.createQuery(
-								"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-										+ " From Kpi as k where k."+ses.getCampo_llave()+" = '"
-										+ r[0].toString()
-										+ "'  "
-										+ filtro
-										+ sql
-										+ " AND k.mveano='"+(Integer.parseInt(ses.getAnio())-1)+"' "
-										+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano, k."+ses.getCampo_descripcion()
-										+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mveano  asc")
-						.getResultList();
-			    
-			    if (promedioAnio.size() > 0){
-			    	anioAntReal= new java.math.BigDecimal(promedioAnio.get(0)[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
-				}
-				else{
-					anioAntReal = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+				if (!ses.getCampo_llave().equals("mvecli")){
+					@SuppressWarnings("unchecked")
+				    List<Object[]> promedioAnio = em
+							.createQuery(
+									"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
+											+ " From Kpi as k where k."+ses.getCampo_llave()+" = '"
+											+ r[0].toString()
+											+ "'  "
+											+ filtro
+											+ sql
+											+ " AND k.mveano='"+(Integer.parseInt(ses.getAnio())-1)+"' "
+											+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano, k."+ses.getCampo_descripcion()
+											+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mveano  asc")
+							.getResultList();
+				    
+				    if (promedioAnio.size() > 0){
+				    	anioAntReal= new java.math.BigDecimal(promedioAnio.get(0)[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+					}
+					else{
+						anioAntReal = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+					}
 				}
 				
 				// Primero se obtiene el mes que contiene el registro consultado

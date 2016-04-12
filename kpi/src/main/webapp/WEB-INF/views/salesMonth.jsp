@@ -212,8 +212,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 					<h1 class="page-title txt-color-blueDark">
-						<i class="fa fa-list-alt fa-fw "></i> 
-						
+						<i class="fa fa-list-alt fa-fw "></i>
 						<span><c:out value="${navegacion}" />
 						</span>
 					</h1>
@@ -268,7 +267,15 @@
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 									<td nowrap>
-									<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
+									<c:choose>
+										<c:when test="${fn:contains(kpi.unidad, '%')}">
+											<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
+								    	</c:when>    
+								    	<c:otherwise>
+											<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
+								    	</c:otherwise>
+									</c:choose>
+									
 									</td>
 									<td valign="middle" rowspan="2">
 										<c:choose>
@@ -553,12 +560,12 @@
 							    };
 
 							    // render chart
-							    var ctx = document.getElementById("lineChart").getContext("2d");
-							    var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+							    //var ctx = document.getElementById("lineChart").getContext("2d");
+							    //var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
 							
 
-							document.getElementById('region').value="${navega.dash_region}";
-							document.getElementById('nia').value="${navega.dash_nia}";
+							//document.getElementById('region').value="${navega.dash_region}";
+							//document.getElementById('nia').value="${navega.dash_nia}";
 							document.getElementById('moneda').value="${navega.dash_moneda}";
 							document.getElementById('tasa').value="${navega.dash_tasa}";
 							pageSetUp();
@@ -594,7 +601,7 @@
 									.dataTable(
 											{
 												fixedColumns: true,
-												   fixedHeader: true,
+												fixedHeader: true,
 												"sDom" : "<'dt-toolbar'<'col-xs-12 fixed col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"
 														+ "t"
 														+ "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",

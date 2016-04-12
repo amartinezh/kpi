@@ -260,7 +260,7 @@ img.transparent {
 									</td>
 									<td valign="middle" rowspan="2">
 										<c:choose>
-										    <c:when test="${val.mveval gt kpi.promMvevalRealAnoActual}">
+										    <c:when test="${val.mveval gt val.mvevpe}">
 										    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
 										    </c:when>    
 										    <c:otherwise>
@@ -537,8 +537,8 @@ img.transparent {
 							    //var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
 							
 
-							document.getElementById('region').value="${navega.dash_region}";
-							document.getElementById('nia').value="${navega.dash_nia}";
+							//document.getElementById('region').value="${navega.dash_region}";
+							//document.getElementById('nia').value="${navega.dash_nia}";
 							document.getElementById('moneda').value="${navega.dash_moneda}";
 							document.getElementById('tasa').value="${navega.dash_tasa}";
 							pageSetUp();
@@ -575,7 +575,7 @@ img.transparent {
 											{
 												fixedColumns: true,
 												   fixedHeader: true,
-												"sDom" : "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"
+												"sDom" : "<'dt-toolbar'<'col-xs-12 fixed col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"
 														+ "t"
 														+ "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
 												"autoWidth" : true,
