@@ -1,5 +1,7 @@
 package controller.dashboard;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import domain.adm.Plan;
+import domain.kpi.reporte;
 import domain.session.session;
 //import service.gestion.PlanService;
 import service.kpi.KpiService;
@@ -107,9 +110,23 @@ public class salesController {
 			model.addAttribute("tit",t);
 			String r=((session) model.asMap().get("user_inicio")).getDash_region();
 			String n=((session) model.asMap().get("user_inicio")).getDash_nia();
+			int m= Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes());
 			if (!r.equals("Todas")) r = regionService.getRegion(((session) model.asMap().get("user_inicio")).getDash_region()).get(0).getDescripcion();
 			if (!n.equals("Todas")) n = companyService.listCompany__(((session) model.asMap().get("user_inicio")).getDash_nia()).get(0).getDescripcion();
-			model.addAttribute("valor", kpiService.listSales((session) model.asMap().get("user_inicio")));
+			List<reporte> listado = kpiService.listSales((session) model.asMap().get("user_inicio"));
+			model.addAttribute("valor", listado);
+			for (int j = 0; j < listado.size(); j++) {
+				for (int i = listado.get(j).getLista().size()-1; i > 0; i--) {
+					if (listado.get(j).getLista().get(i).getMveval().compareTo(java.math.BigDecimal.ZERO) == 0){
+						if (i>=(m-1))
+							listado.get(j).getLista().remove(i);
+					}
+				}
+			}
+			
+			model.addAttribute("valorTam", listado.size());
+			System.out.println(listado.get(0).getLista().size());
+			
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
 					"Company: " + n + " >> " +

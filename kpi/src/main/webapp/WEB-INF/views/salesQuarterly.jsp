@@ -80,20 +80,25 @@
 	media="screen and (max-device-width: 320px)">
 
 <style type="text/css">
-tr:last-child {
-	color: #ff0000;
-	font-weight: bold;
-}
-
-.transp-block {
-    background: #000 url(watermark.jpg) no-repeat;
-    width: 575px;
-    height: 335px;
-}
-img.transparent {
-    filter:alpha(opacity=75);
-    opacity:.75;
-}
+	tr:last-child {
+		color: #ff0000;
+		font-weight: bold;
+	}
+	
+	.transp-block {
+	    background: #000 url(watermark.jpg) no-repeat;
+	    width: 575px;
+	    height: 335px;
+	}
+	img.transparent {
+	    filter:alpha(opacity=75);
+	    opacity:.75;
+	}
+	
+	#tbl tr td {
+	    height: 1px;
+	    padding: 1px;
+	}
 </style>
 
 </head>
@@ -191,7 +196,7 @@ img.transparent {
 			<!-- end row -->
 			<!-- end row -->
 			<c:set var="color" value="success"/>
-			<table class="table table-bordered" width="100%">
+			<table id="tbl" class="table table-bordered" width="100%">
 				<thead>
 				<div class="row">
 					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
@@ -208,7 +213,7 @@ img.transparent {
 					<tr>
 						<th style="text-align: center; color: blue;">Indicator
 						</th>
-						<th style="text-align: center; color: blue;">Unit Of Mesure
+						<th style="text-align: center; color: blue;">UM
 						</th>
 						<th style="text-align: center; color: blue;">Type
 						</th>
@@ -238,17 +243,17 @@ img.transparent {
 							<td>${kpi.tipoUno}</td>
 							<c:choose>
 								<c:when test="${fn:contains(kpi.unidad, '%')}">
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
 						    	</c:when>    
 						    	<c:otherwise>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
 						    	</c:otherwise>
 							</c:choose>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
-									<td nowrap>
+									<td style="text-align: right;" nowrap>
 										<c:choose>
 											<c:when test="${fn:contains(kpi.unidad, '%')}">
 												<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />%
@@ -279,22 +284,22 @@ img.transparent {
 							<td>${kpi.tipoDos}</td>
 							<c:choose>
 								<c:when test="${fn:contains(kpi.unidad, '%')}">
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" />%</td>
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" />%</td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" />%</td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" />%</td>
 						    	</c:when>    
 						    	<c:otherwise>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
 						    	</c:otherwise>
 							</c:choose>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 								<c:choose>
 									<c:when test="${fn:contains(kpi.unidad, '%')}">
-										<td><fmt:formatNumber pattern="###,##0.0" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+										<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 							    	</c:when>    
 							    	<c:otherwise>
-							    		<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							    		<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 							    	</c:otherwise>
 								</c:choose>
 									
