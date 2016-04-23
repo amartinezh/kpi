@@ -280,6 +280,14 @@ INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VA
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('sallyann.rampat', '0d38dd3e8e150a53478f1fe131fff1d8','1' , '33', '1');
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('melissa.mahabir', 'fcd47b1e44436b441741e928dd6bb3c6','1' , '33', '1');
 
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('fredy.gomez', '4b43ae1b3c0a4cbfd79ea45be7da4236','1' , '01', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('esteban.gomez', '8c5d7a099c93ad64bc8179186ddc07d4','1' , '01', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('roberto.palacio', '290874d6910f619e8a0e583316eddd12','1' , '01', '1');
+
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('angel.chacon', 'c7c59cb09991999fc7363cc87998a9b5','1' , '50', '1');
+
+
+
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN001', 'SUM', 'Comercial', '', 'Ventas', 'Own Cases', 'V');
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN002', 'SUM', 'Comercial', '', 'Ventas', 'TM', 'V');
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN003', 'SUM', 'Comercial', '', 'Venta Neta', 'USD', '$');
