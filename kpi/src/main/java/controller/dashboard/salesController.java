@@ -115,6 +115,8 @@ public class salesController {
 			if (!n.equals("Todas")) n = companyService.listCompany__(((session) model.asMap().get("user_inicio")).getDash_nia()).get(0).getDescripcion();
 			List<reporte> listado = kpiService.listSales((session) model.asMap().get("user_inicio"));
 			model.addAttribute("valor", listado);
+			
+			// Elimina los meses que no tienen información
 			for (int j = 0; j < listado.size(); j++) {
 				for (int i = listado.get(j).getLista().size()-1; i > 0; i--) {
 					if (listado.get(j).getLista().get(i).getMveval().compareTo(java.math.BigDecimal.ZERO) == 0){
@@ -381,7 +383,8 @@ public class salesController {
 					"currency: " + currencyService.getCurrency(((session) model.asMap().get("user_inicio")).getDash_moneda()).get(0).getDescripcion() + " >> " +
 					(  ((session) model.asMap().get("user_inicio")).getDash_tasa()=="mvevap"?"Average":"Month Rate") +
 					" >> Year: " + ((session) model.asMap().get("user_inicio")).getAnio()+
-					mesNavegacion
+					mesNavegacion+
+					" ( "+m3r+" )"
 					);
 			if (op10n.equals("M")){
 				model.addAttribute("valor", kpiService.listSalesDrillMonth((session) model.asMap().get("user_inicio")));
