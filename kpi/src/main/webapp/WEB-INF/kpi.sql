@@ -285,27 +285,37 @@ INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VA
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('roberto.palacio', '290874d6910f619e8a0e583316eddd12','1' , '01', '1');
 
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('angel.chacon', 'c7c59cb09991999fc7363cc87998a9b5','1' , '50', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('nelson.labrador', '9854c0a45d46715dd47e26cee847a38c','2' , '01', '1');
+
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('gonzalo.alvarez', '795b425d8685310b66c6934cb15ef55a','3' , '01', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('vicente.gonzalez', '68a96d195b07c9f61bcb33a5cd311e5a','3' , '01', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('antonio.bruni', '9259595e9948a56494961874c68245df','3' , '01', '1');
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('antonio.neri', 'cb1dc087fab57e79337e1582b9b1ffe2','3' , '01', '1');
 
 
 
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN001', 'SUM', 'Comercial', '', 'Ventas', 'Own Cases', 'V');
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN002', 'SUM', 'Comercial', '', 'Ventas', 'TM', 'V');
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN003', 'SUM', 'Comercial', '', 'Venta Neta', 'USD', '$');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN004', 'SUM', 'Comercial', '', 'Descuentos, Promociones o Reembolsos', 'USD', '$');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN005', 'AVG', 'Comercial', '', 'Cobertura de Clientes', '%', '%');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN006', 'AV2', 'Comercial', '', 'Precio Promedio', '%', '$');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN007', 'AV2', 'Comercial', '', 'Precio Promedio', 'USD/TM', '$');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN008', 'AV2', 'Comercial', '', 'Devoluciones', '%', '%');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN009', 'SUM', 'Comercial', '', 'Venta Perdida', 'Cases', 'V');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN010', 'AV2', 'Comercial', '', 'Cumplimiento del Forecast', '%', '%');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN011', 'AV2', 'Comercial', '', 'Cumplimiento del Presupuesto', '%', '%');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN012', 'AV2', 'Comercial', '', 'Precisión del Forecast', '%', '%');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN013', 'AV2', 'Comercial', '', 'Precisión del Presupuesto', '%', '%');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN014', 'SUM', 'Comercial', '', 'Estacionalidad de la Venta', 'Last Week', 'V');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN015', 'AVG', 'Comercial', '', 'Variabilidad de la Venta', '%', 'V');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN016', 'AVG', 'Comercial', '', 'Gastos de Ventas y Marketing', '% Revenue', '$');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN017', 'SUM', 'Comercial', '', 'Gastos de Ventas y Marketing', 'USD/Ton Sold.', 'V');
-INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN018', 'SUM', 'Comercial', '', 'OSHA', '#', 'V');
+
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN004', 'SUM', 'Comercial', '', 'Salesman Perfo', 'USD', '$');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN005', 'SUM', 'Comercial', '', 'Descuentos, Promociones o Reembolsos', 'USD', '$');
+
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN006', 'SUM', 'Comercial', '', 'Descuentos, Promociones o Reembolsos', 'USD', '$');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN007', 'AVG', 'Comercial', '', 'Cobertura de Clientes', '%', '%');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN008', 'AV2', 'Comercial', '', 'Precio Promedio', '%', '$');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN009', 'AV2', 'Comercial', '', 'Precio Promedio', 'USD/TM', '$');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN010', 'AV2', 'Comercial', '', 'Devoluciones', '%', '%');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN011', 'SUM', 'Comercial', '', 'Venta Perdida', 'Cases', 'V');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN012', 'AV2', 'Comercial', '', 'Cumplimiento del Forecast', '%', '%');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN013', 'AV2', 'Comercial', '', 'Cumplimiento del Presupuesto', '%', '%');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN014', 'AV2', 'Comercial', '', 'Precisión del Forecast', '%', '%');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN015', 'AV2', 'Comercial', '', 'Precisión del Presupuesto', '%', '%');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN016', 'SUM', 'Comercial', '', 'Estacionalidad de la Venta', 'Last Week', 'V');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN017', 'AVG', 'Comercial', '', 'Variabilidad de la Venta', '%', 'V');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN018', 'AVG', 'Comercial', '', 'Gastos de Ventas y Marketing', '% Revenue', '$');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN019', 'SUM', 'Comercial', '', 'Gastos de Ventas y Marketing', 'USD/Ton Sold.', 'V');
+INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN020', 'SUM', 'Comercial', '', 'OSHA', '#', 'V');
 
 INSERT INTO gestion.nivel_organico(descripcion, area_estrategica) VALUES ('Saleman', 'Operational');
 INSERT INTO gestion.nivel_organico(descripcion, area_estrategica) VALUES ('Supervisor', 'Operational');

@@ -83,7 +83,7 @@ public class KpiDaoImpl implements KpiDao {
 			}
 			
 			// Se interpretan diferente ciertos indicadores, se toma el máximo pero si la bandera mverid es 1
-			if ( cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN011") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") ){
+			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN017")){
 				operacion_primer_campo="max";
 				filtro = " AND k.mverid='1' ";
 			}
@@ -229,7 +229,7 @@ public class KpiDaoImpl implements KpiDao {
 			}
 			
 			// Se interpretan diferente ciertos indicadores, se toma el máximo pero si la bandera mverid es 1
-			if ( cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN011") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") ){
+			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN017")){
 				operacion_primer_campo="max";
 				filtro = " AND k.mverid='1' ";
 			}
@@ -445,7 +445,7 @@ public class KpiDaoImpl implements KpiDao {
 			}
 			
 			// Se interpretan diferente ciertos indicadores, se toma el máximo pero si la bandera mverid es 1
-			if ( cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN011") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") ){
+			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN017")){
 				operacion_primer_campo="max";
 				filtro = " AND k.mverid='1' ";
 			}
@@ -671,7 +671,7 @@ public class KpiDaoImpl implements KpiDao {
 	    	operacion[1]="(avg(k.mvevpe))";
 	    }
 	    System.out.println("Operación drill: "+ses.getIndicador_drill());
-	    if ( ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN011") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") ){
+	    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN017")){
 	    	operacion[0]="(max(k."+ses.getMoneda()+"))";
 			filtro = " AND k.mverid='' ";
 		}
@@ -845,7 +845,7 @@ public class KpiDaoImpl implements KpiDao {
 		    	operacion[1]="(avg(k.mvevpe))";
 		    }
 		    System.out.println("Operación: "+ses.getIndicador_drill());
-		    if ( ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN011") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") ){
+		    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN017")){
 		    	operacion[0]="(max(k."+ses.getMoneda()+"))";
 				filtro = " AND k.mverid='' ";
 			}
@@ -996,7 +996,7 @@ public class KpiDaoImpl implements KpiDao {
 		    	operacion[1]="(avg(k.mvevpe))";
 		    }
 		    System.out.println("Operación: "+ses.getIndicador_drill());
-		    if ( ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN011") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") ){
+		    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN017")){
 		    	operacion[0]="(max(k."+ses.getMoneda()+"))";
 				filtro = " AND k.mverid='' ";
 			}

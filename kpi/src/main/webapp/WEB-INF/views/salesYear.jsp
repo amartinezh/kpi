@@ -1214,27 +1214,6 @@
 				opciones.push(opc[15]);
 				opciones.push(opc[16]);
 			    break;
-			case "VEN004":
-				opciones.push(opc[1]);
-				opciones.push(opc[2]);
-				opciones.push(opc[3]);
-				opciones.push(opc[4]);
-				opciones.push(opc[5]);
-				opciones.push(opc[6]);
-				opciones.push(opc[7]);
-				opciones.push(opc[8]);
-				opciones.push(opc[9]);
-				opciones.push(opc[10]);
-				opciones.push(opc[11]);
-				opciones.push(opc[12]);
-				opciones.push(opc[13]);
-				opciones.push(opc[14]);
-				opciones.push(opc[15]);
-				opciones.push(opc[16]);
-				break;
-			case "VEN005":
-				opciones.push(opc[3]);
-			    break;
 			case "VEN006":
 				opciones.push(opc[1]);
 				opciones.push(opc[2]);
@@ -1254,23 +1233,8 @@
 				opciones.push(opc[16]);
 				break;
 			case "VEN007":
-				opciones.push(opc[1]);
-				opciones.push(opc[2]);
 				opciones.push(opc[3]);
-				opciones.push(opc[4]);
-				opciones.push(opc[5]);
-				opciones.push(opc[6]);
-				opciones.push(opc[7]);
-				opciones.push(opc[8]);
-				opciones.push(opc[9]);
-				opciones.push(opc[10]);
-				opciones.push(opc[11]);
-				opciones.push(opc[12]);
-				opciones.push(opc[13]);
-				opciones.push(opc[14]);
-				opciones.push(opc[15]);
-				opciones.push(opc[16]);
-				break;
+			    break;
 			case "VEN008":
 				opciones.push(opc[1]);
 				opciones.push(opc[2]);
@@ -1325,8 +1289,8 @@
 				opciones.push(opc[15]);
 				opciones.push(opc[16]);
 				break;
-		    case "VEN011":
-		    	opciones.push(opc[1]);
+			case "VEN011":
+				opciones.push(opc[1]);
 				opciones.push(opc[2]);
 				opciones.push(opc[3]);
 				opciones.push(opc[4]);
@@ -1361,8 +1325,8 @@
 				opciones.push(opc[15]);
 				opciones.push(opc[16]);
 				break;
-			case "VEN013":
-				opciones.push(opc[1]);
+		    case "VEN013":
+		    	opciones.push(opc[1]);
 				opciones.push(opc[2]);
 				opciones.push(opc[3]);
 				opciones.push(opc[4]);
@@ -1398,12 +1362,48 @@
 				opciones.push(opc[16]);
 				break;
 			case "VEN015":
+				opciones.push(opc[1]);
+				opciones.push(opc[2]);
+				opciones.push(opc[3]);
+				opciones.push(opc[4]);
+				opciones.push(opc[5]);
+				opciones.push(opc[6]);
+				opciones.push(opc[7]);
+				opciones.push(opc[8]);
+				opciones.push(opc[9]);
+				opciones.push(opc[10]);
+				opciones.push(opc[11]);
+				opciones.push(opc[12]);
+				opciones.push(opc[13]);
+				opciones.push(opc[14]);
+				opciones.push(opc[15]);
+				opciones.push(opc[16]);
 				break;
 			case "VEN016":
+				opciones.push(opc[1]);
+				opciones.push(opc[2]);
+				opciones.push(opc[3]);
+				opciones.push(opc[4]);
+				opciones.push(opc[5]);
+				opciones.push(opc[6]);
+				opciones.push(opc[7]);
+				opciones.push(opc[8]);
+				opciones.push(opc[9]);
+				opciones.push(opc[10]);
+				opciones.push(opc[11]);
+				opciones.push(opc[12]);
+				opciones.push(opc[13]);
+				opciones.push(opc[14]);
+				opciones.push(opc[15]);
+				opciones.push(opc[16]);
 				break;
 			case "VEN017":
 				break;
 			case "VEN018":
+				break;
+			case "VEN019":
+				break;
+			case "VEN020":
 				break;
 			default:
 			    console.log("Sorry, we are out of " + indicador + ".");
