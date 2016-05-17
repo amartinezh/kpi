@@ -259,7 +259,6 @@ INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('12', 'GUA', 
 INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('14', 'GUA', 'RED ECOLOGICA Y PAPEL S.A. COSTA RICA');
 INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('16', 'GUA', 'PAINSA EL SALVADOR,S.A.DE C.V.');
 INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('17', 'GUA', 'PAINSA DE HONDURAS,S.A.DE C.V.');
-INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('18', 'GUA', 'RED ECOLOGICA, S.A');
 INSERT INTO gestion.company(comp_id, region_id, comp_desc) VALUES ('20', 'GUA', 'PAPELERA INTERNACIONAL, S.A.');
 
 INSERT INTO gestion.currency(currency_id, currency_desc) VALUES ('0', 'USD');
@@ -292,6 +291,7 @@ INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VA
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('antonio.bruni', '9259595e9948a56494961874c68245df','3' , '01', '1');
 INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('antonio.neri', 'cb1dc087fab57e79337e1582b9b1ffe2','3' , '01', '1');
 
+INSERT INTO gestion.users( id, pass, type_id, comp_comp_id, curr_currency_id) VALUES ('ricauter.jurado', '643e8cff3f108b36b2b3aa816ecebe37','2' , '50', '1');
 
 
 INSERT INTO gestion.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('VEN001', 'SUM', 'Comercial', '', 'Ventas', 'Own Cases', 'V');

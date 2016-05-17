@@ -262,8 +262,8 @@
 							
 							<td rowspan="2">${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
-							<c:choose>
-								<c:when test="${fn:contains(kpi.unidad, '%')}">
+							<c:choose>	
+								<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
 						    	</c:when>    
@@ -275,7 +275,7 @@
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 									<c:choose>
-										<c:when test="${fn:contains(kpi.unidad, '%')}">
+										<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 											<td style="text-align: right;" nowrap><fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 								    	</c:when>    
 								    	<c:otherwise>
@@ -304,7 +304,7 @@
 							<td>${kpi.tipoDos}</td>
 							
 							<c:choose>
-								<c:when test="${fn:contains(kpi.unidad, '%')}">
+								<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" />%</td>
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" />%</td>
 						    	</c:when>    
@@ -317,7 +317,7 @@
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 								<c:choose>
-									<c:when test="${fn:contains(kpi.unidad, '%')}">
+									<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 										<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 							    	</c:when>    
 							    	<c:otherwise>

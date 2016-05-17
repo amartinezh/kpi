@@ -218,19 +218,19 @@ tr:last-child {
 												<c:set var="simbolo" value="${param['s1m']}"/>
 												<c:choose>
 													<c:when test="${fn:contains(simbolo, 'p')}">
-														<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
-														<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
+														<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
+														<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
 											    	</c:when>    
 											    	<c:otherwise>
-														<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
-														<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+														<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+														<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
 											    	</c:otherwise>
 												</c:choose>
 												<c:set var="totalAnt" value="${totalAnt+kpi.promMvevalRealAnoAnt}"/>
 												<c:set var="totalActual" value="${totalActual+kpi.promMvevalRealAnoActual}"/>
 												<c:forEach items="${kpi.lista}" var="val"
 													varStatus="loopCounter">
-														<td nowrap>
+														<td nowrap style="text-align: right;">
 														<c:choose>
 															<c:when test="${fn:contains(simbolo, 'p')}">
 																<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />%
@@ -253,14 +253,14 @@ tr:last-child {
 										<tr><td></td>
 											<c:choose>
 												<c:when test="${fn:contains(simbolo, 'p')}">
-													<td><fmt:formatNumber pattern="###,##0.0" value="${totalAnt div numLineas}" type="number" />%</td>
-													<td><fmt:formatNumber pattern="###,##0.0" value="${totalActual div numLineas} " type="number" />%</td>
-													<td><fmt:formatNumber pattern="###,##0.0" value="${totalMonth div numLineas}" type="number" />%</td>
+													<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${totalAnt div numLineas}" type="number" />%</td>
+													<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${totalActual div numLineas} " type="number" />%</td>
+													<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${totalMonth div numLineas}" type="number" />%</td>
 										    	</c:when>    
 										    	<c:otherwise>
-													<td><fmt:formatNumber pattern="###,##0.0" value="${totalAnt}" type="number" /></td>
-													<td><fmt:formatNumber pattern="###,##0.0" value="${totalActual}" type="number" /></td>
-													<td><fmt:formatNumber pattern="###,##0.0" value="${totalMonth}" type="number" /></td>
+													<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${totalAnt}" type="number" /></td>
+													<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${totalActual}" type="number" /></td>
+													<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${totalMonth}" type="number" /></td>
 										    	</c:otherwise>
 											</c:choose>
 										</tr>
