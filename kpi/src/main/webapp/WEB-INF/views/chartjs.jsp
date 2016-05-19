@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
-<title>Grand Bay</title>
+<title>Balanced Scorecard</title>
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -90,17 +90,18 @@ tr:last-child {
 <body>
 	<!-- possible classes: minified, fixed-ribbon, fixed-header, fixed-width-->
 
-		<input type="hidden" id="v4l0" value="${param['v4l0']}"/>
-		<input type="hidden" id="p" value="${param['p']}"/>
+		<input type="hidden" id="i" value="${i}"/>
+		<input type="hidden" id="p" value="${p}"/>
+		<input type="hidden" id="op" name="op" value="${op}"/>
 		<!-- #HEADER -->
 			<header id="header">
 		
 		<div id="logos" style="width: 100%">
-			<img src="<c:url value="/resources/img/adm/Panasa_Colombia.png"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
-			<img src="<c:url value="/resources/img/adm/Paveca_Venezuela.jpg"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
-			<img src="<c:url value="/resources/img/adm/Painsa_Guatemala.JPG"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
-			<img src="<c:url value="/resources/img/adm/GBP_Trinidad.jpg"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
-			<img src="<c:url value="/resources/img/adm/Papisa_Panama.gif"/>" style="z-index: -1; opacity: 0.1;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Panasa_Colombia.png"/>" style="z-index: -1; opacity: 0.05;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Paveca_Venezuela.jpg"/>" style="z-index: -1; opacity: 0.03;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Painsa_Guatemala.JPG"/>" style="z-index: -1; opacity: 0.03;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/GBP_Trinidad.jpg"/>" style="z-index: -1; opacity: 0.05;  max-width: 20%; height: auto;" alt="SmartAdmin">
+			<img src="<c:url value="/resources/img/adm/Papisa_Panama.gif"/>" style="z-index: -1; opacity: 0.05;  max-width: 20%; height: auto;" alt="SmartAdmin">
 		</div>
 
 		<!-- pulled right: nav area -->
@@ -179,7 +180,7 @@ tr:last-child {
 						<article class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 							
 								<header>
-									<h2>${param["i"]}</h2>				
+									<h2>${param["indicador"]}</h2>				
 								</header>
 								
 								
@@ -192,6 +193,13 @@ tr:last-child {
 										
 										<!-- this is what the user will see -->
 										<canvas id="lineChart" height="120"></canvas>
+
+									</div>
+									<br><br><br><br>
+									<div class="widget-body">
+										
+										<!-- this is what the user will see -->
+										<canvas id="barChart" height="120"></canvas>
 
 									</div>
 									<!-- end widget content -->
@@ -347,8 +355,7 @@ tr:last-child {
 
 		<![endif]-->
 
-	<!-- Demo purpose only -->
-	<script src="<c:url value="/resources/js/demo.min.js"/>"></script>
+	
 
 	<!-- MAIN APP JS FILE -->
 	<script src="<c:url value="/resources/js/app.min.js"/>"></script>
@@ -358,20 +365,12 @@ tr:last-child {
 	<script src="<c:url value="/resources/js/speech/voicecommand.min.js"/>"></script>
 
 	<!-- PAGE RELATED PLUGIN(S) -->
-	<script
-		src="<c:url value="/resources/js/plugin/datatables/jquery.dataTables.min.js"/>"></script>
-	<script
-		src="<c:url value="/resources/js/plugin/datatables/dataTables.colVis.min.js"/>"></script>
+
 	<script
 		src="<c:url value="/resources/js/plugin/datatables/dataTables.tableTools.min.js"/>"></script>
 	<script
 		src="<c:url value="/resources/js/plugin/datatables/dataTables.bootstrap.min.js"/>"></script>
-	<script
-		src="<c:url value="/resources/js/plugin/datatable-responsive/datatables.responsive.min.js"/>"></script>
 
-	<script src="<c:url value="/resources/js/smart-chat-ui/smart.chat.ui.min.js"/>"></script>
-	<script src="<c:url value="/resources/js/smart-chat-ui/smart.chat.manager.min.js"/>"></script>
-		
 	<script src="<c:url value="/resources/js/plugin/chartjs/chart.min.js"/>"></script>
 
 	<script type="text/javascript">
@@ -463,65 +462,121 @@ tr:last-child {
 				    //String - A legend template
 				     legendTemplate : ""
 			    };
-			    
-				var v4lo=document.getElementById('v4l0').value;
+			
+				var v4lo=document.getElementById('i').value;
 				var pr3=document.getElementById('p').value;
+				v4lo = v4lo.substring(1);
+				pr3 = pr3.substring(1);
 				var real = v4lo.split(";");
+				for (x=0; x<12;x++){
+					if (!real[x])
+							real[x]=0;
+				}
+				//alert(real);
 				var presupuestado = pr3.split(";");
-				//alert(presupuestado[1]);
-			    var lineData = { labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			        datasets: [
+				for (x=0; x<12;x++){
+					if (!presupuestado[x])
+						presupuestado[x]=0;
+				}
+				var label="";
+				var elop=$("#op").val();
+				
+				
+				if (document.getElementById('op').value == 'y'){
+					label=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+				}
+				else{
+					var label=["Q1", "Q2", "Q3", "Q4"];					
+				}
+				label=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+			    var lineData = { labels: label,
+				        datasets: [
+					        {
+					            label: "My First dataset",
+					            fillColor: "rgba(220,220,220,0.2)",
+					            strokeColor: "rgba(220,220,220,1)",
+					            pointColor: "rgba(220,220,220,1)",
+					            pointStrokeColor: "#fff",
+					            pointHighlightFill: "#fff",
+					            pointHighlightStroke: "rgba(220,220,220,1)",
+					            data: [real[0], real[1], real[2], real[3], real[4], real[5], real[6], real[7], real[8], real[9], real[10], real[11]]
+					        },
+					        {
+					            label: "My Second dataset",
+					            fillColor: "rgba(151,187,205,0.2)",
+					            strokeColor: "rgba(151,187,205,1)",
+					            pointColor: "rgba(151,187,205,1)",
+					            pointStrokeColor: "#fff",
+					            pointHighlightFill: "#fff",
+					            pointHighlightStroke: "rgba(151,187,205,1)",
+					            data: [presupuestado[0], presupuestado[1], presupuestado[2], presupuestado[3], presupuestado[4], presupuestado[5], presupuestado[6], presupuestado[7], presupuestado[8], presupuestado[9], presupuestado[10], presupuestado[11]]
+					        }
+					    ]
+				    };
+
+				    // render chart
+				    var ctx = document.getElementById("lineChart").getContext("2d");
+				    var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+
+			    // END LINE CHART
+			    
+			     // BAR CHART
+
+			    var barOptions = {
+				    //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+				    scaleBeginAtZero : true,
+				    //Boolean - Whether grid lines are shown across the chart
+				    scaleShowGridLines : true,
+				    //String - Colour of the grid lines
+				    scaleGridLineColor : "rgba(0,0,0,.05)",
+				    //Number - Width of the grid lines
+				    scaleGridLineWidth : 1,
+				    //Boolean - If there is a stroke on each bar
+				    barShowStroke : true,
+				    //Number - Pixel width of the bar stroke
+				    barStrokeWidth : 1,
+				    //Number - Spacing between each of the X value sets
+				    barValueSpacing : 5,
+				    //Number - Spacing between data sets within X values
+				    barDatasetSpacing : 1,
+				    //Boolean - Re-draw chart on page resize
+			        responsive: true,
+				    //String - A legend template
+				    
+			    }
+
+			    var barData = {
+			    	 labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+			         datasets: [
 				        {
 				            label: "My First dataset",
-				            fillColor: "rgba(220,220,220,0.2)",
-				            strokeColor: "rgba(220,220,220,1)",
-				            pointColor: "rgba(220,220,220,1)",
-				            pointStrokeColor: "#fff",
-				            pointHighlightFill: "#fff",
-				            pointHighlightStroke: "rgba(220,220,220,1)",
-				            data: [real[1], real[2], real[3], real[4], real[5], real[6], real[7], real[8], real[9], real[10], real[11], real[12]]
+				            fillColor: "rgba(220,220,220,0.5)",
+				            strokeColor: "rgba(220,220,220,0.8)",
+				            highlightFill: "rgba(220,220,220,0.75)",
+				            highlightStroke: "rgba(220,220,220,1)",
+				            data: [real[0], real[1], real[2], real[3], real[4], real[5], real[6], real[7], real[8], real[9], real[10], real[11]]
 				        },
 				        {
 				            label: "My Second dataset",
-				            fillColor: "rgba(151,187,205,0.2)",
-				            strokeColor: "rgba(151,187,205,1)",
-				            pointColor: "rgba(151,187,205,1)",
-				            pointStrokeColor: "#fff",
-				            pointHighlightFill: "#fff",
-				            pointHighlightStroke: "rgba(151,187,205,1)",
-				            data: [presupuestado[1], presupuestado[2], presupuestado[3], presupuestado[4], presupuestado[5], presupuestado[6], presupuestado[7], presupuestado[8], presupuestado[9], presupuestado[10], presupuestado[11], presupuestado[12]]
+				            fillColor: "rgba(151,187,205,0.5)",
+				            strokeColor: "rgba(151,187,205,0.8)",
+				            highlightFill: "rgba(151,187,205,0.75)",
+				            highlightStroke: "rgba(151,187,205,1)",
+				            data: [presupuestado[0], presupuestado[1], presupuestado[2], presupuestado[3], presupuestado[4], presupuestado[5], presupuestado[6], presupuestado[7], presupuestado[8], presupuestado[9], presupuestado[10], presupuestado[11]]
 				        }
 				    ]
 			    };
 
 			    // render chart
-			    var ctx = document.getElementById("lineChart").getContext("2d");
-			    var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+			    var ctx2 = document.getElementById("barChart").getContext("2d");
+			    var myNewChart = new Chart(ctx2).Bar(barData, barOptions);
 
-			    // END LINE CHART
+			    // END BAR CHART
 	
 				
 			})
 		
 		</script>
-
-		<!-- Your GOOGLE ANALYTICS CODE Below -->
-		<script type="text/javascript">
-			var _gaq = _gaq || [];
-				_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-				_gaq.push(['_trackPageview']);
-			
-			(function() {
-				var ga = document.createElement('script');
-				ga.type = 'text/javascript';
-				ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(ga, s);
-			})();
-
-		</script>
-
 	</body>
 
 </html>

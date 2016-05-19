@@ -72,7 +72,6 @@ public class KpiDaoImpl implements KpiDao {
 		// Lee todos los indicadores de la base de datos
 		for (Cfg cfg : indicadores) {
 			
-			System.out.println("Operación:"+cfg.getOperacion()+"Indicador:"+cfg.getIndicador());
 			if (cfg.getOperacion().equals("AV2")){
 				 operacion_primer_campo="avg";
 				 operacion_segundo_campo="max";
@@ -90,13 +89,12 @@ public class KpiDaoImpl implements KpiDao {
 			else{
 				filtro = "";
 			}
-			System.out.println("SQL: "+sql);
 			
 			// Va a la base de datos y toma para cada indicador
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
-							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
@@ -146,7 +144,7 @@ public class KpiDaoImpl implements KpiDao {
 		    @SuppressWarnings("unchecked")
 		    List<Object[]> prom = em
 					.createQuery(
-							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
@@ -159,7 +157,6 @@ public class KpiDaoImpl implements KpiDao {
 					.getResultList();
 				
 		    if (prom.size() > 0){
-		    	//System.out.println("-----------"+prom.get(0)[0].toString()+"----------------------");
 				anioAntReal = new java.math.BigDecimal(prom.get(0)[1].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 				anioAntPres = new java.math.BigDecimal(prom.get(0)[2].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 			}
@@ -241,7 +238,7 @@ public class KpiDaoImpl implements KpiDao {
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
-							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
@@ -297,7 +294,7 @@ public class KpiDaoImpl implements KpiDao {
 		    @SuppressWarnings("unchecked")
 		    List<Object[]> prom = em
 					.createQuery(
-							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
@@ -455,7 +452,7 @@ public class KpiDaoImpl implements KpiDao {
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
-							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
@@ -572,7 +569,7 @@ public class KpiDaoImpl implements KpiDao {
 		    @SuppressWarnings("unchecked")
 		    List<Object[]> prom = em
 					.createQuery(
-							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getMoneda()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
+							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
 									+ " From Kpi as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "

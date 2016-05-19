@@ -242,21 +242,23 @@
 							<td rowspan="2">${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
 							<c:choose>
-								<c:when test="${fn:contains(kpi.unidad, '%')}">
-									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
-									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
+								<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 						    	</c:when>    
 						    	<c:otherwise>
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
 						    	</c:otherwise>
 							</c:choose>
+							<c:set var="real" value=""/>
+							<c:set var="presupuestado" value=""/>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 									<td style="text-align: right;" nowrap>
 										<c:choose>
-											<c:when test="${fn:contains(kpi.unidad, '%')}">
-												<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />%
+											<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+												<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
 									    	</c:when>    
 									    	<c:otherwise>
 												<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
@@ -273,7 +275,8 @@
 										    </c:otherwise>
 										</c:choose>
 									</td>
-									<c:set var="real" value="${real};${val.mveval}"/>
+									<fmt:formatNumber var="real2" pattern="###" value="${val.mveval}" type="number" maxFractionDigits="0"/>
+									<c:set var="real" value="${real};${real2}"/>
 							</c:forEach>
 							
 							<td><img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
@@ -283,9 +286,9 @@
 						<tr class="${color}">
 							<td>${kpi.tipoDos}</td>
 							<c:choose>
-								<c:when test="${fn:contains(kpi.unidad, '%')}">
-									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" />%</td>
-									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" />%</td>
+								<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 						    	</c:when>    
 						    	<c:otherwise>
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
@@ -295,15 +298,15 @@
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 								<c:choose>
-									<c:when test="${fn:contains(kpi.unidad, '%')}">
+									<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 										<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 							    	</c:when>    
 							    	<c:otherwise>
 							    		<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 							    	</c:otherwise>
 								</c:choose>
-									
-									<c:set var="presupuestado" value="${presupuestado};${val.mvevpe}"/>
+								<fmt:formatNumber var="presupuestado2" pattern="###" value="${val.mvevpe}" type="number" maxFractionDigits="0"/>
+								<c:set var="presupuestado" value="${presupuestado};${presupuestado2}"/>
 							</c:forEach>
 							
 							<td><img onclick="graph('${real}', '${presupuestado}', '${ kpi.ind }')" src="<c:url value="/resources/img/adm/graph.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
@@ -466,10 +469,6 @@
 							var t="${tas}";
 							var c1a="${c1a}";
 							var curr="${cur}";
-							if (t=="mvevpe")
-								document.getElementById("tasa").selectedIndex = "1";
-							else
-								document.getElementById("tasa").selectedIndex = "0";
 							
 							if (c1a=="Todas")
 								$('#moneda').prop('disabled', true);
@@ -480,6 +479,11 @@
 								$('#tasa').prop('disabled', true);
 							else
 								$('#tasa').prop('disabled', false);
+							
+							if (t=="mveval")
+								$("#tasa").val("m");
+							else
+								$("#tasa").val("p");
 							
 							var lineOptions = {
 								    ///Boolean - Whether grid lines are shown across the chart
@@ -544,8 +548,8 @@
 
 							//document.getElementById('region').value="${navega.dash_region}";
 							//document.getElementById('nia').value="${navega.dash_nia}";
-							document.getElementById('moneda').value="${navega.dash_moneda}";
-							document.getElementById('tasa').value="${navega.dash_tasa}";
+							//document.getElementById('moneda').value="${navega.dash_moneda}";
+							//document.getElementById('tasa').value="${navega.dash_tasa}";
 							pageSetUp();
 
 							/* // DOM Position key index //
@@ -1399,7 +1403,7 @@
 		}
 		
 		function graph(real, presupuestado, indicador) {
-			window.location="chartjs?v4l0="+real+"&i="+encodeURIComponent(indicador)+"&p="+presupuestado;
+			window.location="chartjs?i="+real+"&indicador="+encodeURIComponent(indicador)+"&p="+presupuestado+"&op=q";
 			//$('#dialog-graph').dialog('open');
 		}
 		

@@ -46,7 +46,7 @@ public class salesController {
 	public String inicio(Model model) {
 		if (model.containsAttribute("user_inicio") == true) {
 			((session) model.asMap().get("user_inicio")).setDash_region(companyService.getCompanyRegion(((session) model.asMap().get("user_inicio")).getDash_nia()).getRegion_id().getRegion_id());
-			System.out.println("------------La region: "+((session) model.asMap().get("user_inicio")).getDash_region());
+			//System.out.println("------------La region: "+((session) model.asMap().get("user_inicio")).getDash_region());
 			model.addAttribute("r3g", ((session) model.asMap().get("user_inicio")).getDash_region());
 			model.addAttribute("c1a", ((session) model.asMap().get("user_inicio")).getDash_nia());
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
@@ -232,9 +232,12 @@ public class salesController {
 	}
 
 	@RequestMapping(value = "/chartjs", method = RequestMethod.GET)
-	public String chartjs(Model model) {
+	public String chartjs(@RequestParam String i, @RequestParam String indicador, @RequestParam String p, Model model) {
 		if (model.containsAttribute("user_inicio") == true) {
 			//model.addAttribute("valor", kpiService.listKip((session) model.asMap().get("user_inicio")));
+			model.addAttribute("i",i);
+			model.addAttribute("p",p);
+			model.addAttribute("indicador",indicador);
 			return "chartjs";
 		} else {
 			return "redirect:/index/ingreso";
@@ -268,15 +271,18 @@ public class salesController {
 			if (m3r.equals("0")) {
 				if (t4s4.equals("p")){
 					((session) model.asMap().get("user_inicio")).setMoneda("mvevap");
+					((session) model.asMap().get("user_inicio")).setDash_tasa("mvevap");
 				}
 				else{
 					((session) model.asMap().get("user_inicio")).setMoneda("mveval");
+					((session) model.asMap().get("user_inicio")).setDash_tasa("mveval");
 				}
 				((session) model.asMap().get("user_inicio")).setDash_moneda("0");
 				return "dashboard";
 			} else if (m3r.equals("1")) {
 				((session) model.asMap().get("user_inicio")).setDash_moneda("1");
 				((session) model.asMap().get("user_inicio")).setMoneda("mvevac");
+				((session) model.asMap().get("user_inicio")).setDash_tasa("mvevac");
 				return "dashboard";
 			} else {
 				return "redirect:/index/ingreso";
@@ -295,11 +301,13 @@ public class salesController {
 	@RequestMapping(value = "/tasa", method = RequestMethod.POST)
 	public String tasa(@RequestParam String t4s4, Model model) {
 		if (model.containsAttribute("user_inicio") == true) {
+			System.out.println("Opción"+t4s4);
 			if (t4s4.equals("p")) {
 				((session) model.asMap().get("user_inicio")).setDash_tasa("mvevap");
 				return "dashboard";
 			} else if (t4s4.equals("m")) {
-				((session) model.asMap().get("user_inicio")).setDash_tasa("mvevpe");
+				((session) model.asMap().get("user_inicio")).setDash_tasa("mveval");
+				
 				return "dashboard";
 			} else {
 				return "redirect:/index/ingreso";
