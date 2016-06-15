@@ -232,11 +232,12 @@ public class salesController {
 	}
 
 	@RequestMapping(value = "/chartjs", method = RequestMethod.GET)
-	public String chartjs(@RequestParam String i, @RequestParam String indicador, @RequestParam String p, Model model) {
+	public String chartjs(@RequestParam String i, @RequestParam String indicador, @RequestParam String p, @RequestParam String op, Model model) {
 		if (model.containsAttribute("user_inicio") == true) {
 			//model.addAttribute("valor", kpiService.listKip((session) model.asMap().get("user_inicio")));
 			model.addAttribute("i",i);
 			model.addAttribute("p",p);
+			model.addAttribute("op",op);
 			model.addAttribute("indicador",indicador);
 			return "chartjs";
 		} else {

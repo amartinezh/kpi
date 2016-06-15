@@ -1451,7 +1451,8 @@
 		}
 		
 		function graph(real, presupuestado, indicador) {
-			window.location="chartjs?v4l0="+real+"&i="+encodeURIComponent(indicador)+"&p="+presupuestado;
+			//window.location="chartjs?v4l0="+real+"&i="+encodeURIComponent(indicador)+"&p="+presupuestado;
+			window.location="chartjs?i="+real+"&indicador="+encodeURIComponent(indicador)+"&p="+presupuestado+"&op=m&mm="+$("#mes").val();
 			//$('#dialog-graph').dialog('open');
 		}
 		

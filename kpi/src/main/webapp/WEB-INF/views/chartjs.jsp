@@ -93,6 +93,7 @@ tr:last-child {
 		<input type="hidden" id="i" value="${i}"/>
 		<input type="hidden" id="p" value="${p}"/>
 		<input type="hidden" id="op" name="op" value="${op}"/>
+		<input type="hidden" id="mm" name="mm" value="${mm}"/>
 		<!-- #HEADER -->
 			<header id="header">
 		
@@ -245,7 +246,7 @@ tr:last-child {
 		<!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
 		Note: These tiles are completely responsive,
 		you can add as many as you like
-		-->
+		
 		<div id="shortcut">
 			<ul>
 				<li>
@@ -268,6 +269,8 @@ tr:last-child {
 				</li>
 			</ul>
 		</div>
+		
+		-->
 		<!-- END SHORTCUT AREA -->
 
 		<!--================================================== -->
@@ -486,13 +489,18 @@ tr:last-child {
 					label=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 				}
 				else{
-					var label=["Q1", "Q2", "Q3", "Q4"];					
+					if (document.getElementById('op').value == 'q'){
+						var label=["Q1", "Q2", "Q3", "Q4"];
+					}
+					else{
+						var label=[document.getElementById('mm').value, "Mes"];					
+					}
 				}
-				label=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+				//label=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 			    var lineData = { labels: label,
 				        datasets: [
 					        {
-					            label: "My First dataset",
+					            label: "Balanced ScoreCard",
 					            fillColor: "rgba(220,220,220,0.2)",
 					            strokeColor: "rgba(220,220,220,1)",
 					            pointColor: "rgba(220,220,220,1)",
@@ -502,7 +510,7 @@ tr:last-child {
 					            data: [real[0], real[1], real[2], real[3], real[4], real[5], real[6], real[7], real[8], real[9], real[10], real[11]]
 					        },
 					        {
-					            label: "My Second dataset",
+					            label: "Balanced ScoreCard",
 					            fillColor: "rgba(151,187,205,0.2)",
 					            strokeColor: "rgba(151,187,205,1)",
 					            pointColor: "rgba(151,187,205,1)",
@@ -546,7 +554,7 @@ tr:last-child {
 			    }
 
 			    var barData = {
-			    	 labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+			    	 labels: label,
 			         datasets: [
 				        {
 				            label: "My First dataset",

@@ -82,7 +82,7 @@ public class KpiDaoImpl implements KpiDao {
 			}
 			
 			// Se interpretan diferente ciertos indicadores, se toma el máximo pero si la bandera mverid es 1
-			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN017")){
+			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN016") || cfg.getIndicador().equals("VEN017")){
 				operacion_primer_campo="max";
 				filtro = " AND k.mverid='1' ";
 			}
@@ -226,7 +226,7 @@ public class KpiDaoImpl implements KpiDao {
 			}
 			
 			// Se interpretan diferente ciertos indicadores, se toma el máximo pero si la bandera mverid es 1
-			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN017")){
+			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN016") || cfg.getIndicador().equals("VEN017")){
 				operacion_primer_campo="max";
 				filtro = " AND k.mverid='1' ";
 			}
@@ -262,9 +262,12 @@ public class KpiDaoImpl implements KpiDao {
 			int meses=0;
 			// Se va colocando cada mes en la hoja de resultado
 			for (Object[] r : result) {
+				
+				// Valor Budget
 				list.get(0).setMveval(
 						new BigDecimal(r[3].toString()).setScale(8,	BigDecimal.ROUND_HALF_EVEN));
 
+				// Valor Budget
 				list.get(0).setMvevpe(
 						new BigDecimal(r[4].toString()).setScale(8, BigDecimal.ROUND_HALF_EVEN));
 
@@ -362,6 +365,7 @@ public class KpiDaoImpl implements KpiDao {
 		    
 		    //promMvevalRealAnoActual=promMvevalRealAnoActual.subtract(new java.math.BigDecimal( ses.getMes()).setScale(3, BigDecimal.ROUND_HALF_EVEN)    );
 			promMvevalRealAnoActual=promMvevalRealAnoActual.divide(new BigDecimal(ses.getMes()), 2, RoundingMode.HALF_UP);
+			promMvevpePresupuestadoAnoActual=promMvevpePresupuestadoAnoActual.divide(new BigDecimal(ses.getMes()), 2, RoundingMode.HALF_UP);
 			
 			
 			// Se va agregando a la hoja de reporte cada línea para luego ser mostrada en la vista
@@ -441,7 +445,7 @@ public class KpiDaoImpl implements KpiDao {
 			}
 			
 			// Se interpretan diferente ciertos indicadores, se toma el máximo pero si la bandera mverid es 1
-			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN017")){
+			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN016") || cfg.getIndicador().equals("VEN017")){
 				operacion_primer_campo="max";
 				filtro = " AND k.mverid='1' ";
 			}
@@ -879,30 +883,33 @@ public class KpiDaoImpl implements KpiDao {
 						new BigDecimal(r[5].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));
 			
 	 			//Se obtiene el promedio del año anterior por cada línea generada
-				@SuppressWarnings("unchecked")
-				List<Object[]> promedioAnioAnterior = em
-				.createQuery(
-						"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-								+ " From Kpi as k where k.mveind = '"
-								+ ses.getIndicador_drill()
-								+ "'"
-								+ " AND k."+ses.getCampo_llave()+" = '"
-								+ r[0].toString()
-								+ "' "
-								+ filtro
-								+ sql
-								+ " AND k.mveano='"+(Integer.parseInt(ses.getAnio())-1)+"' "
-								+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k."+ses.getCampo_descripcion()
-								+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mveano  asc")
-				.getResultList();
-			    
-			    if (promedioAnioAnterior.size() > 0){
-					anioAntReal = new java.math.BigDecimal(promedioAnioAnterior.get(0)[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
-					anioAntPres = new java.math.BigDecimal(promedioAnioAnterior.get(0)[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
-				}
-				else{
-					anioAntReal = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
-					anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+				
+				if (!ses.getCampo_llave().equals("mvecli")){
+					@SuppressWarnings("unchecked")
+					List<Object[]> promedioAnioAnterior = em
+					.createQuery(
+							"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
+									+ " From Kpi as k where k.mveind = '"
+									+ ses.getIndicador_drill()
+									+ "'"
+									+ " AND k."+ses.getCampo_llave()+" = '"
+									+ r[0].toString()
+									+ "' "
+									+ filtro
+									+ sql
+									+ " AND k.mveano='"+(Integer.parseInt(ses.getAnio())-1)+"' "
+									+ " GROUP BY k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+",  k.mveano , k."+ses.getCampo_descripcion()
+									+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mveano  asc")
+					.getResultList();
+				    
+				    if (promedioAnioAnterior.size() > 0){
+						anioAntReal = new java.math.BigDecimal(promedioAnioAnterior.get(0)[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+						anioAntPres = new java.math.BigDecimal(promedioAnioAnterior.get(0)[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+					}
+					else{
+						anioAntReal = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+						anioAntPres = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
+					}
 				}
 			    // Se obtiene el promedio del PRESENTE año por cada línea generada, todo el año
 			    System.out.println("Esto: "+list.get(0));
