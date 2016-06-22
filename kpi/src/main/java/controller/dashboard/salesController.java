@@ -104,6 +104,32 @@ public class salesController {
 		}
 	}
 	
+	@RequestMapping(value = "/intruso", method = RequestMethod.GET)
+	public String intruso(Model model) {
+		if (model.containsAttribute("user_inicio") == true) {
+			((session) model.asMap().get("user_inicio")).setDash_region(companyService.getCompanyRegion(((session) model.asMap().get("user_inicio")).getDash_nia()).getRegion_id().getRegion_id());
+			//System.out.println("------------La region: "+((session) model.asMap().get("user_inicio")).getDash_region());
+			model.addAttribute("r3g", ((session) model.asMap().get("user_inicio")).getDash_region());
+			model.addAttribute("c1a", ((session) model.asMap().get("user_inicio")).getDash_nia());
+			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
+			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
+			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
+			model.addAttribute("usuario",((session) model.asMap().get("user_inicio")).getUsuario());
+			model.addAttribute("tipo",((session) model.asMap().get("user_inicio")).getTipoUsuario());
+			if (((session) model.asMap().get("user_inicio")).getTipoUsuario() == 2) {
+				model.addAttribute("companyList", companyService.listCompany(((session) model.asMap().get("user_inicio")).getDash_region()));
+			} else {
+				if (((session) model.asMap().get("user_inicio")).getTipoUsuario() == 3) {
+					model.addAttribute("companyList", companyService.listCompany("Todas"));
+				}
+			}
+			
+			return "menu_adm";
+		} else {
+			return "redirect:/index/ingreso";
+		}
+	}
+	
 	@RequestMapping(value = "/salesYear", method = RequestMethod.GET)
 	public String salesYear(Model model, @RequestParam String t, @RequestParam String op10) {
 		if (model.containsAttribute("user_inicio") == true) {

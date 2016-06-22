@@ -6,11 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.adm.Cfg;
 import domain.adm.Region;
-import repository.adm.CfgDao;
 import repository.adm.RegionDao;
 
 @Repository
@@ -39,5 +38,46 @@ public class RegionDaoImpl implements RegionDao {
 	@Transactional
 	public Region getRegion_(String region) {
 		return (Region) em.createQuery("SELECT R FROM Region as R WHERE R.region_id = '"+region+"'").getResultList().get(0);
+	}
+	
+	/////////////////////
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void agregar(Object obj) {
+		em.persist(obj);
+		
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Object agregar_get(Object obj) {
+		em.persist(obj);
+		em.flush();
+		return obj;
+		
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void actualizar(Object obj) {
+		em.merge(obj);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void borrar(Object obj) {
+		em.remove(obj);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Object[]> listar(String sql) {
+		return em.createQuery(sql).getResultList();
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Object getElemento(Object obj, int id) {
+		return em.find(obj.getClass(), id);	
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Object getElemento(Object obj, String id) {
+		return em.find(obj.getClass(), id);	
 	}
 }

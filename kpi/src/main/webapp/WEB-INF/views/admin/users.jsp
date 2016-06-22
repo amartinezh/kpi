@@ -136,21 +136,19 @@
 												<td><c:out value="${userr.id}" /></td>
 												<td><c:out value="${userr.type.descripcion}" /></td>
 												<td><c:out value="${userr.comp.descripcion}" /></td>
-												<td><c:out value="${userr.level.descripcion}" /></td>
+													
 												<td><c:out value="${userr.curr.descripcion}" /></td>
-												<td><c:out value="${userr.cent.descripcion}" /></td>
+												
 												<td align="center" title="Editar usuario ${userr.id}"><form:form
 														method="POST" action="edit" ModelAttribute="user"
 														commandName="user">
 														<form:input path="id" type="hidden" value="${userr.id}" />
 														<form:input path="type.id" type="hidden"
 															value="${userr.type.id}" />
-														<form:input path="level.id" type="hidden"
-															value="${userr.level.id}" />
+														
 														<form:input path="comp.id" type="hidden"
 															value="${userr.comp.id}" />
-														<form:input path="cent.id" type="hidden"
-															value="${userr.cent.id}" />
+														
 														<form:input path="curr.id" type="hidden"
 															value="${userr.curr.id}" />
 														<button type="submit">
