@@ -26,11 +26,11 @@ public class TypeUser implements Serializable {
 	
 	@Id
     @Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="admin.type_users_id_seq")
-	@SequenceGenerator(name="admin.type_users_id_seq", sequenceName="admin.type_users_id_seq", allocationSize=1)
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="admin.type_users_id_seq")
+	//@SequenceGenerator(name="admin.type_users_id_seq", sequenceName="admin.type_users_id_seq", allocationSize=1)
     private int id;
 	
-	@NotEmpty(message = "Por favor ingrese la descripción")
+	//@NotEmpty(message = "Por favor ingrese la descripción")
 	@Column(name = "descripcion")	
 	private String descripcion;
 	
@@ -47,6 +47,11 @@ public class TypeUser implements Serializable {
 	
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+	
+	public TypeUser(int id) {
+		this.id = id;
+		this.descripcion = "";
 	}
 	
 	public TypeUser(int id, String descripcion) {

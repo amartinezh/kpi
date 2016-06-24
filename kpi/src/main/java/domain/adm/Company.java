@@ -26,8 +26,8 @@ public class Company implements Serializable {
 	
 	@Id
     @Column(name = "comp_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="admin.company_comp_id_seq")
-	@SequenceGenerator(name="admin.company_comp_id_seq", sequenceName="admin.company_comp_id_seq", allocationSize=1)
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="admin.company_comp_id_seq")
+	//@SequenceGenerator(name="admin.company_comp_id_seq", sequenceName="admin.company_comp_id_seq", allocationSize=1)
     private String id;
 	
 	@NotEmpty(message = "Por favor ingrese la descripción")
@@ -48,6 +48,20 @@ public class Company implements Serializable {
 	public Company() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Company(String id) {
+		super();
+		this.id = id;
+	}
+
+	public Company(String id, String descripcion, Region region_id) {
+		super();
+		this.id = id;
+		this.descripcion = descripcion;
+		this.region_id = region_id;
+	}
+
+
 
 	public String getId() {
 		return id;

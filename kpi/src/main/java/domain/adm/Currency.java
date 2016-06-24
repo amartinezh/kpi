@@ -20,7 +20,7 @@ public class Currency implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@NotEmpty
+	//@NotEmpty
 	@Column(name="currency_id")
 	private int id;
 	
@@ -30,6 +30,22 @@ public class Currency implements Serializable {
 	@OneToMany(mappedBy="curr")
 	private Set<User> users;
 	
+	public Currency() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Currency(int id, String descripcion) {
+		super();
+		this.id = id;
+		this.descripcion = descripcion;
+	}
+	
+	public Currency(int id) {
+		super();
+		this.id = id;
+		this.descripcion = "";
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

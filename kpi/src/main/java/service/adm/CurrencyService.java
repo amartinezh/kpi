@@ -11,8 +11,9 @@ public interface CurrencyService {
 	public List<Currency> listCurrency();
 	public List<Currency> getCurrency(String id);
 	
-	public void agregarRegion(boolean existe, Region region);
-	public void borrarRegion(Region region);
-	public boolean validarRegion(Region region);
-	public LinkedHashMap<String, String> cmbRegion();
+	public void agregarCurrency(boolean existe, Currency currency);
+	public void borrarCurrency(Currency currency);
+	public boolean validarCurrency(Currency currency);
+	public List<Currency> listarCurrency();
+	public LinkedHashMap<String, String> cmbCurrency();
 }
