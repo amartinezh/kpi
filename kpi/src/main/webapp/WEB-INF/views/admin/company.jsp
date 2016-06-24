@@ -180,7 +180,6 @@
 													<div class="col-md-12 has-feedback">
 														<label class="control-label">Region</label>
 														<form:select path="region_id" class="form-control">
-													    	<form:option value="NONE"> --SELECT--</form:option>
 													    	<form:options items="${cmbRegion}"></form:options>
 														</form:select>
 													</div>
@@ -713,8 +712,8 @@
 		function actualizar() {
 			$( "#frm" ).submit();
 			
-			var acti_id = document.getElementById('region_id').value;
-			alert(acti_id);
+			var acti_id = document.getElementById('id').value;
+			var region_id = document.getElementById('region_id').value;
 			var des = document.getElementById('descripcion').value;
 			var opc=document.getElementById('elboton').innerHTML;
 			$.ajax({
@@ -722,10 +721,11 @@
 				url : "company/agregar",
 				data : {
 					company_id: acti_id,
+					region_id: region_id,
 					descripcion : des,
 					opcion: opc
 				},
-				success : function(data) {alert(data);
+				success : function(data) {
 					 if (data=="semodifico"){
 						 $.smallBox({
 							title : "Fue modificado con éxito!!!",
@@ -748,7 +748,7 @@
 						 }
 						 else{
 							 var res = data.split(":::");
-							 $('#datatable_fixed_column').dataTable().fnAddData( [res[0],res[1]] );
+							 $('#datatable_fixed_column').dataTable().fnAddData( [res[0],res[1], res[2]] );
 							 $.smallBox({
 									title : "La información se registró adecuadamente",
 									content : "Para ingresar un nuevo registro ingrese la información y presione el botón Actualizar",
