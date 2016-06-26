@@ -50,7 +50,7 @@ public class JPAUserDao implements UserDao {
 						+ p + "'").getResultList();
 		if (results.isEmpty())
 			return null;
-		else{
+		else {
 			return results.get(0);
 		}
 	}
@@ -88,4 +88,44 @@ public class JPAUserDao implements UserDao {
 		}
 	}
 
+	// ///////////////////
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void agregar(Object obj) {
+		em.persist(obj);
+
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Object agregar_get(Object obj) {
+		em.persist(obj);
+		em.flush();
+		return obj;
+
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void actualizar(Object obj) {
+		em.merge(obj);
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void borrar(Object obj) {
+		em.remove(obj);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Object[]> listar(String sql) {
+		return em.createQuery(sql).getResultList();
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Object getElemento(Object obj, int id) {
+		return em.find(obj.getClass(), id);
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Object getElemento(Object obj, String id) {
+		return em.find(obj.getClass(), id);
+	}
 }

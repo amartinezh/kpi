@@ -1,10 +1,8 @@
  package service.login;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-
-import domain.adm.TypeUser;
 import domain.login.User;
 
 public interface UserManager extends Serializable {
@@ -16,4 +14,9 @@ public interface UserManager extends Serializable {
     public void deleteUser(String id);
     public boolean editUser(User user);
 
+    public void agregarUser(boolean existe, User user);
+	public void borrarUser(User user);
+	public boolean validarUser(User user);
+	public List<User> listarUser();
+	public LinkedHashMap<String, String> cmbUser();
 }

@@ -54,7 +54,22 @@ public class User implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
         
-    public String getId()
+    public User(String id) {
+		super();
+		this.id = id;
+	}
+
+	public User(String id, String pass, TypeUser type, Company comp,
+			Currency curr) {
+		super();
+		this.id = id;
+		this.pass = pass;
+		this.type = type;
+		this.comp = comp;
+		this.curr = curr;
+	}
+
+	public String getId()
     {
         return id;
     }
