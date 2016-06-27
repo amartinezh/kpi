@@ -13,7 +13,7 @@ import domain.login.User;
 
 @Entity
 @Table(name="nivel_organico", schema="gestion")
-public class nivel implements Serializable {
+public class Nivel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -31,17 +31,24 @@ public class nivel implements Serializable {
 	@OneToMany(mappedBy="curr")
 	private Set<User> users;
 	
-	public nivel() {
+	public Nivel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public nivel(int id) {
+	public Nivel(int id) {
 		super();
 		this.id = id;
 	}
+	
 
-	public nivel(int id, String descripcion, String area_estrategica,
+	public Nivel(int id, String descripcion) {
+		super();
+		this.id = id;
+		this.descripcion = descripcion;
+	}
+
+	public Nivel(int id, String descripcion, String area_estrategica,
 			Set<User> users) {
 		super();
 		this.id = id;
@@ -104,7 +111,7 @@ public class nivel implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		nivel other = (nivel) obj;
+		Nivel other = (Nivel) obj;
 		if (area_estrategica == null) {
 			if (other.area_estrategica != null)
 				return false;

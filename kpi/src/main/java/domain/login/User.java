@@ -46,7 +46,7 @@ public class User implements Serializable {
     @ManyToOne
     private Currency curr;
     
-    @Column(name = "pass")
+    @Column(name = "nivel_organico_id")
     @NotEmpty(message = "Por favor ingrese contraseña")    
     private String nivel_organico_id;
     
