@@ -12,6 +12,7 @@ public interface CompanyService {
 	public List<Company> listCompany(String id);
 	public String listCompany_(String id);
 	public List<Company> listCompany__(String id);
+	public Company getCompany(String id);
 	public Company getCompanyRegion(String id);
 	
 	public void agregarCompany(boolean existe, Company company);

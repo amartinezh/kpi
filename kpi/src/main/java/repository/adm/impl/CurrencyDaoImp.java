@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import domain.adm.Company;
 import domain.adm.Currency;
 import repository.adm.CurrencyDao;
 
@@ -33,6 +34,11 @@ public class CurrencyDaoImp implements CurrencyDao
 	@Transactional
 	public List<Currency> getCurrency(String id) {
 		return em.createQuery("SELECT C FROM Currency as C where C.id = '"+id+"'").getResultList();
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Currency getCurrency_(String id) {
+		return (Currency) em.find(Currency.class, id);
 	}
 	
 	// ///////////////////

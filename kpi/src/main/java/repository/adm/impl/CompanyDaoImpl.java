@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.adm.Company;
+import domain.adm.TypeUser;
 import repository.adm.CompanyDao;
 
 @Repository
@@ -72,6 +73,11 @@ public class CompanyDaoImpl implements CompanyDao {
 			return results.get(0);
 		}
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Company getCompany(String id) {
+		return (Company) em.find(Company.class, id);
+	}
 
 	// ///////////////////
 
@@ -113,4 +119,5 @@ public class CompanyDaoImpl implements CompanyDao {
 	public Object getElemento(Object obj, String id) {
 		return em.find(obj.getClass(), id);
 	}
+
 }

@@ -91,4 +91,7 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.getCompanyRegion(id);
 	}
 
+	public Company getCompany(String id){
+		return companyDao.getCompanyRegion(id);
+	}
 }

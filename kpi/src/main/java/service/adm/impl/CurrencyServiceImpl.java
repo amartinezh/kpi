@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import domain.adm.Company;
 import domain.adm.Currency;
 import domain.adm.Region;
 import repository.adm.CurrencyDao;
@@ -76,5 +77,9 @@ public class CurrencyServiceImpl implements CurrencyService {
 	
 	public List<Currency> getCurrency(String id){
 		return currencyDao.getCurrency(id);
+	}
+	
+	public Currency getCurrency_(String id){
+		return currencyDao.getCurrency_(id);
 	}
 }

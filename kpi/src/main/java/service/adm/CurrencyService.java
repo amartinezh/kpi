@@ -10,6 +10,7 @@ public interface CurrencyService {
 
 	public List<Currency> listCurrency();
 	public List<Currency> getCurrency(String id);
+	public Currency getCurrency_(String id);
 	
 	public void agregarCurrency(boolean existe, Currency currency);
 	public void borrarCurrency(Currency currency);

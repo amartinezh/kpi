@@ -2,12 +2,13 @@ package repository.adm;
 
 import java.util.List;
 
-import domain.adm.Currency;
+import domain.adm.Nivel;
 
-public interface CurrencyDao {
+public interface NivelDao {
 	
-	public List<Currency> listCurrency();
-	public List<Currency> getCurrency(String id);
+	public List<Nivel> listNivel();
+	public List<Nivel> getNivel(String id);
+	public Nivel getNivel_(String id);
 	
 	public void agregar(Object obj);
 	public Object agregar_get(Object obj);

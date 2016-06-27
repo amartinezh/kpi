@@ -3,15 +3,12 @@ package service.login;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.adm.Company;
 import domain.adm.Currency;
-import domain.adm.Region;
 import domain.adm.TypeUser;
 import domain.login.User;
 import repository.login.UserDao;
