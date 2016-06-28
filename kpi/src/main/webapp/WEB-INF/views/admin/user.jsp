@@ -193,6 +193,12 @@
 													    	<form:options items="${cmbCurrency}"></form:options>
 														</form:select>
 													</div>
+													<div class="col-md-12 has-feedback">
+														<label class="control-label">Nivel</label>
+														<form:select path="nivel" class="form-control">
+													    	<form:options items="${cmbNivel}"></form:options>
+														</form:select>
+													</div>
 												</div>
 											</div>
 										</fieldset>
@@ -310,7 +316,7 @@
 										<tr role="row" class="odd">
 											<td class="sorting_1"><span class="responsiveExpander"></span>
 												<a class="btn btn-success btn-circle btn-sx"
-												onclick="con('<c:out value="${obj.id}"></c:out>','<c:out value="${obj.descripcion}"></c:out>',$(this))">
+												onclick="con('<c:out value="${obj.id}"></c:out>','<c:out value="${obj.id}"></c:out>',$(this))">
 												<i class="fa fa-edit"></i></a> <a
 												class="btn btn-danger btn-circle"
 												onclick="borrar(<c:out value="${obj.id}"></c:out>, $(this))">
@@ -739,9 +745,12 @@
 		function actualizar() {
 			$( "#frm" ).submit();
 			
-			var acti_id = document.getElementById('id').value;
-			var region_id = document.getElementById('region_id').value;
-			var des = document.getElementById('descripcion').value;
+			var id = document.getElementById('id').value;
+			var pass = document.getElementById('pass').value;
+			var type = document.getElementById('type').value;
+			var company = document.getElementById('descripcion').value;
+			var curr = document.getElementById('descripcion').value;
+			var nivel = document.getElementById('descripcion').value;
 			var opc=document.getElementById('elboton').innerHTML;
 			$.ajax({
 				type : "POST",

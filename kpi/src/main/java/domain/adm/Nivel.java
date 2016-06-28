@@ -28,7 +28,7 @@ public class Nivel implements Serializable {
 	@Column(name="area_estrategica")
 	private String area_estrategica;
 	
-	@OneToMany(mappedBy="curr")
+	@OneToMany(mappedBy="nivel")
 	private Set<User> users;
 	
 	public Nivel() {
@@ -40,7 +40,6 @@ public class Nivel implements Serializable {
 		super();
 		this.id = id;
 	}
-	
 
 	public Nivel(int id, String descripcion) {
 		super();

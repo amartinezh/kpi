@@ -3,12 +3,14 @@ package service.login;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.adm.Company;
 import domain.adm.Currency;
+import domain.adm.Nivel;
 import domain.adm.TypeUser;
 import domain.login.User;
 import repository.login.UserDao;
@@ -62,11 +64,11 @@ public class SimpleUserManager implements UserManager {
 	@Transactional
 	public List<User> listarUser() {
 		List<User> listUser = new LinkedList<User>();
-		String sql = "Select a.id as id, a.type_id as type_id, a.comp_comp_id as comp_comp_id, a.curr_currency_id as curr_currency_id, , a.nivel_organico_id as nivel_organico_id FROM User as a";
+		String sql = "Select a.id as id, a.type as type, a.comp as comp, a.curr as curr, a.nivel as nivel FROM User as a";
 		List<Object[]> data = userDao.listar(sql);
 		if (data != null) {
 			for (Object[] d : data) {
-				listUser.add(new User(d[0].toString(), d[1].toString(), (TypeUser) d[2], (Company) d[3], (Currency) d[4] ));
+				listUser.add(new User(d[0].toString(), "", (TypeUser) d[1], (Company) d[2], (Currency) d[3], (Nivel) d[4] ));
 			}
 		}
 		return listUser;

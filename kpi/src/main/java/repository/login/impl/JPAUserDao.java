@@ -116,6 +116,7 @@ public class JPAUserDao implements UserDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Object[]> listar(String sql) {
+		System.out.println("sql"+sql);
 		return em.createQuery(sql).getResultList();
 	}
 

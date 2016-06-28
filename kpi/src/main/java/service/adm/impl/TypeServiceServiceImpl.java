@@ -46,7 +46,7 @@ public class TypeServiceServiceImpl implements TypeUserService{
 	@Transactional
 	public LinkedHashMap<String, String> cmbTypeUser() {
 		LinkedHashMap<String, String> listTypeUser = new LinkedHashMap<String, String>();
-		String sql = "Select a.id as id, a.descripcion as descripcion FROM Currency as a";
+		String sql = "Select a.id as id, a.descripcion as descripcion FROM TypeUser as a";
 		List<Object[]> data = typeuserdao.listar(sql);
 		listTypeUser.put("0", "Seleccione");
 		if (data != null) {

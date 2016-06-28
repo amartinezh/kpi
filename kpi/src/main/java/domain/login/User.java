@@ -7,20 +7,17 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.util.DigestUtils;
 
 import domain.adm.Company;
 import domain.adm.Currency;
 import domain.adm.TypeUser;
+import domain.adm.Nivel;
 
 @Entity
 @Table(name="users", schema="gestion") 
@@ -46,48 +43,70 @@ public class User implements Serializable {
     @ManyToOne
     private Currency curr;
     
-    @Column(name = "nivel_organico_id")
-    @NotEmpty(message = "Por favor ingrese contraseña")    
-    private String nivel_organico_id;
-    
-	public Currency getCurr() {
-		return curr;
-	}
+    @ManyToOne @JoinColumn(name="nivel_organico_id")
+    private Nivel nivel;
 
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
-        
-    public User(String id) {
-		super();
-		this.id = id;
-	}
-
-	public User(String id, String pass, TypeUser type, Company comp,
-			Currency curr) {
+	
+    public User(String id, String pass, TypeUser type, Company comp,
+			Currency curr, Nivel nivel) {
 		super();
 		this.id = id;
 		this.pass = pass;
 		this.type = type;
 		this.comp = comp;
 		this.curr = curr;
+		this.nivel = nivel;
 	}
 
-	public String getId()
-    {
-        return id;
-    }
+	public User(String id) {
+		super();
+		this.id = id;
+	}
+	
+ 	public String getId() {
+		return id;
+	}
 
-    public void setId(String id)
-    {
-        this.id = id;
-    } 
-    
-    public String getPass() {
-        return pass;
-    }
-    
-    public void setPass(String pass) {
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public TypeUser getType() {
+		return type;
+	}
+
+	public void setType(TypeUser type) {
+		this.type = type;
+	}
+
+	public Company getComp() {
+		return comp;
+	}
+
+	public void setComp(Company comp) {
+		this.comp = comp;
+	}
+
+	public Nivel getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(Nivel nivel) {
+		this.nivel = nivel;
+	}
+
+	public void setCurr(Currency curr) {
+		this.curr = curr;
+	}
+	
+	public Currency getCurr() {
+		return curr;
+	}
+
+	public void setPass(String pass) {
     	try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			byte[] messageDigest = md.digest(pass.getBytes());
@@ -102,27 +121,11 @@ public class User implements Serializable {
 			e.printStackTrace();
 		}    	
     }
-   
-    public TypeUser getType() {
-    	return type;
-   	}
-    
-    public void setType(TypeUser type) {
-		this.type = type;
+	
+	public String getPass() {
+		return pass;
 	}
-    
-    public Company getComp() {
-		return comp;
-	}
-    
-    public void setComp(Company comp) {
-		this.comp = comp;
-	}
-    
-    public void setCurr(Currency curr) {
-		this.curr = curr;
-	}
-  
+
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("Pass: " + pass + ";");

@@ -14,6 +14,7 @@ import domain.login.User;
 import service.login.UserManager;
 import service.adm.CompanyService;
 import service.adm.CurrencyService;
+import service.adm.NivelService;
 import service.adm.TypeUserService;
 
 @Controller
@@ -32,6 +33,9 @@ public class UserController {
 
 	@Autowired
 	private CurrencyService currency;
+	
+	@Autowired
+	private NivelService nivel;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String panel(Map<String, Object> model) {
@@ -40,6 +44,7 @@ public class UserController {
 		model.put("cmbTypeUser", type.cmbTypeUser());
 		model.put("cmbCompany", company.cmbCompany());
 		model.put("cmbCurrency", currency.cmbCurrency());
+		model.put("cmbNivel", nivel.cmbNivel());
 
 		return "admin/user";
 	}
@@ -51,11 +56,13 @@ public class UserController {
 			@RequestParam String type_u,
 			@RequestParam String comp_,
 			@RequestParam String curr_,
+			@RequestParam String nivel_,
 			@RequestParam String opcion,
 			@RequestParam String comp,
 			Map<String, Object> model) {
 
-		User obj = new User(id, pass, type.getTypeUser(Integer.parseInt(type_u)), company.getCompany(comp_),  currency.getCurrency_((curr_)));
+		User obj = new User(id, pass, type.getTypeUser(Integer.parseInt(type_u)), company.getCompany(comp_),  currency.getCurrency_(curr_), nivel.getNivel_(nivel_));
+		obj.setPass(pass);
 		// company.agregarUser(obj);
 		if (user_ser.validarUser(obj)) {
 			if (opcion.equals("Actualizar")) {
