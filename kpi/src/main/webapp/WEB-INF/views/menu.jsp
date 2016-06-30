@@ -67,14 +67,37 @@
 				<div class="jumbotron text-center">
 					<!-- <a href="javascript:void(0);" class="username text-left"> <c:out value="${r3g	}" /> </a> -->
 					<h1> <c:out value="${tit}" /></h1>
-					<a class="btn btn-success btn-lg" href="#">Manufacturing</a>
-					<a class="btn btn-warning btn-lg" href="${view}?t=${tit}&op10=${op10}">Sales</a>
-					<a class="btn btn-info btn-lg" href="#">Distribution</a>
-					<a class="btn btn-success btn-lg" href="<c:url value="${viewHuman}"/>?t=${tit}&op10=${op10}">Human Resources</a>
-					<a class="btn btn-warning btn-lg" href="<c:url value="${viewFinance}"/>?t=${tit}&op10=${op10}">Finance</a>
+					<c:choose>
+					    <c:when test="${n == 1}">
+					       	<a class="btn btn-success btn-lg" href="#">Manufacturing</a>
+					    </c:when>
+					    <c:when test="${n == 2}">
+					       <a class="btn btn-warning btn-lg" href="${view}?t=${tit}&op10=${op10}">Sales</a>
+					    </c:when>
+					    <c:when test="${n == 3}">
+					       <a class="btn btn-info btn-lg" href="#">Distribution</a>
+					    </c:when>
+					    <c:when test="${n == 4}">
+					       <a class="btn btn-success btn-lg" href="<c:url value="${viewHuman}"/>?t=${tit}&op10=${op10}">Human Resources</a>
+					    </c:when>
+					    <c:when test="${n == 5}">
+					       <a class="btn btn-warning btn-lg" href="<c:url value="${viewFinance}"/>?t=${tit}&op10=${op10}">Finance</a>
+					    </c:when>
+					    <c:when test="${n == 6}">
+					        <a class="btn btn-success btn-lg" href="#">Manufacturing</a>
+							<a class="btn btn-warning btn-lg" href="${view}?t=${tit}&op10=${op10}">Sales</a>
+							<a class="btn btn-info btn-lg" href="#">Distribution</a>
+							<a class="btn btn-success btn-lg" href="<c:url value="${viewHuman}"/>?t=${tit}&op10=${op10}">Human Resources</a>
+							<a class="btn btn-warning btn-lg" href="<c:url value="${viewFinance}"/>?t=${tit}&op10=${op10}">Finance</a>
+					    </c:when>
+					    <c:otherwise>
+					        Comuniquese con el administrador
+					    </c:otherwise>
+					</c:choose>
 					<br><br><a href="inicio" class="btn btn-labeled btn-danger btn-lg"> <span
-						class="btn-label"><i class="fa fa-sign-out"></i></span>Back
-					</a>
+								class="btn-label"><i class="fa fa-sign-out"></i></span>Back
+							</a>
+					
 				</div>
 				<div class="well  well-light text-center">
 					<div id="logos" style="width: 100%">

@@ -47,6 +47,10 @@ public class SimpleUserManager implements UserManager {
 		return true;
 	}
 	
+	public int pass(String id, String pass){
+		return userDao.pass(id,pass);
+	}
+	
 	@Transactional
 	public LinkedHashMap<String, String> cmbUser() {
 		LinkedHashMap<String, String> listUser = new LinkedHashMap<String, String>();

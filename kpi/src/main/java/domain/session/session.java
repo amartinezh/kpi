@@ -33,6 +33,7 @@ public class session implements Serializable{
 	private String mes;
 	private String op;
 	List<java.math.BigDecimal> totales;
+	private String nivel;
 	
 	public session(){
 		java.util.Calendar c = java.util.Calendar.getInstance();
@@ -41,7 +42,7 @@ public class session implements Serializable{
 	}
 	
 	public session(String moneda, String dash_region, String dash_nia, String dash_moneda, String dash_tasa, User user) {
-		super();
+		//super();
 		this.moneda = moneda;
 		this.dash_region = dash_region;
 		this.dash_nia = dash_nia;
@@ -50,31 +51,47 @@ public class session implements Serializable{
 		this.op="-";
 		this.usuario=user.getId();
 		this.tipoUsuario=user.getType().getId();
+		this.nivel=String.valueOf(user.getNivel().getId());
 		java.util.Calendar c = java.util.Calendar.getInstance();
 		setAnio(Integer.toString(c.get(java.util.Calendar.YEAR)));
 		setMes(Integer.toString(   (c.get(java.util.Calendar.MONTH)+1   )));
 	}
+	
+	
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((anio == null) ? 0 : anio.hashCode());
-		result = prime * result + ((campo_descripcion == null) ? 0 : campo_descripcion.hashCode());
-		result = prime * result + ((campo_llave == null) ? 0 : campo_llave.hashCode());
+		result = prime
+				* result
+				+ ((campo_descripcion == null) ? 0 : campo_descripcion
+						.hashCode());
+		result = prime * result
+				+ ((campo_llave == null) ? 0 : campo_llave.hashCode());
 		result = prime * result + ((centers == null) ? 0 : centers.hashCode());
 		result = prime * result + ((cpias == null) ? 0 : cpias.hashCode());
-		result = prime * result + ((currencys == null) ? 0 : currencys.hashCode());
-		result = prime * result + ((dash_moneda == null) ? 0 : dash_moneda.hashCode());
-		result = prime * result + ((dash_nia == null) ? 0 : dash_nia.hashCode());
-		result = prime * result + ((dash_region == null) ? 0 : dash_region.hashCode());
-		result = prime * result + ((dash_tasa == null) ? 0 : dash_tasa.hashCode());
-		result = prime * result + ((indicador == null) ? 0 : indicador.hashCode());
-		result = prime * result + ((indicador_drill == null) ? 0 : indicador_drill.hashCode());
-		result = prime * result + ((interfaz == null) ? 0 : interfaz.hashCode());
+		result = prime * result
+				+ ((currencys == null) ? 0 : currencys.hashCode());
+		result = prime * result
+				+ ((dash_moneda == null) ? 0 : dash_moneda.hashCode());
+		result = prime * result
+				+ ((dash_nia == null) ? 0 : dash_nia.hashCode());
+		result = prime * result
+				+ ((dash_region == null) ? 0 : dash_region.hashCode());
+		result = prime * result
+				+ ((dash_tasa == null) ? 0 : dash_tasa.hashCode());
+		result = prime * result
+				+ ((indicador == null) ? 0 : indicador.hashCode());
+		result = prime * result
+				+ ((indicador_drill == null) ? 0 : indicador_drill.hashCode());
+		result = prime * result
+				+ ((interfaz == null) ? 0 : interfaz.hashCode());
 		result = prime * result + ((levels == null) ? 0 : levels.hashCode());
 		result = prime * result + ((mes == null) ? 0 : mes.hashCode());
 		result = prime * result + ((moneda == null) ? 0 : moneda.hashCode());
+		result = prime * result + ((nivel == null) ? 0 : nivel.hashCode());
 		result = prime * result + ((op == null) ? 0 : op.hashCode());
 		result = prime * result + tipoUsuario;
 		result = prime * result + ((totales == null) ? 0 : totales.hashCode());
@@ -171,6 +188,11 @@ public class session implements Serializable{
 			if (other.moneda != null)
 				return false;
 		} else if (!moneda.equals(other.moneda))
+			return false;
+		if (nivel == null) {
+			if (other.nivel != null)
+				return false;
+		} else if (!nivel.equals(other.nivel))
 			return false;
 		if (op == null) {
 			if (other.op != null)
@@ -365,5 +387,14 @@ public class session implements Serializable{
 		this.totales = totales;
 	}
 
+	public String getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(String nivel) {
+		this.nivel = nivel;
+	}
+
+	
 	
 }

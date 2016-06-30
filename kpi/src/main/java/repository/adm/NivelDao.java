@@ -8,7 +8,7 @@ public interface NivelDao {
 	
 	public List<Nivel> listNivel();
 	public List<Nivel> getNivel(String id);
-	public Nivel getNivel_(String id);
+	public Nivel getNivel_(int id);
 	
 	public void agregar(Object obj);
 	public Object agregar_get(Object obj);

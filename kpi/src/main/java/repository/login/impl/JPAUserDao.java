@@ -41,6 +41,11 @@ public class JPAUserDao implements UserDao {
 	public List<User> getUserList() {
 		return em.createQuery("select p from User p").getResultList();
 	}
+	@Transactional()
+	@SuppressWarnings("unchecked")
+	public int pass(String id, String pass) {
+		return em.createQuery("UPDATE User SET pass = '"+pass+"' WHERE id='"+id+"'").executeUpdate();
+	}
 
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
@@ -116,8 +121,13 @@ public class JPAUserDao implements UserDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Object[]> listar(String sql) {
-		System.out.println("sql"+sql);
+		//System.out.println("sql"+sql);
 		return em.createQuery(sql).getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String pass(String sql) {
+		return em.createQuery(sql).toString();
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)

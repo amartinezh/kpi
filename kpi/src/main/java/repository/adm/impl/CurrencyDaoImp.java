@@ -37,7 +37,7 @@ public class CurrencyDaoImp implements CurrencyDao
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Currency getCurrency_(String id) {
+	public Currency getCurrency_(int id) {
 		return (Currency) em.find(Currency.class, id);
 	}
 	

@@ -78,6 +78,6 @@ public class NivelServiceImpl implements NivelService {
 	}
 	
 	public Nivel getNivel_(String id){
-		return nivelDao.getNivel_(id);
+		return nivelDao.getNivel_(Integer.parseInt(id));
 	}
 }

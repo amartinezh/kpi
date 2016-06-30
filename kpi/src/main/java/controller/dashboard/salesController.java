@@ -74,7 +74,7 @@ public class salesController {
 			model.addAttribute("tit",t);
 			model.addAttribute("r3g",r3g);
 			model.addAttribute("op10",op10);
-			
+			model.addAttribute("n",((session) model.asMap().get("user_inicio")).getNivel());
 			if (!nia.equals("n")){
 				((session) model.asMap().get("user_inicio")).setDash_nia(nia);
 				((session) model.asMap().get("user_inicio")).setDash_region(companyService.getCompanyRegion(nia).getRegion_id().getRegion_id());

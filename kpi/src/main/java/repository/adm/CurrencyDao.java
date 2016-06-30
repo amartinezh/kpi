@@ -8,7 +8,7 @@ public interface CurrencyDao {
 	
 	public List<Currency> listCurrency();
 	public List<Currency> getCurrency(String id);
-	public Currency getCurrency_(String id);
+	public Currency getCurrency_(int id);
 	
 	public void agregar(Object obj);
 	public Object agregar_get(Object obj);

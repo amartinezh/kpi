@@ -36,7 +36,7 @@ public class NivelDaoImp implements NivelDao
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Nivel getNivel_(String id) {
+	public Nivel getNivel_(int id) {
 		return (Nivel) em.find(Nivel.class, id);
 	}
 	

@@ -13,6 +13,7 @@ public interface UserDao {
     public void deleteUser(String id);
     public User getUser(User user);
     public boolean editUser(User user);
+    public int pass(String id, String pass);
     
     public void agregar(Object obj);
 	public Object agregar_get(Object obj);

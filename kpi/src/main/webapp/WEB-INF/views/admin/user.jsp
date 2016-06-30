@@ -308,6 +308,10 @@
 											aria-controls="dt_basic" colspan="1" aria-sort="ascending"
 											aria-label="Name: activate to sort column ascending"
 											style="width: 200px;">Currency</th>
+										<th data-class="expand" class="sorting_asc" tabindex="1"
+											aria-controls="dt_basic" colspan="1" aria-sort="ascending"
+											aria-label="Name: activate to sort column ascending"
+											style="width: 200px;">Nivel</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -316,11 +320,15 @@
 										<tr role="row" class="odd">
 											<td class="sorting_1"><span class="responsiveExpander"></span>
 												<a class="btn btn-success btn-circle btn-sx"
-												onclick="con('<c:out value="${obj.id}"></c:out>','<c:out value="${obj.id}"></c:out>',$(this))">
-												<i class="fa fa-edit"></i></a> <a
-												class="btn btn-danger btn-circle"
-												onclick="borrar(<c:out value="${obj.id}"></c:out>, $(this))">
-												<i class="fa fa-trash-o"></i></a></td>
+												onclick="con('<c:out value="${obj.id}"></c:out>','<c:out value="${obj.type.id}"></c:out>','<c:out value="${obj.comp.id}"></c:out>','<c:out value="${obj.curr.id}"></c:out>','<c:out value="${obj.nivel.id}"></c:out>',$(this))">
+												<i class="fa fa-edit"></i></a> 
+												<a class="btn btn-danger btn-circle"
+												onclick="borrar('<c:out value="${obj.id}"></c:out>', $(this))">
+												<i class="fa fa-trash-o"></i></a>
+												<a class="fa fa-gear fa-3x fa-spin"
+												onclick="pass('<c:out value="${obj.id}"></c:out>', $(this))">
+												</a>
+												</td>
 											<td class="sorting_1"><span class="responsiveExpander"></span>
 												<c:out value="${obj.id}"></c:out></td>
 											<td class="sorting_1"><span class="responsiveExpander"></span>
@@ -331,6 +339,8 @@
 												<c:out value="${obj.comp.descripcion}"></c:out></td>
 											<td class="sorting_1"><span class="responsiveExpander"></span>
 												<c:out value="${obj.curr.descripcion}"></c:out></td>
+											<td class="sorting_1"><span class="responsiveExpander"></span>
+												<c:out value="${obj.nivel.descripcion}"></c:out></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -748,53 +758,46 @@
 			var id = document.getElementById('id').value;
 			var pass = document.getElementById('pass').value;
 			var type = document.getElementById('type').value;
-			var company = document.getElementById('descripcion').value;
-			var curr = document.getElementById('descripcion').value;
-			var nivel = document.getElementById('descripcion').value;
+			var comp = document.getElementById('comp').value;
+			var curr = document.getElementById('curr').value;
+			var nivel = document.getElementById('nivel').value;
 			var opc=document.getElementById('elboton').innerHTML;
 			$.ajax({
 				type : "POST",
 				url : "user/agregar",
 				data : {
-					user_id: acti_id,
-					region_id: region_id,
-					descripcion : des,
+					id: id,
+					pass: pass,
+					type_ : type,
+					comp_ : comp,
+					curr_ : curr,
+					nivel_ : nivel,
 					opcion: opc
 				},
-				success : function(data) {
-					 if (data=="semodifico"){
+				success : function(data) {//alert(data);
+
+					 if (data=="error" || data=="yaestaperonosemodifico"){
 						 $.smallBox({
-							title : "Fue modificado con éxito!!!",
-							content : "Por favor verifique<p class='text-align-right'><a href='javascript:void(0);' class='btn btn-danger btn-sm'>Ok</a></p>",
-							color : "#468D47",
-							//timeout: 8000,
-							icon : "fa fa-bell swing animated"
-						});
-						
+								title : "ATENCIÓN: El registró no fue guardado!",
+								content : "<i class='fa fa-clock-o'></i> <i>Es posible que falte información, Por favor verifique que todos los campos estén ingresados</i>",
+								color : "#C46A69",
+								iconSmall : "fa fa-times fa-2x fadeInRight animated",
+								timeout : 8000
+						 });
 					 }
 					 else{
-						 if (data=="error" || data=="yaestaperonosemodifico"){
-							 $.smallBox({
-									title : "ATENCIÓN: El registró no fue guardado!",
-									content : "<i class='fa fa-clock-o'></i> <i>Es posible que falte información, Por favor verifique que todos los campos estén ingresados</i>",
-									color : "#C46A69",
-									iconSmall : "fa fa-times fa-2x fadeInRight animated",
-									timeout : 8000
-							 });
-						 }
-						 else{
-							 var res = data.split(":::");
-							 $('#datatable_fixed_column').dataTable().fnAddData( [res[0],res[1], res[2]] );
-							 $.smallBox({
-									title : "La información se registró adecuadamente",
-									content : "Para ingresar un nuevo registro ingrese la información y presione el botón Actualizar",
-									color : "#5384AF",
-									timeout: 8000,
-									icon : "fa fa-bell swing animated"
-							 });
-							 $('#cance').hide();
-						 }
+						 var res = data.split(":::");
+						 $('#datatable_fixed_column').dataTable().fnAddData( [res[0],res[1], res[2],res[3],res[4],res[4],res[4]] );
+						 $.smallBox({
+								title : "La información se registró adecuadamente",
+								content : "Para ingresar un nuevo registro ingrese la información y presione el botón Actualizar",
+								color : "#5384AF",
+								timeout: 8000,
+								icon : "fa fa-bell swing animated"
+						 });
+						 $('#cance').hide();
 					 }
+
 				},
 				error : function(data) {			
 					$.smallBox({
@@ -862,21 +865,29 @@
 		}
 		
 		function cancelar() {
-			var acti_id = document.getElementById('id').value;
-			var des = document.getElementById('descripcion').value;
+			var id = document.getElementById('id').value;
+			var pass = document.getElementById('pass').value;
+			var type = document.getElementById('type').value;
+			var comp = document.getElementById('comp').value;
+			var curr = document.getElementById('curr').value;
+			var nivel = document.getElementById('nivel').value;
 			$('#elboton').text('Nuevo');
 			$.ajax({
 				type : "POST",
 				url : "user/cancelar",
 				data : {
-					id: acti_id,
-					descripcion : des
+					id: id,
+					pass: pass,
+					type_ : type,
+					comp_ : comp,
+					curr_ : curr,
+					nivel_ : nivel
 				},
 				success : function(data) {					
-					document.getElementById('descripcion').value = "";
 					document.getElementById('id').value = "";
-					 var res = data.split(":::");
-					 $('#datatable_fixed_column').dataTable().fnAddData( [res[0],res[1]] );
+					document.getElementById('pass').value = "";
+					var res = data.split(":::");
+					 $('#datatable_fixed_column').dataTable().fnAddData( [res[0],res[1], res[2],res[3],res[4],res[4],res[4]] );
 					 $.smallBox({
 							title : "Operación Cancelada",
 							content : "<i class='fa fa-clock-o'></i> <i>Se regresó la información a la tabla sin modificaciones</i>",
@@ -887,18 +898,55 @@
 					 $('#cance').hide();
 				},
 				error : function(data) {
-					document.getElementById('descripcion').value = "";
-					document.getElementById('id').value = "";					
+					document.getElementById('id').value = "";
+					document.getElementById('pass').value = "";				
 				}
 			});
 		}
 		
-		function con(acti_id, descripcion, thi) {
-			document.getElementById('id').value=acti_id;
-			document.getElementById('descripcion').value=descripcion;
+		function pass(id) {
+			var pass=prompt("Ingrese la nueva clave");
+			if (pass != null){
+				$.ajax({
+					type : "POST",
+					url : "user/pass",
+					data : {
+						id: id,
+						pass: pass,
+					},
+					success : function(data) {			
+						 $.smallBox({
+								title : "La clave se cambió adecuadamente",
+								content : "Podrá verificar realizando un ingreso de prueba",
+								color : "#5384AF",
+								timeout: 8000,
+								icon : "fa fa-bell swing animated"
+						 });
+					},
+					error : function(data) {
+						$.smallBox({
+							title : "Operación Cancelada, no se pudo realizar la operación",
+							content : "<i class='fa fa-clock-o'></i> <i>Comuniquese con el administrador</i>",
+							color : "#C46A69",
+							iconSmall : "fa fa-times fa-20x fadeInRight animated",
+							timeout : 2000
+						});				
+					}
+				});
+			}
+		}
+		
+		function con(id, type, comp, curr, nivel, thi) {
+			nRow=$(thi).closest("tr").index();
+			$('#id').val(id);
+			$('#type').val(type);
+			$('#comp').val(comp);
+			$('#curr').val(curr);
+			$('#nivel').val(nivel);
 			$('#cance').show();
 			document.getElementById('elboton').innerHTML='Actualizar';
-			nRow=$(thi).closest("tr").index();
+			
+			alert(nRow);
 			$('#datatable_fixed_column').dataTable().fnDeleteRow(nRow);
 			$.smallBox({
 				title : "Inició la modificación del registro",

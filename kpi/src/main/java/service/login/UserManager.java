@@ -19,4 +19,5 @@ public interface UserManager extends Serializable {
 	public boolean validarUser(User user);
 	public List<User> listarUser();
 	public LinkedHashMap<String, String> cmbUser();
+	public int pass(String id, String pass);
 }

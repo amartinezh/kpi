@@ -69,8 +69,18 @@
 					<h1>BALANCED SCOREDCARD</h1><h2>Administrator</h2>
 					
 					<a href="javascript:openPage(1)" id="dialog_link" class="btn btn-info btn-lg"> Admin <br> <strong>Users</strong> </a>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="javascript:openPage(2)" id="dialog_link" class="btn btn-info btn-lg"> Gestion <br> <strong>DB</strong> </a>
+					&nbsp;&nbsp;
+					<a href="javascript:openPage(2)" id="dialog_link" class="btn btn-info btn-lg"> Admin <br> <strong>Region</strong> </a>
+					&nbsp;&nbsp;
+					<a href="javascript:openPage(3)" id="dialog_link" class="btn btn-info btn-lg"> Admin <br> <strong>Company</strong> </a>
+					&nbsp;&nbsp;
+					<a href="javascript:openPage(4)" id="dialog_link" class="btn btn-info btn-lg"> Admin <br> <strong>Currency</strong> </a>
+					&nbsp;&nbsp;
+					<a href="javascript:openPage(5)" id="dialog_link" class="btn btn-info btn-lg"> Admin <br> <strong>Type Users</strong> </a>
+					&nbsp;&nbsp;
+					<a href="javascript:openPage(6)" id="dialog_link" class="btn btn-info btn-lg"> Admin <br> <strong>Level</strong> </a>
+					&nbsp;&nbsp;
+					<a href="javascript:openPage(7)" id="dialog_link" class="btn btn-info btn-lg"> Gestion <br> <strong>DB</strong> </a>
 					<br><br><br>
 					<a href="salir" class="btn btn-labeled btn-danger btn-lg"> <span class="btn-label"><i class="fa fa-power-off"></i></span>Exit </a>				    
 					<div id="usu">[${usuario}]</div>
@@ -136,15 +146,27 @@
 			}
 			switch(op){
 				case 1 :
-					location.target = "des";
-					location.href = "/kpi/region";
-					//window.open('/kpi/region','des'); 
+					//location.target = "des";
+					location.href = "/kpi/user";
+					//window.open('/kpi/user','des'); 
 					break;
 				case 2 :
-					location.href = "menu?t=Monthly Review - Regional&r3g=${r3g}"+nia+"&op10=2";
+					window.open('/kpi/region','des'); 
 					break;
 				case 3 :
-					location.href = "menu?t=Quarterly Review - Regional&r3g=${r3g}"+nia+"&op10=3";
+					window.open('/kpi/company','des'); 
+					break;
+				case 4 :
+					window.open('/kpi/currency','des'); 
+					break;
+				case 5 :
+					window.open('/kpi/typeuser','des'); 
+					break;
+				case 6 :
+					window.open('/kpi/nivel','des'); 
+					break;
+				case 7 :
+					//window.open('/kpi/nivel','des'); 
 					break;
 			}
 		}

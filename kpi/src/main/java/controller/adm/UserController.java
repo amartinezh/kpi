@@ -45,7 +45,6 @@ public class UserController {
 		model.put("cmbCompany", company.cmbCompany());
 		model.put("cmbCurrency", currency.cmbCurrency());
 		model.put("cmbNivel", nivel.cmbNivel());
-
 		return "admin/user";
 	}
 
@@ -53,15 +52,14 @@ public class UserController {
 	public @ResponseBody String agregar(
 			@RequestParam String id,
 			@RequestParam String pass, 
-			@RequestParam String type_u,
+			@RequestParam String type_,
 			@RequestParam String comp_,
 			@RequestParam String curr_,
 			@RequestParam String nivel_,
 			@RequestParam String opcion,
-			@RequestParam String comp,
 			Map<String, Object> model) {
 
-		User obj = new User(id, pass, type.getTypeUser(Integer.parseInt(type_u)), company.getCompany(comp_),  currency.getCurrency_(curr_), nivel.getNivel_(nivel_));
+		User obj = new User(id, pass, type.getTypeUser(Integer.parseInt(type_)), company.getCompany(comp_),  currency.getCurrency_(curr_), nivel.getNivel_(nivel_));
 		obj.setPass(pass);
 		// company.agregarUser(obj);
 		if (user_ser.validarUser(obj)) {
@@ -77,11 +75,14 @@ public class UserController {
 						+ ")\"><i class='fa fa-edit'></i></a> <a class='btn btn-danger btn-circle' onclick=\"borrar('"
 						+ obj.getId()
 						+ ", $(this)')\"><i class='fa fa-trash-o'></i></a><span class='responsiveExpander'></span>:::"
+						+ ":::"
 						+ obj.getType().getDescripcion()
 						+ ":::"
 						+ obj.getComp().getDescripcion()
 						+ ":::"
-						+ obj.getCurr().getDescripcion();
+						+ obj.getCurr().getDescripcion()
+						+ ":::"
+						+ obj.getNivel().getDescripcion();
 			} else {
 				return "yaestaperonosemodifico";
 			}
@@ -101,18 +102,30 @@ public class UserController {
 			+ ":::"
 			+ obj.getComp().getDescripcion()
 			+ ":::"
-			+ obj.getCurr().getDescripcion();
+			+ obj.getCurr().getDescripcion()
+			+ ":::"
+			+ obj.getNivel().getDescripcion();
 	}
+	
+	@RequestMapping(value = "pass", method = RequestMethod.POST)
+	public @ResponseBody String pass(
+			@RequestParam String id,
+			@RequestParam String pass, 
+			Map<String, Object> model) {
 
+		User obj = new User();
+		obj.setPass(pass);
+		return String.valueOf( user_ser.pass(id, obj.getPass() ));
+		
+	}
 	@RequestMapping(value = "cancelar", method = RequestMethod.POST)
 	public @ResponseBody String cancelar(
 			@RequestParam String id,
 			@RequestParam String pass, 
-			@RequestParam String type_u,
+			@RequestParam String type_,
 			@RequestParam String comp_,
 			@RequestParam String curr_,
-			@RequestParam String opcion,
-			@RequestParam String comp,
+			@RequestParam String nivel_,
 			Map<String, Object> model) {
 		if (!id.equals("0")) {
 			String cad = "";
@@ -121,16 +134,18 @@ public class UserController {
 				+ " onclick=\"con('"
 				+ id
 				+ "', '"
-				+ type_u
+				+ type_
 				+ "', $(this)"
 				+ ")\"><i class='fa fa-edit'></i></a> <a class='btn btn-danger btn-circle' onclick=\"borrar('"
 				+ id
 				+ ", $(this)')\"><i class='fa fa-trash-o'></i></a><span class='responsiveExpander'></span>:::"
-				+ type_u
+				+ type_
 				+ ":::"
 				+ comp_
 				+ ":::"
-				+ curr_;
+				+ curr_
+				+ ":::"
+				+ nivel_;
 		} else {
 			try {
 				Integer.parseInt("a");

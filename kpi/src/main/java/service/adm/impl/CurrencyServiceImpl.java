@@ -80,6 +80,6 @@ public class CurrencyServiceImpl implements CurrencyService {
 	}
 	
 	public Currency getCurrency_(String id){
-		return currencyDao.getCurrency_(id);
+		return currencyDao.getCurrency_(Integer.parseInt(id));
 	}
 }
