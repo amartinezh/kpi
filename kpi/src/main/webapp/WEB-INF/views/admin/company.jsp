@@ -866,7 +866,7 @@
 			$('#datatable_fixed_column').dataTable().fnDeleteRow(nRow);
 			$.smallBox({
 				title : "Inició la modificación del registro",
-				content : "Ya no está en el listado, en caso de no querer precione el botón Cancelar",
+				content : "Ya no está en el listado, en caso de no querer presione el botón Cancelar",
 				color : "#5384AF",
 				timeout: 8000,
 				icon : "fa fa-bell"

@@ -71,10 +71,18 @@ public class UserController {
 						+ id
 						+ "', '"
 						+ obj.getType().getDescripcion()
+						+ "', '"
+						+ obj.getComp().getDescripcion()
+						+ "', '"
+						+ obj.getCurr().getDescripcion()
+						+ "', '"
+						+ obj.getNivel().getDescripcion()
 						+ "', $(this)"
 						+ ")\"><i class='fa fa-edit'></i></a> <a class='btn btn-danger btn-circle' onclick=\"borrar('"
 						+ obj.getId()
-						+ ", $(this)')\"><i class='fa fa-trash-o'></i></a><span class='responsiveExpander'></span>:::"
+						+ ", $(this)')\"><i class='fa fa-trash-o'></i></a><span class='responsiveExpander'></span><a class='fa fa-gear fa-3x fa-spin' onclick='pass('"+id+"', $(this))'></a>"
+						+ ":::"
+						+ obj.getId()
 						+ ":::"
 						+ obj.getType().getDescripcion()
 						+ ":::"
@@ -94,10 +102,19 @@ public class UserController {
 			+ id
 			+ "', '"
 			+ obj.getType().getDescripcion()
+			+ "', '"
+			+ obj.getComp().getDescripcion()
+			+ "', '"
+			+ obj.getCurr().getDescripcion()
+			+ "', '"
+			+ obj.getNivel().getDescripcion()
 			+ "', $(this)"
 			+ ")\"><i class='fa fa-edit'></i></a> <a class='btn btn-danger btn-circle' onclick=\"borrar('"
 			+ obj.getId()
-			+ ", $(this)')\"><i class='fa fa-trash-o'></i></a><span class='responsiveExpander'></span>:::"
+			+ ", $(this)')\"><i class='fa fa-trash-o'></i></a><span class='responsiveExpander'></span><a class='fa fa-gear fa-3x fa-spin' onclick='pass('"+obj.getId()+"', $(this))'></a>"
+			+ ":::"
+			+ obj.getId()
+			+ ":::"
 			+ obj.getType().getDescripcion()
 			+ ":::"
 			+ obj.getComp().getDescripcion()
@@ -138,7 +155,10 @@ public class UserController {
 				+ "', $(this)"
 				+ ")\"><i class='fa fa-edit'></i></a> <a class='btn btn-danger btn-circle' onclick=\"borrar('"
 				+ id
-				+ ", $(this)')\"><i class='fa fa-trash-o'></i></a><span class='responsiveExpander'></span>:::"
+				+ ", $(this)')\"><i class='fa fa-trash-o'></i></a><span class='responsiveExpander'></span>"
+				+ ":::"
+				+ id
+				+ ":::"
 				+ type_
 				+ ":::"
 				+ comp_

@@ -295,10 +295,6 @@
 										<th data-class="expand" class="sorting_asc" tabindex="1"
 											aria-controls="dt_basic" colspan="1" aria-sort="ascending"
 											aria-label="Name: activate to sort column ascending"
-											style="width: 200px;">Pass</th>
-										<th data-class="expand" class="sorting_asc" tabindex="1"
-											aria-controls="dt_basic" colspan="1" aria-sort="ascending"
-											aria-label="Name: activate to sort column ascending"
 											style="width: 200px;">Type User</th>
 										<th data-class="expand" class="sorting_asc" tabindex="1"
 											aria-controls="dt_basic" colspan="1" aria-sort="ascending"
@@ -331,8 +327,6 @@
 												</td>
 											<td class="sorting_1"><span class="responsiveExpander"></span>
 												<c:out value="${obj.id}"></c:out></td>
-											<td class="sorting_1"><span class="responsiveExpander"></span>
-												<c:out value="${obj.pass}"></c:out></td>
 											<td class="sorting_1"><span class="responsiveExpander"></span>
 												<c:out value="${obj.type.descripcion}"></c:out></td>
 											<td class="sorting_1"><span class="responsiveExpander"></span>
@@ -785,9 +779,9 @@
 								timeout : 8000
 						 });
 					 }
-					 else{
+					 else{alert(data);
 						 var res = data.split(":::");
-						 $('#datatable_fixed_column').dataTable().fnAddData( [res[0],res[1], res[2],res[3],res[4],res[4],res[4]] );
+						 $('#datatable_fixed_column').dataTable().fnAddData( [res[0],res[1], res[2],res[3],res[4],res[5]] );
 						 $.smallBox({
 								title : "La información se registró adecuadamente",
 								content : "Para ingresar un nuevo registro ingrese la información y presione el botón Actualizar",
@@ -950,7 +944,7 @@
 			$('#datatable_fixed_column').dataTable().fnDeleteRow(nRow);
 			$.smallBox({
 				title : "Inició la modificación del registro",
-				content : "Ya no está en el listado, en caso de no querer precione el botón Cancelar",
+				content : "Ya no está en el listado, en caso de no querer presione el botón Cancelar",
 				color : "#5384AF",
 				timeout: 8000,
 				icon : "fa fa-bell"
