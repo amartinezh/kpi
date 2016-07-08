@@ -208,13 +208,12 @@ public class financesController {
 	@RequestMapping(value = "/tasa", method = RequestMethod.POST)
 	public String tasa(@RequestParam String t4s4, Model model) {
 		if (model.containsAttribute("user_inicio") == true) {
+			System.out.println("Opción"+t4s4);
 			if (t4s4.equals("p")) {
-				((session) model.asMap().get("user_inicio"))
-						.setDash_tasa("mvevap");
+				((session) model.asMap().get("user_inicio")).setDash_tasa("mvevap");
 				return "dashboard";
 			} else if (t4s4.equals("m")) {
-				((session) model.asMap().get("user_inicio"))
-						.setDash_tasa("mvevpe");
+				((session) model.asMap().get("user_inicio")).setDash_tasa("mvevpe");
 				return "dashboard";
 			} else {
 				return "redirect:/index/ingreso";
@@ -255,6 +254,20 @@ public class financesController {
 		if (model.containsAttribute("user_inicio") == true) {
 			((session) model.asMap().get("user_inicio")).setMes(mes);
 			return "salesMonth";
+		} else {
+			return "redirect:/index/ingreso";
+		}
+	}
+	
+	@RequestMapping(value = "/chartjs", method = RequestMethod.GET)
+	public String chartjs(@RequestParam String i, @RequestParam String indicador, @RequestParam String p, @RequestParam String op, Model model) {
+		if (model.containsAttribute("user_inicio") == true) {
+			//model.addAttribute("valor", kpiService.listKip((session) model.asMap().get("user_inicio")));
+			model.addAttribute("i",i);
+			model.addAttribute("p",p);
+			model.addAttribute("op",op);
+			model.addAttribute("indicador",indicador);
+			return "chartjs";
 		} else {
 			return "redirect:/index/ingreso";
 		}

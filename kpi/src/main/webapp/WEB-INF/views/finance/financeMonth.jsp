@@ -95,6 +95,12 @@
 	    filter:alpha(opacity=75);
 	    opacity:.75;
 	}
+
+	#tbl tr td {
+	    height: 1px;
+	    padding: 1px;
+	}	
+
 </style>
 
 </head>
@@ -212,22 +218,21 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 					<h1 class="page-title txt-color-blueDark">
-						<i class="fa fa-list-alt fa-fw "></i> 
-						
+						<i class="fa fa-list-alt fa-fw "></i>
 						<span><c:out value="${navegacion}" />
 						</span>
 					</h1>
 				</div>
 			</div>
 			<c:set var="color" value="success"/>
-			<table class="table table-bordered" width="100%">
+			<table id="tbl" class="table table-bordered" width="100%">
 				<thead>
 					<tr>
 					</tr>
 					<tr >
 						<th style="text-align: center; color: blue;">Indicator
 						</th>
-						<th style="text-align: center; color: blue;">Unit Of Mesure
+						<th style="text-align: center; color: blue;">UM
 						</th>
 						<th style="text-align: center; color: blue;">Type
 						</th>
@@ -235,7 +240,7 @@
 						</th>
 						<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">${elmes} <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">${elmes} <c:out value="${anio}"/>
 						</th>
 						<th  style="text-align: center; color: blue;">Graph
 						</th>
@@ -251,36 +256,38 @@
 							
 						<tr class="${color}">
 
-							<td rowspan="2"><a id="modal" href="#" onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
+							<td >${ kpi.ind }</a>
 							
-							<td rowspan="2">${ kpi.unidad }</td>
+							<td >${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
 							<c:choose>
-								<c:when test="${fn:contains(kpi.unidad, '%')}">
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
+								<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 						    	</c:when>    
 						    	<c:otherwise>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
 						    	</c:otherwise>
 							</c:choose>
+							<c:set var="real" value=""/>
+							<c:set var="presupuestado" value=""/>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
-									<td nowrap>
-									<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
+									<td style="text-align: right;" nowrap>
+									<c:choose>
+										<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+											<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
+								    	</c:when>    
+								    	<c:otherwise>
+											<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
+								    	</c:otherwise>
+									</c:choose>
+									
 									</td>
-									<td valign="middle" rowspan="2">
-										<c:choose>
-										    <c:when test="${val.mveval gt kpi.promMvevalRealAnoActual}">
-										    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
-										    </c:when>    
-										    <c:otherwise>
-										        <img src="<c:url value="/resources/img/adm/rojo.png"/>" alt="Rojo" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
-										    </c:otherwise>
-										</c:choose>
-									</td>
-									<c:set var="real" value="${real};${val.mveval}"/>
+									
+									<fmt:formatNumber var="real2" pattern="###" value="${val.mveval}" type="number" maxFractionDigits="0"/>
+									<c:set var="real" value="${real};${real2}"/>
 							</c:forEach>
 							
 							<td>
@@ -288,35 +295,7 @@
 							</td>
 							
 						</tr>
-						<tr class="${color}">
-							<td>${kpi.tipoDos}</td>
-							<c:choose>
-								<c:when test="${fn:contains(kpi.unidad, '%')}">
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" />%</td>
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" />%</td>
-						    	</c:when>    
-						    	<c:otherwise>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
-						    	</c:otherwise>
-							</c:choose>
-							<c:forEach items="${kpi.lista}" var="val"
-								varStatus="loopCounter">
-									<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-									<c:set var="presupuestado" value="${presupuestado};${val.mvevpe}"/>
-							</c:forEach>
-							<td>
-							</td>
-							
-						</tr>
-						<c:choose>
-							<c:when test="${color=='success'}">
-								<c:set var="color" value="warning"/>
-						    </c:when>    
-						    <c:otherwise>
-								<c:set var="color" value="success"/>
-						    </c:otherwise>
-						</c:choose>
+						
 					</c:forEach>
 					<tr>
 						<td colspan="20" align="center"></td>
@@ -472,11 +451,7 @@
 							var t="${tas}";
 							var c1a="${c1a}";
 							var curr="${cur}";
-							if (t=="mvevpe")
-								document.getElementById("tasa").selectedIndex = "1";
-							else
-								document.getElementById("tasa").selectedIndex = "0";
-							
+
 							if (c1a=="Todas")
 								$('#moneda').prop('disabled', true);
 							else
@@ -486,6 +461,11 @@
 								$('#tasa').prop('disabled', true);
 							else
 								$('#tasa').prop('disabled', false);
+							
+							if (t=="mveval")
+								$("#tasa").val("m");
+							else
+								$("#tasa").val("p");
 							
 							var lineOptions = {
 								    ///Boolean - Whether grid lines are shown across the chart
@@ -544,14 +524,14 @@
 							    };
 
 							    // render chart
-							    var ctx = document.getElementById("lineChart").getContext("2d");
-							    var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+							    //var ctx = document.getElementById("lineChart").getContext("2d");
+							    //var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
 							
 
-							document.getElementById('region').value="${navega.dash_region}";
-							document.getElementById('nia').value="${navega.dash_nia}";
-							document.getElementById('moneda').value="${navega.dash_moneda}";
-							document.getElementById('tasa').value="${navega.dash_tasa}";
+							//document.getElementById('region').value="${navega.dash_region}";
+							//document.getElementById('nia').value="${navega.dash_nia}";
+							//document.getElementById('moneda').value="${navega.dash_moneda}";
+							//document.getElementById('tasa').value="${navega.dash_tasa}";
 							pageSetUp();
 
 							/* // DOM Position key index //
@@ -585,7 +565,7 @@
 									.dataTable(
 											{
 												fixedColumns: true,
-												   fixedHeader: true,
+												fixedHeader: true,
 												"sDom" : "<'dt-toolbar'<'col-xs-12 fixed col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"
 														+ "t"
 														+ "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
@@ -1103,7 +1083,7 @@
 					location.reload();
 				},
 				error : function(data) {
-					alert("no"+data);
+					alert("no");
 					
 				}
 			});
@@ -1204,27 +1184,6 @@
 				opciones.push(opc[15]);
 				opciones.push(opc[16]);
 			    break;
-			case "VEN004":
-				opciones.push(opc[1]);
-				opciones.push(opc[2]);
-				opciones.push(opc[3]);
-				opciones.push(opc[4]);
-				opciones.push(opc[5]);
-				opciones.push(opc[6]);
-				opciones.push(opc[7]);
-				opciones.push(opc[8]);
-				opciones.push(opc[9]);
-				opciones.push(opc[10]);
-				opciones.push(opc[11]);
-				opciones.push(opc[12]);
-				opciones.push(opc[13]);
-				opciones.push(opc[14]);
-				opciones.push(opc[15]);
-				opciones.push(opc[16]);
-				break;
-			case "VEN005":
-				opciones.push(opc[3]);
-			    break;
 			case "VEN006":
 				opciones.push(opc[1]);
 				opciones.push(opc[2]);
@@ -1244,23 +1203,8 @@
 				opciones.push(opc[16]);
 				break;
 			case "VEN007":
-				opciones.push(opc[1]);
-				opciones.push(opc[2]);
 				opciones.push(opc[3]);
-				opciones.push(opc[4]);
-				opciones.push(opc[5]);
-				opciones.push(opc[6]);
-				opciones.push(opc[7]);
-				opciones.push(opc[8]);
-				opciones.push(opc[9]);
-				opciones.push(opc[10]);
-				opciones.push(opc[11]);
-				opciones.push(opc[12]);
-				opciones.push(opc[13]);
-				opciones.push(opc[14]);
-				opciones.push(opc[15]);
-				opciones.push(opc[16]);
-				break;
+			    break;
 			case "VEN008":
 				opciones.push(opc[1]);
 				opciones.push(opc[2]);
@@ -1315,8 +1259,8 @@
 				opciones.push(opc[15]);
 				opciones.push(opc[16]);
 				break;
-		    case "VEN011":
-		    	opciones.push(opc[1]);
+			case "VEN011":
+				opciones.push(opc[1]);
 				opciones.push(opc[2]);
 				opciones.push(opc[3]);
 				opciones.push(opc[4]);
@@ -1351,8 +1295,8 @@
 				opciones.push(opc[15]);
 				opciones.push(opc[16]);
 				break;
-			case "VEN013":
-				opciones.push(opc[1]);
+		    case "VEN013":
+		    	opciones.push(opc[1]);
 				opciones.push(opc[2]);
 				opciones.push(opc[3]);
 				opciones.push(opc[4]);
@@ -1388,12 +1332,48 @@
 				opciones.push(opc[16]);
 				break;
 			case "VEN015":
+				opciones.push(opc[1]);
+				opciones.push(opc[2]);
+				opciones.push(opc[3]);
+				opciones.push(opc[4]);
+				opciones.push(opc[5]);
+				opciones.push(opc[6]);
+				opciones.push(opc[7]);
+				opciones.push(opc[8]);
+				opciones.push(opc[9]);
+				opciones.push(opc[10]);
+				opciones.push(opc[11]);
+				opciones.push(opc[12]);
+				opciones.push(opc[13]);
+				opciones.push(opc[14]);
+				opciones.push(opc[15]);
+				opciones.push(opc[16]);
 				break;
 			case "VEN016":
+				opciones.push(opc[1]);
+				opciones.push(opc[2]);
+				opciones.push(opc[3]);
+				opciones.push(opc[4]);
+				opciones.push(opc[5]);
+				opciones.push(opc[6]);
+				opciones.push(opc[7]);
+				opciones.push(opc[8]);
+				opciones.push(opc[9]);
+				opciones.push(opc[10]);
+				opciones.push(opc[11]);
+				opciones.push(opc[12]);
+				opciones.push(opc[13]);
+				opciones.push(opc[14]);
+				opciones.push(opc[15]);
+				opciones.push(opc[16]);
 				break;
 			case "VEN017":
 				break;
 			case "VEN018":
+				break;
+			case "VEN019":
+				break;
+			case "VEN020":
 				break;
 			default:
 			    console.log("Sorry, we are out of " + indicador + ".");
@@ -1424,7 +1404,8 @@
 		}
 		
 		function graph(real, presupuestado, indicador) {
-			window.location="chartjs?v4l0="+real+"&i="+encodeURIComponent(indicador)+"&p="+presupuestado;
+			//window.location="chartjs?v4l0="+real+"&i="+encodeURIComponent(indicador)+"&p="+presupuestado;
+			window.location="chartjs?i="+real+"&indicador="+encodeURIComponent(indicador)+"&p="+presupuestado+"&op=m&mm="+$("#mes").val();
 			//$('#dialog-graph').dialog('open');
 		}
 		
@@ -1443,7 +1424,7 @@
 					window.location="plan?ind1c4=1";
 				},
 				error : function(data) {
-					alert("no h"+data);
+					alert("no");
 					
 				}
 			});

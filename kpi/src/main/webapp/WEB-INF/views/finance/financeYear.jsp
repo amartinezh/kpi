@@ -80,20 +80,24 @@
 	media="screen and (max-device-width: 320px)">
 
 <style type="text/css">
-tr:last-child {
-	color: #ff0000;
-	font-weight: bold;
-}
-
-.transp-block {
-    background: #000 url(watermark.jpg) no-repeat;
-    width: 575px;
-    height: 335px;
-}
-img.transparent {
-    filter:alpha(opacity=75);
-    opacity:.75;
-}
+	tr:last-child {
+		color: #ff0000;
+		font-weight: bold;
+	}
+	
+	.transp-block {
+	    background: #000 url(watermark.jpg) no-repeat;
+	    width: 575px;
+	    height: 335px;
+	}
+	img.transparent {
+	    filter:alpha(opacity=75);
+	    opacity:.75;
+	}
+	#tbl tr td {
+		    height: 1px;
+		    padding: 1px;
+	}
 </style>
 
 </head>
@@ -124,7 +128,7 @@ img.transparent {
 			
 			<label for="email" class="glyphicon glyphicon-search" rel="tooltip" title="" data-original-title="email"></label>
 		</div>
-		 <div class="icon-addon addon-md">
+		<div class="icon-addon addon-md">
         	<select class="form-control input-sm col-sm-2" id="anio" class="anio"
 				name="anio" onclick="anio()">
 				<option value="2015">2015</option>
@@ -198,12 +202,11 @@ img.transparent {
 			<!-- end row -->
 			<!-- end row -->
 			<c:set var="color" value="success"/>
-			<table class="table table-bordered" width="100%" id="gral">
+			<table id="tbl" class="table table-bordered" width="100%" id="gral">
 				<thead>
 					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 						<h1 class="page-title txt-color-blueDark"> 
 							<i class="fa fa-list-alt fa-fw "></i> 
-							
 							<span><c:out value="${navegacion}" /> 
 							</span>
 						</h1>
@@ -214,7 +217,7 @@ img.transparent {
 					<tr >
 						<th style="text-align: center; color: blue;">Indicator
 						</th>
-						<th style="text-align: center; color: blue;">Unit Of Mesure
+						<th style="text-align: center; color: blue;">UM
 						</th>
 						<th style="text-align: center; color: blue;">Type
 						</th>
@@ -222,32 +225,31 @@ img.transparent {
 						</th>
 						<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">JAN <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">JAN <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">FEB <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">FEB <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">MAR <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">MAR <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">APR <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">APR <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">MAY <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">MAY <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">JUN <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">JUN <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">JUL <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">JUL <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">AUG <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">AUG <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">SEP <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">SEP <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">OCT <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">OCT <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">NOV <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">NOV <c:out value="${anio}"/>
 						</th>
-						<th colspan="2" style="text-align: center; color: blue;">DEC <c:out value="${anio}"/>
+						<th style="text-align: center; color: blue;">DEC <c:out value="${anio}"/>
 						</th>
-						<th  style="text-align: center; color: blue;">Graph
-						</th>
+						<th style="text-align: center; color: blue;">Graph</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -255,75 +257,42 @@ img.transparent {
 						varStatus="loopCounter">
 						<tr class="${color}">
 							
-							<td rowspan="2"><a id="modal" href="#">${ kpi.ind }</a>
+							<td>${ kpi.ind }</td>
 							
-							<td rowspan="2">${ kpi.unidad }</td>
+							<td>${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
-							<c:choose>
-								<c:when test="${fn:contains(kpi.unidad, '%')}">
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
+							<c:choose>	
+								<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 						    	</c:when>    
 						    	<c:otherwise>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
 						    	</c:otherwise>
 							</c:choose>
+							<c:set var="real" value=""/>
+							<c:set var="presupuestado" value=""/>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
-									<td nowrap>
-									<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
-									</td>
+									<c:choose>
+										<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+											<td style="text-align: right;" nowrap><fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+								    	</c:when>    
+								    	<c:otherwise>
+											<td style="text-align: right;" nowrap><fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+								    	</c:otherwise>
+									</c:choose>
 									
-									<td valign="middle" rowspan="2">
-										<c:choose>
-										    <c:when test="${val.mveval gt val.mvevpe}">
-										    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
-										    </c:when>    
-										    <c:otherwise>
-										        <img src="<c:url value="/resources/img/adm/rojo.png"/>" alt="Rojo" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
-										    </c:otherwise>
-										</c:choose>
-									</td>
-									<c:set var="real" value="${real};${val.mveval}"/>
-							</c:forEach>
-							
-							<td>
-							<!--  <img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;">  -->
-							</td>
-							</td>
-							
-						</tr>
-						<tr class="${color}">
-							<td>${kpi.tipoDos}</td>
-							
-							<c:choose>
-								<c:when test="${fn:contains(kpi.unidad, '%')}">
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" />%</td>
-									<td><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" />%</td>
-						    	</c:when>    
-						    	<c:otherwise>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
-									<td><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
-						    	</c:otherwise>
-							</c:choose>
-							
-							<c:forEach items="${kpi.lista}" var="val"
-								varStatus="loopCounter">
-									<td><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-									<c:set var="presupuestado" value="${presupuestado};${val.mvevpe}"/>
-							</c:forEach>
-							
+									
+									<fmt:formatNumber var="real2" pattern="###" value="${val.mveval}" type="number" maxFractionDigits="0"/>
+									<c:set var="real" value="${real};${real2}"/>
+							</c:forEach>							
 							<td><img onclick="graph('${real}', '${presupuestado}', '${ kpi.ind }')" src="<c:url value="/resources/img/adm/graph.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
+							</td>
+							
 						</tr>
-						<c:choose>
-							<c:when test="${color=='success'}">
-								<c:set var="color" value="warning"/>
-						    </c:when>    
-						    <c:otherwise>
-								<c:set var="color" value="success"/>
-						    </c:otherwise>
-						</c:choose>
+						
 					</c:forEach>
 					<tr>
 						<td colspan="20" align="center"></td>
@@ -466,6 +435,7 @@ img.transparent {
 							//document.getElementById("region").selectedIndex = "${r3g}";
 							//document.getElementById("nia").selectedIndex = "${c1a}";
 							//document.getElementById("moneda").selectedIndex = "${cur}";
+							clearTable();
 							
 							$("#region").val("${r3g}");
 							$("#nia").val("${c1a}");
@@ -474,10 +444,6 @@ img.transparent {
 							var t="${tas}";
 							var c1a="${c1a}";
 							var curr="${cur}";
-							if (t=="mvevpe")
-								document.getElementById("tasa").selectedIndex = "1";
-							else
-								document.getElementById("tasa").selectedIndex = "0";
 							
 							if (c1a=="Todas")
 								$('#moneda').prop('disabled', true);
@@ -488,6 +454,12 @@ img.transparent {
 								$('#tasa').prop('disabled', true);
 							else
 								$('#tasa').prop('disabled', false);
+							
+							if (t=="mveval"){
+								$("#tasa").val("m");
+							}
+							else
+								document.getElementById("tasa").selectedIndex = "p";
 							
 							var lineOptions = {
 								    ///Boolean - Whether grid lines are shown across the chart
@@ -552,8 +524,8 @@ img.transparent {
 
 							//document.getElementById('region').value="${navega.dash_region}";
 							//document.getElementById('nia').value="${navega.dash_nia}";
-							document.getElementById('moneda').value="${navega.dash_moneda}";
-							document.getElementById('tasa').value="${navega.dash_tasa}";
+							//document.getElementById('moneda').value="${navega.dash_moneda}";
+							//document.getElementById('tasa').value="${navega.dash_tasa}";
 							pageSetUp();
 
 							/* // DOM Position key index //
@@ -965,6 +937,19 @@ img.transparent {
 
 		})(jQuery, window);
 		
+		function clearTable(){
+			var table = $("#mprDetailDataTable table tbody");
+			//alert(table);
+			table.find('tr').each(function (i) {
+		        var $tds = $(this).find('td'),
+		            colu = $tds.eq(0).text();
+		           
+		        // do something with productId, product, Quantity
+		        log('Row ' + (i + 1) + ':\nId: ' + colu
+		             );
+		    });
+		}
+		
 		function cargaRegiones(){
 			var r3g=$( "#region" ).val();
 			if (r3g.localeCompare("Todas") == 0){
@@ -1092,12 +1077,11 @@ img.transparent {
 			});
 		}
 		
-		/* 
-			$('#modal').click(function() {
+		$('#modal').click(function() {
 			$('#dialog-message').dialog('open');
 			return false;
 		});
-		*/
+		
 		$("#dialog-graph").dialog({
 			autoOpen : false,
 			modal : true,
@@ -1187,27 +1171,6 @@ img.transparent {
 				opciones.push(opc[15]);
 				opciones.push(opc[16]);
 			    break;
-			case "VEN004":
-				opciones.push(opc[1]);
-				opciones.push(opc[2]);
-				opciones.push(opc[3]);
-				opciones.push(opc[4]);
-				opciones.push(opc[5]);
-				opciones.push(opc[6]);
-				opciones.push(opc[7]);
-				opciones.push(opc[8]);
-				opciones.push(opc[9]);
-				opciones.push(opc[10]);
-				opciones.push(opc[11]);
-				opciones.push(opc[12]);
-				opciones.push(opc[13]);
-				opciones.push(opc[14]);
-				opciones.push(opc[15]);
-				opciones.push(opc[16]);
-				break;
-			case "VEN005":
-				opciones.push(opc[3]);
-			    break;
 			case "VEN006":
 				opciones.push(opc[1]);
 				opciones.push(opc[2]);
@@ -1227,23 +1190,8 @@ img.transparent {
 				opciones.push(opc[16]);
 				break;
 			case "VEN007":
-				opciones.push(opc[1]);
-				opciones.push(opc[2]);
 				opciones.push(opc[3]);
-				opciones.push(opc[4]);
-				opciones.push(opc[5]);
-				opciones.push(opc[6]);
-				opciones.push(opc[7]);
-				opciones.push(opc[8]);
-				opciones.push(opc[9]);
-				opciones.push(opc[10]);
-				opciones.push(opc[11]);
-				opciones.push(opc[12]);
-				opciones.push(opc[13]);
-				opciones.push(opc[14]);
-				opciones.push(opc[15]);
-				opciones.push(opc[16]);
-				break;
+			    break;
 			case "VEN008":
 				opciones.push(opc[1]);
 				opciones.push(opc[2]);
@@ -1298,8 +1246,8 @@ img.transparent {
 				opciones.push(opc[15]);
 				opciones.push(opc[16]);
 				break;
-		    case "VEN011":
-		    	opciones.push(opc[1]);
+			case "VEN011":
+				opciones.push(opc[1]);
 				opciones.push(opc[2]);
 				opciones.push(opc[3]);
 				opciones.push(opc[4]);
@@ -1334,8 +1282,8 @@ img.transparent {
 				opciones.push(opc[15]);
 				opciones.push(opc[16]);
 				break;
-			case "VEN013":
-				opciones.push(opc[1]);
+		    case "VEN013":
+		    	opciones.push(opc[1]);
 				opciones.push(opc[2]);
 				opciones.push(opc[3]);
 				opciones.push(opc[4]);
@@ -1371,12 +1319,48 @@ img.transparent {
 				opciones.push(opc[16]);
 				break;
 			case "VEN015":
+				opciones.push(opc[1]);
+				opciones.push(opc[2]);
+				opciones.push(opc[3]);
+				opciones.push(opc[4]);
+				opciones.push(opc[5]);
+				opciones.push(opc[6]);
+				opciones.push(opc[7]);
+				opciones.push(opc[8]);
+				opciones.push(opc[9]);
+				opciones.push(opc[10]);
+				opciones.push(opc[11]);
+				opciones.push(opc[12]);
+				opciones.push(opc[13]);
+				opciones.push(opc[14]);
+				opciones.push(opc[15]);
+				opciones.push(opc[16]);
 				break;
 			case "VEN016":
+				opciones.push(opc[1]);
+				opciones.push(opc[2]);
+				opciones.push(opc[3]);
+				opciones.push(opc[4]);
+				opciones.push(opc[5]);
+				opciones.push(opc[6]);
+				opciones.push(opc[7]);
+				opciones.push(opc[8]);
+				opciones.push(opc[9]);
+				opciones.push(opc[10]);
+				opciones.push(opc[11]);
+				opciones.push(opc[12]);
+				opciones.push(opc[13]);
+				opciones.push(opc[14]);
+				opciones.push(opc[15]);
+				opciones.push(opc[16]);
 				break;
 			case "VEN017":
 				break;
 			case "VEN018":
+				break;
+			case "VEN019":
+				break;
+			case "VEN020":
 				break;
 			default:
 			    console.log("Sorry, we are out of " + indicador + ".");
@@ -1407,7 +1391,7 @@ img.transparent {
 		}
 		
 		function graph(real, presupuestado, indicador) {
-			window.location="chartjs?v4l0="+real+"&i="+encodeURIComponent(indicador)+"&p="+presupuestado;
+			window.location="chartjs?i="+real+"&indicador="+encodeURIComponent(indicador)+"&p="+presupuestado+"&op=y";
 			//$('#dialog-graph').dialog('open');
 		}
 		
