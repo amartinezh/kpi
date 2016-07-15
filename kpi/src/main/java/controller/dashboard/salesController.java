@@ -330,9 +330,11 @@ public class salesController {
 		if (model.containsAttribute("user_inicio") == true) {
 			System.out.println("Opción"+t4s4);
 			if (t4s4.equals("p")) {
+				((session) model.asMap().get("user_inicio")).setMoneda("mvevap");
 				((session) model.asMap().get("user_inicio")).setDash_tasa("mvevap");
 				return "dashboard";
 			} else if (t4s4.equals("m")) {
+				((session) model.asMap().get("user_inicio")).setMoneda("mveval");
 				((session) model.asMap().get("user_inicio")).setDash_tasa("mveval");
 				
 				return "dashboard";

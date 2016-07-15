@@ -673,7 +673,7 @@ public class KpiDaoImpl implements KpiDao {
 	    	operacion[1]="(avg(k.mvevpe))";
 	    }
 	    System.out.println("Operación drill: "+ses.getIndicador_drill());
-	    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN017")){
+	    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016")|| ses.getIndicador_drill().equals("VEN017")){
 	    	operacion[0]="(max(k."+ses.getMoneda()+"))";
 			filtro = " AND k.mverid='' ";
 		}
@@ -847,7 +847,7 @@ public class KpiDaoImpl implements KpiDao {
 		    	operacion[1]="(avg(k.mvevpe))";
 		    }
 		    System.out.println("Operación: "+ses.getIndicador_drill());
-		    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN017")){
+		    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016") || ses.getIndicador_drill().equals("VEN017")){
 		    	operacion[0]="(max(k."+ses.getMoneda()+"))";
 				filtro = " AND k.mverid='' ";
 			}
@@ -1001,7 +1001,7 @@ public class KpiDaoImpl implements KpiDao {
 		    	operacion[1]="(avg(k.mvevpe))";
 		    }
 		    System.out.println("Operación: "+ses.getIndicador_drill());
-		    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN017")){
+		    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016")|| ses.getIndicador_drill().equals("VEN017")){
 		    	operacion[0]="(max(k."+ses.getMoneda()+"))";
 				filtro = " AND k.mverid='' ";
 			}

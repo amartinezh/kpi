@@ -174,21 +174,20 @@ public class financesController {
 			Model model) {
 		if (model.containsAttribute("user_inicio") == true) {
 			if (m3r.equals("0")) {
-				if (t4s4.equals("p")) {
-					((session) model.asMap().get("user_inicio"))
-							.setMoneda("mvevap");
-				} else {
-					((session) model.asMap().get("user_inicio"))
-							.setMoneda("mveval");
+				if (t4s4.equals("p")){
+					((session) model.asMap().get("user_inicio")).setMoneda("mvevap");
+					((session) model.asMap().get("user_inicio")).setDash_tasa("mvevap");
 				}
-				((session) model.asMap().get("user_inicio"))
-						.setDash_moneda("0");
+				else{
+					((session) model.asMap().get("user_inicio")).setMoneda("mveval");
+					((session) model.asMap().get("user_inicio")).setDash_tasa("mveval");
+				}
+				((session) model.asMap().get("user_inicio")).setDash_moneda("0");
 				return "dashboard";
 			} else if (m3r.equals("1")) {
-				((session) model.asMap().get("user_inicio"))
-						.setDash_moneda("1");
-				((session) model.asMap().get("user_inicio"))
-						.setMoneda("mvevac");
+				((session) model.asMap().get("user_inicio")).setDash_moneda("1");
+				((session) model.asMap().get("user_inicio")).setMoneda("mvevac");
+				((session) model.asMap().get("user_inicio")).setDash_tasa("mvevac");
 				return "dashboard";
 			} else {
 				return "redirect:/index/ingreso";
@@ -210,10 +209,12 @@ public class financesController {
 		if (model.containsAttribute("user_inicio") == true) {
 			System.out.println("Opción"+t4s4);
 			if (t4s4.equals("p")) {
+				((session) model.asMap().get("user_inicio")).setMoneda("mvevap");
 				((session) model.asMap().get("user_inicio")).setDash_tasa("mvevap");
 				return "dashboard";
 			} else if (t4s4.equals("m")) {
-				((session) model.asMap().get("user_inicio")).setDash_tasa("mvevpe");
+				((session) model.asMap().get("user_inicio")).setMoneda("mveval");
+				((session) model.asMap().get("user_inicio")).setDash_tasa("mveval");
 				return "dashboard";
 			} else {
 				return "redirect:/index/ingreso";

@@ -112,7 +112,7 @@
 	<!-- ---------------------------------------------------- -->
 	<header id="header">
 		<div class="icon-addon addon-md">
-            <select class="form-control " id="moneda" class="moneda" name="moneda" onclick="moneda()">
+            <select class="form-control " id="moneda" class="moneda" name="moneda" onchange="moneda()">
 				<c:forEach items="${currencyList}" var="curr"
 					varStatus="loopCounter">
 					<option value="${curr.id}">${curr.descripcion}</option>
@@ -121,7 +121,7 @@
             <label for="email" class="glyphicon glyphicon-search" rel="tooltip" title="" data-original-title="email"></label>
         </div>
         <div class="icon-addon addon-md">
-        	<select class="form-control input-sm col-sm-2" id="tasa" class="tasa"	name="tasa" onclick="tasa()">
+        	<select class="form-control input-sm col-sm-2" id="tasa" class="tasa"	name="tasa" onchange="tasa()">
 				<option value="p">Average</option>
 				<option value="m">Month rate</option>
 			</select>
@@ -130,7 +130,7 @@
 		</div>
 		<div class="icon-addon addon-md">
         	<select class="form-control input-sm col-sm-2" id="anio" class="anio"
-				name="anio" onclick="anio()">
+				name="anio" onchange="anio()">
 				<option value="2015">2015</option>
 				<option value="2016">2016</option>
 			</select>
@@ -225,29 +225,29 @@
 						</th>
 						<th style="text-align: center; color: blue;">Average <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">JAN <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">JAN <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">FEB <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">FEB <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">MAR <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">MAR <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">APR <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">APR <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">MAY <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">MAY <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">JUN <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">JUN <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">JUL <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">JUL <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">AUG <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">AUG <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">SEP <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">SEP <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">OCT <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">OCT <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">NOV <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">NOV <c:out value="${anio}"/>
 						</th>
-						<th style="text-align: center; color: blue;">DEC <c:out value="${anio}"/>
+						<th colspan="2" style="text-align: center; color: blue;">DEC <c:out value="${anio}"/>
 						</th>
 						<th style="text-align: center; color: blue;">Graph</th>
 					</tr>
@@ -257,9 +257,9 @@
 						varStatus="loopCounter">
 						<tr class="${color}">
 							
-							<td>${ kpi.ind }</td>
+							<td rowspan="2">${ kpi.ind }</td>
 							
-							<td>${ kpi.unidad }</td>
+							<td rowspan="2">${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
 							<c:choose>	
 								<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
@@ -284,15 +284,62 @@
 								    	</c:otherwise>
 									</c:choose>
 									
-									
+									<td style="text-align: right;" valign="middle" rowspan="2">
+										<c:choose>
+										    <c:when test="${val.mveval gt val.mvevpe}">
+										    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
+										    </c:when>    
+										    <c:otherwise>
+										        <img src="<c:url value="/resources/img/adm/rojo.png"/>" alt="Rojo" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
+										    </c:otherwise>
+										</c:choose>
+									</td>
 									<fmt:formatNumber var="real2" pattern="###" value="${val.mveval}" type="number" maxFractionDigits="0"/>
 									<c:set var="real" value="${real};${real2}"/>
-							</c:forEach>							
-							<td><img onclick="graph('${real}', '${presupuestado}', '${ kpi.ind }')" src="<c:url value="/resources/img/adm/graph.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
+							</c:forEach>
+							
+							<td></td>
 							</td>
 							
 						</tr>
-						
+						<tr class="${color}">
+							<td>${kpi.tipoDos}</td>
+							
+							<c:choose>
+								<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+						    	</c:when>    
+						    	<c:otherwise>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
+						    	</c:otherwise>
+							</c:choose>
+							
+							<c:forEach items="${kpi.lista}" var="val"
+								varStatus="loopCounter">
+								<c:choose>
+									<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+										<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							    	</c:when>    
+							    	<c:otherwise>
+							    		<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							    	</c:otherwise>
+								</c:choose>
+									<fmt:formatNumber var="presupuestado2" pattern="###" value="${val.mvevpe}" type="number" maxFractionDigits="0"/>
+									<c:set var="presupuestado" value="${presupuestado};${presupuestado2}"/>
+							</c:forEach>
+							
+							<td><img onclick="graph('${real}', '${presupuestado}', '${ kpi.ind }')" src="<c:url value="/resources/img/adm/graph.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
+						</tr>
+						<c:choose>
+							<c:when test="${color=='success'}">
+								<c:set var="color" value="warning"/>
+						    </c:when>    
+						    <c:otherwise>
+								<c:set var="color" value="success"/>
+						    </c:otherwise>
+						</c:choose>
 					</c:forEach>
 					<tr>
 						<td colspan="20" align="center"></td>
