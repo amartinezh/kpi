@@ -113,7 +113,7 @@
 	<!-- ---------------------------------------------------- -->
 	<header id="header">
 		<div class="icon-addon addon-md">
-            <select class="form-control " id="moneda" class="moneda" name="moneda" onclick="moneda()">
+            <select class="form-control " id="moneda" class="moneda" name="moneda" onchange="moneda()">
 				<c:forEach items="${currencyList}" var="curr"
 					varStatus="loopCounter">
 					<option value="${curr.id}">${curr.descripcion}</option>
@@ -122,7 +122,7 @@
             <label for="email" class="glyphicon glyphicon-search" rel="tooltip" title="" data-original-title="email"></label>
         </div>
         <div class="icon-addon addon-md">
-        	<select class="form-control input-sm col-sm-2" id="tasa" class="tasa"	name="tasa" onclick="tasa()">
+        	<select class="form-control input-sm col-sm-2" id="tasa" class="tasa"	name="tasa" onchange="tasa()">
 				<option value="p">Average</option>
 				<option value="m">Month rate</option>
 			</select>
@@ -131,7 +131,7 @@
 		</div>
 		 <div class="icon-addon addon-md">
         	<select class="form-control input-sm col-sm-2" id="anio" class="anio"
-				name="anio" onclick="anio()">
+				name="anio" onchange="anio()">
 				<option value="2015">2015</option>
 				<option value="2016">2016</option>
 			</select>
@@ -242,7 +242,7 @@
 							<td rowspan="2">${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
 							<c:choose>
-								<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+								<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 						    	</c:when>    
@@ -257,7 +257,7 @@
 								varStatus="loopCounter">
 									<td style="text-align: right;" nowrap>
 										<c:choose>
-											<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+											<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 												<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
 									    	</c:when>    
 									    	<c:otherwise>
@@ -286,7 +286,7 @@
 						<tr class="${color}">
 							<td>${kpi.tipoDos}</td>
 							<c:choose>
-								<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+								<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 						    	</c:when>    
@@ -298,7 +298,7 @@
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 								<c:choose>
-									<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+									<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 										<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 							    	</c:when>    
 							    	<c:otherwise>
@@ -1110,6 +1110,9 @@
 			var opc = new Array();
 			var simbolo_porcentaje = $(cosa_this).closest("tr").find('td:eq(1)').text();
 			if (simbolo_porcentaje.indexOf("%") < 0) simbolo_porcentaje="-"; else simbolo_porcentaje="p";
+			
+			// Indicación especial para el indicador 02, que no es % pero debe llevar decimal
+			if (indicador == 'VEN002') simbolo_porcentaje="d";
 			opc[1]='<img onclick="drilldown_controller(\''+indicador+'\', \'Clientes\', \'mvecli\', \'mvecln\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/cliente.png"/>" style="width: 48px; height: 48px">Por Cliente<br>';
 			opc[2]='<img onclick="drilldown_controller(\''+indicador+'\', \'Tipos de Cliente\', \'mvetic\', \'mvetin\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/tipocliente.png"/>" style="width: 48px; height: 48px">Tipo Cliente<br>';
 			opc[3]='<img onclick="drilldown_controller(\''+indicador+'\', \'Bodega\', \'mveloc\', \'mvelon\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/bodega.png"/>" style="width: 48px; height: 48px">Bodega<br>';

@@ -1152,9 +1152,11 @@ public class KpiDaoImpl implements KpiDao {
 				  }
 				  valor_row=tm.get(key);
 				  
+				  System.out.println("es:"+valor_row.get(1).toString());
 				  // Se modifican los valores para promediarlos
-				  valor_row.set(1, valor_row.get(1).divide(valor_row.get(0)));
-				  valor_row.set(2, valor_row.get(2).divide(valor_row.get(0)));
+				  valor_row.set(1, valor_row.get(1).divide(valor_row.get(0), 2, RoundingMode.HALF_UP));
+				  
+				  valor_row.set(2, valor_row.get(2).divide(valor_row.get(0), 2, RoundingMode.HALF_UP));
 				  // Se colocan los totales del promedio anño anterior y actual, el anterior sale de un SQL
 				  // mientras que el que esta en la posición 1 sale sumando todos los meses y dividiendo por los meses
 				  // el mes por cada fila se guarda en la posición 1
@@ -1162,7 +1164,7 @@ public class KpiDaoImpl implements KpiDao {
 				  totales.set(1,totales.get(1).add( valor_row.get(2)  ) );
 				  int c=0;
 				  for (int i=3; i< valor_row.size(); i++) {
-					  list.get(c).setMveval(   valor_row.get(i).divide(valor_row.get(0))   ); // Agrega cada reglón como saldrá en la vista
+					  list.get(c).setMveval(   valor_row.get(i).divide(valor_row.get(0), 2, RoundingMode.HALF_UP)   ); // Agrega cada reglón como saldrá en la vista
 					  totales.set(i-1,totales.get(i-1).add(list.get(c).getMveval())); // Totales de cada columna
 					  c++;
 				  }

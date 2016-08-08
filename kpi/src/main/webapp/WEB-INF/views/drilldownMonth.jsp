@@ -220,7 +220,11 @@ tr:last-child {
 													<c:when test="${fn:contains(simbolo, 'p')}">
 														<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" />%</td>
 														<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" />%</td>
-											    	</c:when>    
+											    	</c:when>
+											    	<c:when test="${fn:contains(simbolo, 'd')}">
+														<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+														<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+											    	</c:when>
 											    	<c:otherwise>
 														<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
 														<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
@@ -234,7 +238,10 @@ tr:last-child {
 														<c:choose>
 															<c:when test="${fn:contains(simbolo, 'p')}">
 																<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />%
-													    	</c:when>    
+													    	</c:when>
+													    	<c:when test="${fn:contains(simbolo, 'd')}">
+																<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />
+													    	</c:when>
 													    	<c:otherwise>
 																<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
 													    	</c:otherwise>

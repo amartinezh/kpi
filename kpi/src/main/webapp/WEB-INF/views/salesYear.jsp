@@ -1148,6 +1148,9 @@
 			var opc = new Array();
 			var simbolo_porcentaje = $(cosa_this).closest("tr").find('td:eq(1)').text();
 			if (simbolo_porcentaje.indexOf("%") < 0) simbolo_porcentaje="-"; else simbolo_porcentaje="p";
+			
+			// Indicación especial para el indicador 02, que no es % pero debe llevar decimal
+			if (indicador == 'VEN002') simbolo_porcentaje="d";
 			opc[1]='<img onclick="drilldown_controller(\''+indicador+'\', \'Clientes\', \'mvecli\', \'mvecln\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/cliente.png"/>" style="width: 48px; height: 48px">Por Cliente<br>';
 			opc[2]='<img onclick="drilldown_controller(\''+indicador+'\', \'Tipos de Cliente\', \'mvetic\', \'mvetin\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/tipocliente.png"/>" style="width: 48px; height: 48px">Tipo Cliente<br>';
 			opc[3]='<img onclick="drilldown_controller(\''+indicador+'\', \'Bodega\', \'mveloc\', \'mvelon\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/bodega.png"/>" style="width: 48px; height: 48px">Bodega<br>';
