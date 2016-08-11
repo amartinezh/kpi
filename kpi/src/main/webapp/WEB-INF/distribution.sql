@@ -76,6 +76,7 @@ ALTER TABLE dis.cfg
   OWNER TO postgres;
   
 -- -------------------------------------------------------------------------------
+61643
 
 INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC001', 'SUM', 'Distribution', '', '1. Absenteeism', 'USD', 'V');
 INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC002', 'AVG', 'Distribution', '', '2. Head Count', '% of Revenue', '%');

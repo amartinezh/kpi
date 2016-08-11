@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import domain.adm.Plan;
-import domain.kpi.reporte;
+import domain.kpi.reporteDistri;
 import domain.session.session;
 //import service.gestion.PlanService;
-import service.kpi.KpiService;
+import service.kpi.DistriService;;
 
 @Controller
-@RequestMapping("/indicadores")
+@RequestMapping("/distri")
 @SessionAttributes({ "user_inicio" })
-public class salesController {
+public class distriController {
 
 	@Autowired
-	private KpiService kpiService;
+	private DistriService distriService;
 	
 	@Autowired
 	private service.adm.RegionService regionService;
@@ -41,100 +41,9 @@ public class salesController {
 	private enum Months {
 		January, February, March, April, May, June, July, August, September, October, November, December;
 	}
-
-	@RequestMapping(value = "/inicio", method = RequestMethod.GET)
-	public String inicio(Model model) {
-		if (model.containsAttribute("user_inicio") == true) {
-			((session) model.asMap().get("user_inicio")).setDash_region(companyService.getCompanyRegion(((session) model.asMap().get("user_inicio")).getDash_nia()).getRegion_id().getRegion_id());
-			//System.out.println("------------La region: "+((session) model.asMap().get("user_inicio")).getDash_region());
-			model.addAttribute("r3g", ((session) model.asMap().get("user_inicio")).getDash_region());
-			model.addAttribute("c1a", ((session) model.asMap().get("user_inicio")).getDash_nia());
-			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
-			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
-			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
-			model.addAttribute("usuario",((session) model.asMap().get("user_inicio")).getUsuario());
-			model.addAttribute("tipo",((session) model.asMap().get("user_inicio")).getTipoUsuario());
-			if (((session) model.asMap().get("user_inicio")).getTipoUsuario() == 2) {
-				model.addAttribute("companyList", companyService.listCompany(((session) model.asMap().get("user_inicio")).getDash_region()));
-			} else {
-				if (((session) model.asMap().get("user_inicio")).getTipoUsuario() == 3) {
-					model.addAttribute("companyList", companyService.listCompany("Todas"));
-				}
-			}
-			
-			return "dashboard";
-		} else {
-			return "redirect:/index/ingreso";
-		}
-	}
 	
-	@RequestMapping(value = "/menu", method = RequestMethod.GET)
-	public String menu(Model model, @RequestParam String t, @RequestParam String r3g, @RequestParam String op10, @RequestParam String nia) {
-		if (model.containsAttribute("user_inicio") == true) {
-			model.addAttribute("tit",t);
-			model.addAttribute("r3g",r3g);
-			model.addAttribute("op10",op10);
-			model.addAttribute("n",((session) model.asMap().get("user_inicio")).getNivel());
-			if (!nia.equals("n")){
-				((session) model.asMap().get("user_inicio")).setDash_nia(nia);
-				((session) model.asMap().get("user_inicio")).setDash_region(companyService.getCompanyRegion(nia).getRegion_id().getRegion_id());
-			}
-			switch (Integer.parseInt(op10)) {
-            	case 1: 
-            		model.addAttribute("view","salesMonth");
-            		model.addAttribute("viewFinance","/finance/financeMonth");
-            		model.addAttribute("viewHuman","/human/humanMonth");
-            		model.addAttribute("viewDistri","/distri/distriMonth");
-            		break;
-            	case 2: 
-            		model.addAttribute("view","salesYear");
-            		model.addAttribute("viewFinance","/finance/financeYear");
-            		model.addAttribute("viewHuman","/human/humanYear");
-            		model.addAttribute("viewDistri","/distri/distriYear");
-            		break;
-            	case 3: 
-            		model.addAttribute("view", "salesQuarterly");
-            		model.addAttribute("viewFinance","/finance/financeQuarterly");
-            		model.addAttribute("viewHuman","/human/humanQuarterly");
-            		model.addAttribute("viewDistri","/distri/distriQuarterly");
-            		break;
-            	default:
-            		break;
-			}
-			return "menu";
-		} else {
-			return "redirect:/index/ingreso";
-		}
-	}
-	
-	@RequestMapping(value = "/intruso", method = RequestMethod.GET)
-	public String intruso(Model model) {
-		if (model.containsAttribute("user_inicio") == true) {
-			((session) model.asMap().get("user_inicio")).setDash_region(companyService.getCompanyRegion(((session) model.asMap().get("user_inicio")).getDash_nia()).getRegion_id().getRegion_id());
-			//System.out.println("------------La region: "+((session) model.asMap().get("user_inicio")).getDash_region());
-			model.addAttribute("r3g", ((session) model.asMap().get("user_inicio")).getDash_region());
-			model.addAttribute("c1a", ((session) model.asMap().get("user_inicio")).getDash_nia());
-			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
-			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
-			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
-			model.addAttribute("usuario",((session) model.asMap().get("user_inicio")).getUsuario());
-			model.addAttribute("tipo",((session) model.asMap().get("user_inicio")).getTipoUsuario());
-			if (((session) model.asMap().get("user_inicio")).getTipoUsuario() == 2) {
-				model.addAttribute("companyList", companyService.listCompany(((session) model.asMap().get("user_inicio")).getDash_region()));
-			} else {
-				if (((session) model.asMap().get("user_inicio")).getTipoUsuario() == 3) {
-					model.addAttribute("companyList", companyService.listCompany("Todas"));
-				}
-			}
-			
-			return "menu_adm";
-		} else {
-			return "redirect:/index/ingreso";
-		}
-	}
-	
-	@RequestMapping(value = "/salesYear", method = RequestMethod.GET)
-	public String salesYear(Model model, @RequestParam String t, @RequestParam String op10) {
+	@RequestMapping(value = "/distriYear", method = RequestMethod.GET)
+	public String distriYear(Model model, @RequestParam String t, @RequestParam String op10) {
 		if (model.containsAttribute("user_inicio") == true) {
 			model.addAttribute("tit",t);
 			String r=((session) model.asMap().get("user_inicio")).getDash_region();
@@ -142,7 +51,7 @@ public class salesController {
 			int m= Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes());
 			if (!r.equals("Todas")) r = regionService.getRegion(((session) model.asMap().get("user_inicio")).getDash_region()).get(0).getDescripcion();
 			if (!n.equals("Todas")) n = companyService.listCompany__(((session) model.asMap().get("user_inicio")).getDash_nia()).get(0).getDescripcion();
-			List<reporte> listado = kpiService.listSales((session) model.asMap().get("user_inicio"));
+			List<reporteDistri> listado = distriService.listSales((session) model.asMap().get("user_inicio"));
 			model.addAttribute("valor", listado);
 			
 			// Elimina los meses que no tienen información
@@ -176,14 +85,14 @@ public class salesController {
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
-			return "salesYear";
+			return "distri/distriYear";
 		} else {
 			return "redirect:/index/ingreso";
 		}
 	}
 	
-	@RequestMapping(value = "/salesMonth", method = RequestMethod.GET)
-	public String salesMonth(Model model, @RequestParam String t, @RequestParam String op10) {
+	@RequestMapping(value = "/distriMonth", method = RequestMethod.GET)
+	public String distriMonth(Model model, @RequestParam String t, @RequestParam String op10) {
 		if (model.containsAttribute("user_inicio") == true) {
 			model.addAttribute("tit",t);
 			String r=((session) model.asMap().get("user_inicio")).getDash_region();
@@ -193,7 +102,7 @@ public class salesController {
 			
 			((session) model.asMap().get("user_inicio")).setOp("M");
 			// Lista
-			model.addAttribute("valor", kpiService.listSalesMonth((session) model.asMap().get("user_inicio")));
+			model.addAttribute("valor", distriService.listSalesMonth((session) model.asMap().get("user_inicio")));
 			
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
@@ -216,13 +125,13 @@ public class salesController {
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
 			model.addAttribute("mes",((session) model.asMap().get("user_inicio")).getMes());
 			model.addAttribute("elmes", Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())-1]);
-			return "salesMonth";
+			return "distri/distriMonth";
 		} else {
 			return "redirect:/index/ingreso";
 		}
 	}
 	
-	@RequestMapping(value = "/salesQuarterly", method = RequestMethod.GET)
+	@RequestMapping(value = "/distriQuarterly", method = RequestMethod.GET)
 	public String salesQuarterly(Model model, @RequestParam String t) {
 		if (model.containsAttribute("user_inicio") == true) {
 			model.addAttribute("tit",t);
@@ -230,7 +139,7 @@ public class salesController {
 			String n=((session) model.asMap().get("user_inicio")).getDash_nia();
 			if (!r.equals("Todas")) r = regionService.getRegion(((session) model.asMap().get("user_inicio")).getDash_region()).get(0).getDescripcion();
 			if (!n.equals("Todas")) n = companyService.listCompany__(((session) model.asMap().get("user_inicio")).getDash_nia()).get(0).getDescripcion();
-			model.addAttribute("valor", kpiService.listSalesQuarterly((session) model.asMap().get("user_inicio")));
+			model.addAttribute("valor", distriService.listSalesQuarterly((session) model.asMap().get("user_inicio")));
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
 					"Company: " + n + " >> " +
@@ -248,7 +157,7 @@ public class salesController {
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
-			return "salesQuarterly";
+			return "distri/distriQuarterly";
 		} else {
 			return "redirect:/index/ingreso";
 		}
@@ -377,7 +286,7 @@ public class salesController {
 	public String mes(@RequestParam String mes, Model model) {
 		if (model.containsAttribute("user_inicio") == true) {
 			((session) model.asMap().get("user_inicio")).setMes(mes);
-			return "salesMonth";
+			return "distriMonth";
 		} else {
 			return "redirect:/index/ingreso";
 		}
@@ -427,18 +336,18 @@ public class salesController {
 					" ( "+m3r+" )"
 					);
 			if (op10n.equals("M")){
-				model.addAttribute("valor", kpiService.listSalesDrillMonth((session) model.asMap().get("user_inicio")));
+				model.addAttribute("valor", distriService.listSalesDrillMonth((session) model.asMap().get("user_inicio")));
 				return "drilldownMonth";
 			}
 			else{
 				if (op10n.equals("Q")){
-					model.addAttribute("valor", kpiService.listSalesDrillQuarterly((session) model.asMap().get("user_inicio")));
+					model.addAttribute("valor", distriService.listSalesDrillQuarterly((session) model.asMap().get("user_inicio")));
 					model.addAttribute("totales",((session) model.asMap().get("user_inicio")).getTotales());
 					return "drilldownQuarterly";
 				}
 				else{
 					if (op10n.equals("Y")){
-						model.addAttribute("valor", kpiService.listSalesDrill((session) model.asMap().get("user_inicio")));
+						model.addAttribute("valor", distriService.listSalesDrill((session) model.asMap().get("user_inicio")));
 						model.addAttribute("totales",((session) model.asMap().get("user_inicio")).getTotales());
 						return "drilldown";
 					}
