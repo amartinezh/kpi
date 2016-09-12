@@ -9,7 +9,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@IdClass(KpiPK.class)
+@IdClass(DistriPK.class)
 @Table(name = "inddis", schema = "dis")
 public class Distri {
 	
@@ -64,6 +64,7 @@ public class Distri {
 	@Column(name = "mvecn1")
 	private String mvecn1; // Nombre Area
 	
+	@Id
 	@Column(name = "mvecr2")
 	private String mvecr2; // Zona Cliente   Ref2
 	
@@ -151,6 +152,10 @@ public class Distri {
 	@Column(name = "mvevpe")
 	private BigDecimal mvevpe; // Valor Indicador PRESUPUESTO
 
+	public Distri(){
+		
+	}
+	
 	public String getMveano() {
 		return mveano;
 	}

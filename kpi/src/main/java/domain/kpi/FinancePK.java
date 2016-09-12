@@ -9,29 +9,25 @@ public class FinancePK implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Column
-	private int mveano;
+	private String mveano;
 	
 	@Column
-	private int mvemes;
+	private String mvemes;
 	
 	@Column
-	private int mvereg;
+	private String mvereg;
 	
 	@Column
-	private int mvecia;
-	
-	@Column
-	private int mveind;
+	private String mvecia;
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + mveano;
-		result = prime * result + mvecia;
-		result = prime * result + mveind;
-		result = prime * result + mvemes;
-		result = prime * result + mvereg;
+		result = prime * result + ((mveano == null) ? 0 : mveano.hashCode());
+		result = prime * result + ((mvecia == null) ? 0 : mvecia.hashCode());
+		result = prime * result + ((mvemes == null) ? 0 : mvemes.hashCode());
+		result = prime * result + ((mvereg == null) ? 0 : mvereg.hashCode());
 		return result;
 	}
 
@@ -44,17 +40,28 @@ public class FinancePK implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		FinancePK other = (FinancePK) obj;
-		if (mveano != other.mveano)
+		if (mveano == null) {
+			if (other.mveano != null)
+				return false;
+		} else if (!mveano.equals(other.mveano))
 			return false;
-		if (mvecia != other.mvecia)
+		if (mvecia == null) {
+			if (other.mvecia != null)
+				return false;
+		} else if (!mvecia.equals(other.mvecia))
 			return false;
-		if (mveind != other.mveind)
+		if (mvemes == null) {
+			if (other.mvemes != null)
+				return false;
+		} else if (!mvemes.equals(other.mvemes))
 			return false;
-		if (mvemes != other.mvemes)
-			return false;
-		if (mvereg != other.mvereg)
+		if (mvereg == null) {
+			if (other.mvereg != null)
+				return false;
+		} else if (!mvereg.equals(other.mvereg))
 			return false;
 		return true;
 	}
+
 	
 }

@@ -257,12 +257,13 @@
 						varStatus="loopCounter">
 						<tr class="${color}">
 							
-							<td rowspan="2">${ kpi.ind }</td>
+							<td rowspan="2"><a id="modal" href="#" onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
 							
 							<td rowspan="2">${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
 							<c:choose>	
-								<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+								
+								<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 						    	</c:when>    
@@ -276,7 +277,8 @@
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 									<c:choose>
-										<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+									
+										<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 											<td style="text-align: right;" nowrap><fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 								    	</c:when>    
 								    	<c:otherwise>
@@ -298,7 +300,7 @@
 									<c:set var="real" value="${real};${real2}"/>
 							</c:forEach>
 							
-							<td></td>
+							<td><img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
 							</td>
 							
 						</tr>
@@ -306,7 +308,7 @@
 							<td>${kpi.tipoDos}</td>
 							
 							<c:choose>
-								<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+								<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 						    	</c:when>    
@@ -319,7 +321,7 @@
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
 								<c:choose>
-									<c:when test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+									<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
 										<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 							    	</c:when>    
 							    	<c:otherwise>
@@ -1146,6 +1148,9 @@
 			var opc = new Array();
 			var simbolo_porcentaje = $(cosa_this).closest("tr").find('td:eq(1)').text();
 			if (simbolo_porcentaje.indexOf("%") < 0) simbolo_porcentaje="-"; else simbolo_porcentaje="p";
+			
+			// Indicación especial para el indicador 02, que no es % pero debe llevar decimal
+			if (indicador == 'VEN002') simbolo_porcentaje="d";
 			opc[1]='<img onclick="drilldown_controller(\''+indicador+'\', \'Clientes\', \'mvecli\', \'mvecln\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/cliente.png"/>" style="width: 48px; height: 48px">Por Cliente<br>';
 			opc[2]='<img onclick="drilldown_controller(\''+indicador+'\', \'Tipos de Cliente\', \'mvetic\', \'mvetin\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/tipocliente.png"/>" style="width: 48px; height: 48px">Tipo Cliente<br>';
 			opc[3]='<img onclick="drilldown_controller(\''+indicador+'\', \'Bodega\', \'mveloc\', \'mvelon\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/bodega.png"/>" style="width: 48px; height: 48px">Bodega<br>';
@@ -1464,23 +1469,6 @@
 		}
 	</script>
 
-	<!-- Your GOOGLE ANALYTICS CODE Below -->
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push([ '_setAccount', 'UA-XXXXXXXX-X' ]);
-		_gaq.push([ '_trackPageview' ]);
-
-		(function() {
-			var ga = document.createElement('script');
-			ga.type = 'text/javascript';
-			ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl'
-					: 'http://www')
-					+ '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
 
 </body>
 

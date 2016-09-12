@@ -1115,7 +1115,7 @@
 			});
 		}
 		
-		function mes() {
+		function mes() { 
 			var dato=document.getElementById("mes").value;
 			dato=parseInt(dato)+1;
 			$.ajax({

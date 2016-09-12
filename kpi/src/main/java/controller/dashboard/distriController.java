@@ -65,7 +65,7 @@ public class distriController {
 			}
 			
 			model.addAttribute("valorTam", listado.size());
-			System.out.println(listado.get(0).getLista().size());
+			//System.out.println(listado.get(0).getLista().size());
 			
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +

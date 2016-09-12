@@ -14,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import domain.adm.Cfg;
+import domain.adm.CfgDistri;
 import domain.kpi.Distri;
 import domain.kpi.reporteDistri;
 import domain.session.session;
 import repository.kpi.DistriDao;
+import service.adm.CfgDistriService;
 import service.adm.CfgService;
 
 @Repository
@@ -27,7 +29,7 @@ public class DistriDaoImpl implements DistriDao {
 	private EntityManager em = null;
 
 	@Autowired
-	private CfgService cfgService;
+	private CfgDistriService cfgService;
 	
 	private enum Indicadores {
 		VEN005, VEN008, VEN010, VEN011, VEN012, VEN013;
@@ -48,7 +50,7 @@ public class DistriDaoImpl implements DistriDao {
 
 	public List<reporteDistri> listSales(session ses) {
 		List<reporteDistri> valor = new LinkedList<reporteDistri>();
-		List<Cfg> indicadores = cfgService.getListCfg();
+		List<CfgDistri> indicadores = cfgService.getListCfg();
 		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		
@@ -57,7 +59,6 @@ public class DistriDaoImpl implements DistriDao {
 		
 		java.math.BigDecimal valorMesReal = new java.math.BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal valorMesPresupuesto = new java.math.BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
-		
 		
 		String sql="";
 		if (!ses.getDash_nia().equals("Todas")){
@@ -70,7 +71,7 @@ public class DistriDaoImpl implements DistriDao {
 		String operacion_segundo_campo="";
 		String filtro="";
 		// Lee todos los indicadores de la base de datos
-		for (Cfg cfg : indicadores) {
+		for (CfgDistri cfg : indicadores) {
 			
 			if (cfg.getOperacion().equals("AV2")){
 				 operacion_primer_campo="avg";
@@ -95,7 +96,7 @@ public class DistriDaoImpl implements DistriDao {
 			List<Object[]> result = em
 					.createQuery(
 							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Distri as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ filtro
@@ -145,7 +146,7 @@ public class DistriDaoImpl implements DistriDao {
 		    List<Object[]> prom = em
 					.createQuery(
 							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Distri as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ filtro
@@ -195,7 +196,7 @@ public class DistriDaoImpl implements DistriDao {
 
 	public List<reporteDistri> listSalesMonth(session ses) {
 		List<reporteDistri> valor = new LinkedList<reporteDistri>();
-		List<Cfg> indicadores = cfgService.getListCfg();
+		List<CfgDistri> indicadores = cfgService.getListCfg();
 		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		
@@ -214,7 +215,7 @@ public class DistriDaoImpl implements DistriDao {
 		String operacion_primer_campo="";
 		String operacion_segundo_campo="";
 		String filtro="";
-		for (Cfg cfg : indicadores) {
+		for (CfgDistri cfg : indicadores) {
 			System.out.println("Operación:"+cfg.getOperacion());
 			if (cfg.getOperacion().equals("AV2")){
 				 operacion_primer_campo="avg";
@@ -397,7 +398,7 @@ public class DistriDaoImpl implements DistriDao {
 
 	public List<reporteDistri> listSalesQuarterly(session ses) {
 		List<reporteDistri> valor = new LinkedList<reporteDistri>();
-		List<Cfg> indicadores = cfgService.getListCfg();
+		List<CfgDistri> indicadores = cfgService.getListCfg();
 		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		
@@ -432,7 +433,7 @@ public class DistriDaoImpl implements DistriDao {
 		String operacion_segundo_campo="";
 		String filtro="";
 		// Lee todos los indicadores de la base de datos
-		for (Cfg cfg : indicadores) {
+		for (CfgDistri cfg : indicadores) {
 
 			System.out.println("Operación:"+cfg.getOperacion()+"Indicador:"+cfg.getIndicador());
 			if (cfg.getOperacion().equals("AV2")){

@@ -67,7 +67,7 @@ public class humanController {
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
-			return "humaan/humanYear";
+			return "human/humanYear";
 		} else {
 			return "redirect:/index/ingreso";
 		}

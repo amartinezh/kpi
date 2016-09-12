@@ -55,6 +55,10 @@ public class Finance {
 	@Column(name = "mvevpe")
 	private BigDecimal mvevpe; // Valor Indicador PRESUPUESTO
 
+	public Finance(){
+		
+	}
+	
 	public String getMveano() {
 		return mveano;
 	}

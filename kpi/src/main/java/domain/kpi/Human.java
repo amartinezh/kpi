@@ -34,6 +34,7 @@ public class Human {
 	@Column(name = "mvecin")
 	private String mvecin; // Nombre Compañia
 	
+	@Id
 	@Column(name = "mveind")
 	private String mveind; // ID. Indicador
 	
@@ -55,6 +56,10 @@ public class Human {
 	@Column(name = "mvevpe")
 	private BigDecimal mvevpe; // Valor Indicador PRESUPUESTO
 
+	public Human(){
+		
+	}
+	
 	public String getMveano() {
 		return mveano;
 	}

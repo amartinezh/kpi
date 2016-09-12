@@ -151,6 +151,10 @@ public class Kpi {
 	@Column(name = "mvevpe")
 	private BigDecimal mvevpe; // Valor Indicador PRESUPUESTO
 
+	public Kpi(){
+		
+	}
+	
 	public String getMveano() {
 		return mveano;
 	}

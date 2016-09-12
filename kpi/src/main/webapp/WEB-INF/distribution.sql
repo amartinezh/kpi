@@ -52,7 +52,7 @@ CREATE TABLE dis.INDDIS(
   MVEVAP double precision DEFAULT 0, -- Valor Indicador USD PROMEDIO
   MVEVPE double precision DEFAULT 0, -- Valor Indicador PRESUPUESTO
 
-  CONSTRAINT tip_id_pk PRIMARY KEY (MVEANO, MVEMES, MVEREG, MVECIA, MVEIND, MVECLI, MVELOC, MVEPRO)
+  CONSTRAINT tip_id_pk PRIMARY KEY (MVEANO, MVEMES, MVEREG, MVECIA, MVEIND, MVECLI, MVELOC, MVEPRO, MVECR2)
 )WITH (OIDS=FALSE); ALTER TABLE kpi.MVINDVE OWNER TO postgres;
 
 
@@ -76,16 +76,16 @@ ALTER TABLE dis.cfg
   OWNER TO postgres;
   
 -- -------------------------------------------------------------------------------
-61643
 
-INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC001', 'SUM', 'Distribution', '', '1. Absenteeism', 'USD', 'V');
-INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC002', 'AVG', 'Distribution', '', '2. Head Count', '% of Revenue', '%');
-INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC003', 'SUM', 'Distribution', '', '3. Head Count Productivity', 'USD', '$');
-INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC004', 'SUM', 'Distribution', '', '4. OSHA', 'USD', '$');
-INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC005', 'AVG', 'Distribution', '', '5. Severity Index', '% of Revenue', '%');
-INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC006', 'SUM', 'Distribution', '', '6. Training Coverage', 'USD', '$');
-INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC007', 'SUM', 'Distribution', '', '7. RRHH Expenses', 'USD', '$');
-INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC008', 'AVG', 'Distribution', '', '8. RRHH Expenses', '%', '%');
-INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC009', 'SUM', 'Distribution', '', '9. RRHH Participation', 'USD', 'V');
-INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC0010', 'SUM', 'Distribution', '', '10. Labour Expenses', 'Days', 'V');
-INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('REC0011', 'SUM', 'Distribution', '', '11. Labour Expenses', 'Days', 'V');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS001', 'SUM', 'Distribution', '', '1. Fill Rate Qty', '%', '%');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS002', 'SUM', 'Distribution', '', '2. Fill Rate On Time', '%', '%');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS003', 'SUM', 'Distribution', '', '3. Lead Time', 'Days', 'V');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS004', 'SUM', 'Distribution', '', '4. Transportation Cost', 'USD/Ton', '$');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS005', 'AVG', 'Distribution', '', '5. Delivery average time', 'Days', 'V');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS006', 'SUM', 'Distribution', '', '6. Cubic Capacity use per vehicle', '%', '%');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS007', 'SUM', 'Distribution', '', '7. Finished Product inventory turn', 'Times per Month', 'V');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS008', 'AVG', 'Distribution', '', '8. Delivery Expensess', 'USD/Ton', '$');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS009', 'SUM', 'Distribution', '', '9. Delivery Expensess', '% of Revenue', '%');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS010', 'SUM', 'Distribution', '', '10. Direct Delivery', '%', '%');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS011', 'SUM', 'Distribution', '', '11. OSHA Rate', '#', 'V');
+INSERT INTO dis.cfg(indicador, operacion, area, division, descripcion, unidad, tipo) VALUES ('DIS012', 'SUM', 'Distribution', '', '12. Adsenteeism', '%', '%');
