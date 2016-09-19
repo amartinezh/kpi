@@ -260,12 +260,26 @@ img.transparent {
 									</td>
 									<td valign="middle" rowspan="2">
 										<c:choose>
-										    <c:when test="${val.mveval gt kpi.promMvevalRealAnoActual}">
-										    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
-										    </c:when>    
-										    <c:otherwise>
-										        <img src="<c:url value="/resources/img/adm/rojo.png"/>" alt="Rojo" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
-										    </c:otherwise>
+											<c:when test="${fn:contains(kpi.ind_cod, 'REC003') || fn:contains(kpi.ind_cod, 'REC006')}">
+												<c:choose>
+												    <c:when test="${val.mveval gt val.mvevpe}">
+												    	<img src="<c:url value="/resources/img/adm/rojo.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
+												    </c:when>    
+												    <c:otherwise>
+												        <img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Rojo" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
+												    </c:otherwise> 
+												</c:choose>
+									    	</c:when>    
+									    	<c:otherwise>
+									    		<c:choose>
+												    <c:when test="${val.mveval gt val.mvevpe}">
+												    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
+												    </c:when>    
+												    <c:otherwise>
+												        <img src="<c:url value="/resources/img/adm/rojo.png"/>" alt="Rojo" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
+												    </c:otherwise>
+												</c:choose>
+									    	</c:otherwise>
 										</c:choose>
 									</td>
 									<c:set var="real" value="${real};${val.mveval}"/>

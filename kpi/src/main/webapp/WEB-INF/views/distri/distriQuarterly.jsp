@@ -247,8 +247,8 @@
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 						    	</c:when>    
 						    	<c:otherwise>
-									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
-									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}" type="number" /></td>
 						    	</c:otherwise>
 							</c:choose>
 							<c:set var="real" value=""/>
@@ -261,7 +261,7 @@
 												<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
 									    	</c:when>    
 									    	<c:otherwise>
-												<fmt:formatNumber pattern="###,###" value="${val.mveval}" type="number" />
+												<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />
 									    	</c:otherwise>
 								    	</c:choose>
 									</td>
@@ -275,7 +275,7 @@
 										    </c:otherwise>
 										</c:choose>
 									</td>
-									<fmt:formatNumber var="real2" pattern="###" value="${val.mveval}" type="number" maxFractionDigits="0"/>
+									<fmt:formatNumber var="real2" pattern="##0.0" value="${val.mveval}" type="number" maxFractionDigits="0"/>
 									<c:set var="real" value="${real};${real2}"/>
 							</c:forEach>
 							
@@ -291,8 +291,8 @@
 									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 						    	</c:when>    
 						    	<c:otherwise>
-									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
-									<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
+									<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${kpi.promMvevpePresupuestadoAnoActual}" type="number" /></td>
 						    	</c:otherwise>
 							</c:choose>
 							<c:forEach items="${kpi.lista}" var="val"
@@ -302,7 +302,7 @@
 										<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 							    	</c:when>    
 							    	<c:otherwise>
-							    		<td style="text-align: right;"><fmt:formatNumber pattern="###,###" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+							    		<td style="text-align: right;"><fmt:formatNumber pattern="###,##0.0" value="${val.mvevpe}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 							    	</c:otherwise>
 								</c:choose>
 								<fmt:formatNumber var="presupuestado2" pattern="###" value="${val.mvevpe}" type="number" maxFractionDigits="0"/>

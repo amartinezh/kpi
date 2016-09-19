@@ -4,7 +4,7 @@
 <html lang="en-us" id="extr-page">
 	<head>
 		<meta charset="utf-8">
-		<title>Balanced Scoredcard</title>
+		<title>Balanced Scorecard</title>
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -66,7 +66,7 @@
 			<div id="content" class="container">
 				<div class="jumbotron text-center">
 					<!-- <a href="javascript:void(0);" class="username text-left"> <c:out value="${r3g	}" /> </a> -->
-					<h1>BALANCED SCOREDCARD</h1><h2>Administrator</h2>
+					<h1>BALANCED SCORECARD</h1><h2>Administrator</h2>
 					
 					<a href="javascript:openPage(1)" id="dialog_link" class="btn btn-info btn-lg"> Admin <br> <strong>Users</strong> </a>
 					&nbsp;&nbsp;

@@ -176,10 +176,10 @@ public class humanController {
 			if (m3r.equals("0")) {
 				if (t4s4.equals("p")) {
 					((session) model.asMap().get("user_inicio"))
-							.setMoneda("mvevap");
+							.setMoneda("mvevac");
 				} else {
 					((session) model.asMap().get("user_inicio"))
-							.setMoneda("mveval");
+							.setMoneda("mvevap");
 				}
 				((session) model.asMap().get("user_inicio"))
 						.setDash_moneda("0");

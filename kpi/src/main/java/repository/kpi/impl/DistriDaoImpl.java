@@ -83,14 +83,15 @@ public class DistriDaoImpl implements DistriDao {
 			}
 			
 			// Se interpretan diferente ciertos indicadores, se toma el máximo pero si la bandera mverid es 1
-			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN016") || cfg.getIndicador().equals("VEN017")){
-				operacion_primer_campo="max";
-				filtro = " AND k.mverid='1' ";
-			}
-			else{
-				filtro = "";
-			}
-			
+			//if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN016") || cfg.getIndicador().equals("VEN017")){
+			//	operacion_primer_campo="max";
+			//	filtro = " AND k.mverid='1' ";
+			//}
+			//else{
+			//	filtro = "";
+			//}
+			operacion_primer_campo="max";
+			filtro = " AND k.mverid='1' ";
 			// Va a la base de datos y toma para cada indicador
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
@@ -227,20 +228,22 @@ public class DistriDaoImpl implements DistriDao {
 			}
 			
 			// Se interpretan diferente ciertos indicadores, se toma el máximo pero si la bandera mverid es 1
-			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN016") || cfg.getIndicador().equals("VEN017")){
-				operacion_primer_campo="max";
-				filtro = " AND k.mverid='1' ";
-			}
-			else{
-				filtro = "";
-			}
+			//if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN016") || cfg.getIndicador().equals("VEN017")){
+			//	operacion_primer_campo="max";
+			//	filtro = " AND k.mverid='1' ";
+			//}
+			//else{
+			//	filtro = "";
+			//}
+			operacion_primer_campo="max";
+			filtro = " AND k.mverid='1' ";
 			
 			// Va a la base de datos y toma para cada indicador
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
 							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Distri as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ filtro
@@ -299,7 +302,7 @@ public class DistriDaoImpl implements DistriDao {
 		    List<Object[]> prom = em
 					.createQuery(
 							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Distri as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ filtro
@@ -342,7 +345,7 @@ public class DistriDaoImpl implements DistriDao {
 		    List<Object[]> promAnioActual = em
 					.createQuery(
 							"Select k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Distri as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ filtro
@@ -446,19 +449,23 @@ public class DistriDaoImpl implements DistriDao {
 			}
 			
 			// Se interpretan diferente ciertos indicadores, se toma el máximo pero si la bandera mverid es 1
-			if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN016") || cfg.getIndicador().equals("VEN017")){
-				operacion_primer_campo="max";
-				filtro = " AND k.mverid='1' ";
-			}
-			else{
-				filtro = "";
-			}
+			//if ( cfg.getIndicador().equals("VEN004") || cfg.getIndicador().equals("VEN005") || cfg.getIndicador().equals("VEN006") || cfg.getIndicador().equals("VEN007") || cfg.getIndicador().equals("VEN008") || cfg.getIndicador().equals("VEN009") || cfg.getIndicador().equals("VEN010") || cfg.getIndicador().equals("VEN012") || cfg.getIndicador().equals("VEN013") || cfg.getIndicador().equals("VEN014") || cfg.getIndicador().equals("VEN015") || cfg.getIndicador().equals("VEN016") || cfg.getIndicador().equals("VEN017")){
+			//	operacion_primer_campo="max";
+			//	filtro = " AND k.mverid='1' ";
+			//}
+			//else{
+			//	filtro = "";
+			//}
+			
+			operacion_primer_campo="max";
+			filtro = " AND k.mverid='1' ";
+			
 			// Va a la base de datos y toma para cada indicador
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
 					.createQuery(
 							"Select k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Distri as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ filtro
@@ -575,7 +582,7 @@ public class DistriDaoImpl implements DistriDao {
 		    List<Object[]> prom = em
 					.createQuery(
 							"Select k.mveano as mveano, "+operacion_primer_campo+"(k."+ses.getDash_tasa()+") as mveval, "+operacion_segundo_campo+"(k.mvevpe) as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Distri as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ filtro
@@ -765,7 +772,7 @@ public class DistriDaoImpl implements DistriDao {
 				List<Object[]> promedioAnioAnterior = em
 				.createQuery(
 						"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-								+ " From Kpi as k where k."+ses.getCampo_llave()+" = '"
+								+ " From Distri as k where k."+ses.getCampo_llave()+" = '"
 								+ result.get(x)[0].toString()
 								+ "'  "
 								+ filtro
@@ -858,7 +865,7 @@ public class DistriDaoImpl implements DistriDao {
 			List<Object[]> result = em
 			.createQuery(
 					"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, k.mvemes as mvemes, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-							+ " From Kpi as k where k.mveind = '"
+							+ " From Distri as k where k.mveind = '"
 							+ ses.getIndicador_drill()
 							+ "'"
 							+ filtro
@@ -890,7 +897,7 @@ public class DistriDaoImpl implements DistriDao {
 					List<Object[]> promedioAnioAnterior = em
 					.createQuery(
 							"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-									+ " From Kpi as k where k.mveind = '"
+									+ " From Distri as k where k.mveind = '"
 									+ ses.getIndicador_drill()
 									+ "'"
 									+ " AND k."+ses.getCampo_llave()+" = '"
@@ -919,7 +926,7 @@ public class DistriDaoImpl implements DistriDao {
 				    List<Object[]> promedioAnio = em
 							.createQuery(
 									"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-											+ " From Kpi as k where k.mveind = '"
+											+ " From Distri as k where k.mveind = '"
 											+ ses.getIndicador_drill()
 											+ "'"
 											+ " AND k."+ses.getCampo_llave()+" = '"
@@ -1012,7 +1019,7 @@ public class DistriDaoImpl implements DistriDao {
 			List<Object[]> result = em
 			.createQuery(
 					"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, k.mvemes as mvemes, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-							+ " From Kpi as k where k.mveind = '"
+							+ " From Distri as k where k.mveind = '"
 							+ ses.getIndicador_drill()
 							+ "' "
 							+ filtro
@@ -1042,7 +1049,7 @@ public class DistriDaoImpl implements DistriDao {
 				    List<Object[]> promedioAnio = em
 							.createQuery(
 									"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-											+ " From Kpi as k where k."+ses.getCampo_llave()+" = '"
+											+ " From Distri as k where k."+ses.getCampo_llave()+" = '"
 											+ r[0].toString()
 											+ "'  "
 											+ filtro
