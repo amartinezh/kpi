@@ -248,7 +248,7 @@ img.transparent {
 							</c:choose>
 							<c:forEach items="${kpi.lista}" var="val"
 								varStatus="loopCounter">
-									<td nowrap>
+									<!-- <td nowrap>
 										<c:choose>
 											<c:when test="${fn:contains(kpi.unidad, '%')}">
 												<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />
@@ -257,12 +257,15 @@ img.transparent {
 												<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" />
 									    	</c:otherwise>
 								    	</c:choose>
+									</td>  -->
+									<td nowrap>
+									<fmt:formatNumber pattern="###,##0.0" value="${val.mveval}" type="number" /><c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
 									</td>
 									<td valign="middle" rowspan="2">
 										<c:choose>
 											<c:when test="${fn:contains(kpi.ind_cod, 'REC003') || fn:contains(kpi.ind_cod, 'REC006')}">
 												<c:choose>
-												    <c:when test="${val.mveval gt val.mvevpe}">
+												    <c:when test="${val.mveval lt val.mvevpe}">
 												    	<img src="<c:url value="/resources/img/adm/rojo.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
 												    </c:when>    
 												    <c:otherwise>
@@ -272,7 +275,7 @@ img.transparent {
 									    	</c:when>    
 									    	<c:otherwise>
 									    		<c:choose>
-												    <c:when test="${val.mveval gt val.mvevpe}">
+												    <c:when test="${val.mveval lt val.mvevpe}">
 												    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
 												    </c:when>    
 												    <c:otherwise>

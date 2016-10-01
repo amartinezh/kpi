@@ -279,7 +279,7 @@ img.transparent {
 										<c:choose>
 											<c:when test="${fn:contains(kpi.ind_cod, 'REC003') || fn:contains(kpi.ind_cod, 'REC006')}">
 												<c:choose>
-												    <c:when test="${val.mveval gt val.mvevpe}">
+												    <c:when test="${val.mveval lt val.mvevpe}">
 												    	<img src="<c:url value="/resources/img/adm/rojo.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
 												    </c:when>    
 												    <c:otherwise>
@@ -289,7 +289,7 @@ img.transparent {
 									    	</c:when>    
 									    	<c:otherwise>
 									    		<c:choose>
-												    <c:when test="${val.mveval gt val.mvevpe}">
+												    <c:when test="${val.mveval lt val.mvevpe}">
 												    	<img src="<c:url value="/resources/img/adm/verde.png"/>" alt="Verde" style="width: 15px; height:15px; margin-top: 3px; margin-right: 10px;">
 												    </c:when>    
 												    <c:otherwise>

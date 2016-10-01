@@ -420,7 +420,7 @@ public class HumanDaoImpl implements HumanDao {
 							valorMesActualQ3=new java.math.BigDecimal(r[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 							valorMesBudgetQ3=new java.math.BigDecimal(r[4].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 							mesesQ3++;
-							Q3=1;
+							Q3=1; System.out.println("Eeeheeee:"+promedioActualQ3); // Ir mirando de aui para abajo
 						}
 						else{
 							promedioActualQ4=promedioActualQ4.add(new java.math.BigDecimal(r[3].toString()).setScale(3, BigDecimal.ROUND_HALF_EVEN));

@@ -679,18 +679,19 @@ public class DistriDaoImpl implements DistriDao {
 	    	operacion[1]="(avg(k.mvevpe))";
 	    }
 	    System.out.println("Operación drill: "+ses.getIndicador_drill());
-	    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016")|| ses.getIndicador_drill().equals("VEN017")){
-	    	operacion[0]="(max(k."+ses.getMoneda()+"))";
-			filtro = " AND k.mverid='' ";
-		}
-		else{
-			filtro = "";
-		}
+	    //if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016")|| ses.getIndicador_drill().equals("VEN017")){
+	    //	operacion[0]="(max(k."+ses.getMoneda()+"))";
+		//	filtro = " AND k.mverid='' ";
+		//}
+		//else{
+		//	filtro = "";
+		//}
+	    filtro = " AND k.mverid='' ";
 		@SuppressWarnings("unchecked")
 		List<Object[]> result = em
 		.createQuery(
 				"Select k."+ses.getCampo_llave()+", k."+ses.getCampo_descripcion()+", k.mveano as mveano, k.mvemes as mvemes, k.mvedes as mvedes, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-						+ " From Kpi as k where k.mveind = '"
+						+ " From Distri as k where k.mveind = '"
 						+ ses.getIndicador_drill()
 						+ "' "
 						+ filtro
@@ -853,13 +854,14 @@ public class DistriDaoImpl implements DistriDao {
 		    	operacion[1]="(avg(k.mvevpe))";
 		    }
 		    System.out.println("Operación: "+ses.getIndicador_drill());
-		    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016") || ses.getIndicador_drill().equals("VEN017")){
+		    /*if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016") || ses.getIndicador_drill().equals("VEN017")){
 		    	operacion[0]="(max(k."+ses.getMoneda()+"))";
 				filtro = " AND k.mverid='' ";
 			}
 			else{
 				filtro = "";
-			}
+			}*/
+		    filtro = " AND k.mverid='' ";
 			// Se trae todo de la base de datos filtrando por la llave seleccionada
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
@@ -1007,13 +1009,14 @@ public class DistriDaoImpl implements DistriDao {
 		    	operacion[1]="(avg(k.mvevpe))";
 		    }
 		    System.out.println("Operación: "+ses.getIndicador_drill());
-		    if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016")|| ses.getIndicador_drill().equals("VEN017")){
+		    /*if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016")|| ses.getIndicador_drill().equals("VEN017")){
 		    	operacion[0]="(max(k."+ses.getMoneda()+"))";
 				filtro = " AND k.mverid='' ";
 			}
 			else{
 				filtro = "";
-			}
+			}*/
+		    filtro = " AND k.mverid='' ";
 			// Se trae todo de la base de datos filtrando por la llave seleccionada
 			@SuppressWarnings("unchecked")
 			List<Object[]> result = em
