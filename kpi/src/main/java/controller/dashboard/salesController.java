@@ -42,6 +42,7 @@ public class salesController {
 		January, February, March, April, May, June, July, August, September, October, November, December;
 	}
 
+	// En éste controlador quedo el inicio
 	@RequestMapping(value = "/inicio", method = RequestMethod.GET)
 	public String inicio(Model model) {
 		if (model.containsAttribute("user_inicio") == true) {
@@ -389,7 +390,7 @@ public class salesController {
 	///////////////////////////////////////////////////////////////////////////////////
 	
 	@RequestMapping(value = "/drilldown", method = RequestMethod.GET)
-	public String drilldown(@RequestParam String m3r, @RequestParam String ind1c4, @RequestParam String ind1c4d3s, @RequestParam String ll4v3, @RequestParam String d3s, @RequestParam String op10n, @RequestParam String s1m, Model model) {
+	public String drilldown(@RequestParam String m3r, @RequestParam String ind1c4, @RequestParam String ind1c4d3s, @RequestParam String ll4v3, @RequestParam String d3s, @RequestParam String op10n, @RequestParam String s1m, @RequestParam String op3r, Model model) {
 		if (model.containsAttribute("user_inicio") == true) {
 			String r=((session) model.asMap().get("user_inicio")).getDash_region();
 			String n=((session) model.asMap().get("user_inicio")).getDash_nia();
@@ -399,10 +400,12 @@ public class salesController {
 			((session) model.asMap().get("user_inicio")).setCampo_llave(ll4v3);
 			((session) model.asMap().get("user_inicio")).setCampo_descripcion(d3s);
 			((session) model.asMap().get("user_inicio")).setIndicador_drill(ind1c4);
+			((session) model.asMap().get("user_inicio")).setOp3r(op3r);
 			
 			model.addAttribute("tit",ind1c4d3s);
 			model.addAttribute("m3r",m3r);
 			model.addAttribute("s1m",s1m);
+			
 			((session) model.asMap().get("user_inicio")).setOp(s1m);
 			
 			model.addAttribute("r3g", ((session) model.asMap().get("user_inicio")).getDash_region());
@@ -440,7 +443,7 @@ public class salesController {
 					if (op10n.equals("Y")){
 						model.addAttribute("valor", kpiService.listSalesDrill((session) model.asMap().get("user_inicio")));
 						model.addAttribute("totales",((session) model.asMap().get("user_inicio")).getTotales());
-						return "drilldown";
+						return "drilldown"; // La vista de Year
 					}
 					else{
 						return "redirect:/index/ingreso";

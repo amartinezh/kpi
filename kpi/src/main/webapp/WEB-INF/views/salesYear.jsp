@@ -257,7 +257,7 @@
 						varStatus="loopCounter">
 						<tr class="${color}">
 							
-							<td rowspan="2"><a id="modal" href="#" onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
+							<td rowspan="2"><a id="modal" href="#" onclick="drilldown('${ kpi.ind_cod}', '${ kpi.operacion}', this)">${ kpi.ind }</a>
 							
 							<td rowspan="2">${ kpi.unidad }</td>
 							<td>${kpi.tipoUno}</td>
@@ -300,7 +300,7 @@
 									<c:set var="real" value="${real};${real2}"/>
 							</c:forEach>
 							
-							<td><img onclick="drilldown('${ kpi.ind_cod }')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
+							<td><img onclick="drilldown('${ kpi.ind_cod}', '${ kpi.operacion}')" src="<c:url value="/resources/img/adm/plan.png"/>" alt="Graficos" style="width: 20px; height:20px; margin-top: 3px; margin-right: 10px;"></td>
 							</td>
 							
 						</tr>
@@ -1139,34 +1139,34 @@
 			
 		});
 		
-		function drilldown_controller(indicador, nombre_filtro, campo_llave, campo_des, indicador_des, sim) {
+		function drilldown_controller(indicador, nombre_filtro, campo_llave, campo_des, indicador_des, sim, op3r) {
 			//indicador_des = indicador_des.replace("%", "");
-			window.location="drilldown?m3r="+nombre_filtro+"&ind1c4="+indicador+"&ind1c4d3s="+encodeURIComponent(indicador_des)+"&ll4v3="+campo_llave+"&d3s="+campo_des+"&op10n=Y"+"&s1m="+sim;
+			window.location="drilldown?m3r="+nombre_filtro+"&ind1c4="+indicador+"&ind1c4d3s="+encodeURIComponent(indicador_des)+"&ll4v3="+campo_llave+"&d3s="+campo_des+"&op10n=Y"+"&s1m="+sim+"&op3r="+op3r;
 		}
 		
-		function opciones_detalle(indicador, indicador_des, cosa_this){
+		function opciones_detalle(indicador, operacion, indicador_des, cosa_this){
 			var opc = new Array();
 			var simbolo_porcentaje = $(cosa_this).closest("tr").find('td:eq(1)').text();
 			if (simbolo_porcentaje.indexOf("%") < 0) simbolo_porcentaje="-"; else simbolo_porcentaje="p";
 			
 			// Indicación especial para el indicador 02, que no es % pero debe llevar decimal
 			if (indicador == 'VEN002') simbolo_porcentaje="d";
-			opc[1]='<img onclick="drilldown_controller(\''+indicador+'\', \'Clientes\', \'mvecli\', \'mvecln\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/cliente.png"/>" style="width: 48px; height: 48px">Por Cliente<br>';
-			opc[2]='<img onclick="drilldown_controller(\''+indicador+'\', \'Tipos de Cliente\', \'mvetic\', \'mvetin\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/tipocliente.png"/>" style="width: 48px; height: 48px">Tipo Cliente<br>';
-			opc[3]='<img onclick="drilldown_controller(\''+indicador+'\', \'Bodega\', \'mveloc\', \'mvelon\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/bodega.png"/>" style="width: 48px; height: 48px">Bodega<br>';
-			opc[4]='<img onclick="drilldown_controller(\''+indicador+'\', \'Areas de Cliente\', \'mvecr1\', \'mvecn1\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/areacliente.png"/>" style="width: 48px; height: 48px">Area Cliente<br>';
-			opc[5]='<img onclick="drilldown_controller(\''+indicador+'\', \'Zonas Cliente\', \'mvecr2\', \'mvecn2\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/zonacliente.png"/>" style="width: 48px; height: 48px"> Zona Cliente<br>';
-			opc[6]='<img onclick="drilldown_controller(\''+indicador+'\', \'Region Cliente\', \'mvecr3\', \'mvecn3\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/regioncliente.png"/>" style="width: 48px; height: 48px">Región Cliente<br>';
-			opc[7]='<img onclick="drilldown_controller(\''+indicador+'\', \'Local Cliente\', \'mvecr4\', \'mvecn4\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/localcliente.png"/>" style="width: 48px; height: 48px">Local Cliente<br>';
-			opc[8]='<img onclick="drilldown_controller(\''+indicador+'\', \'Distrito\', \'mvecr5\', \'mvecn5\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/distrito.png"/>" style="width: 48px; height: 48px">Distrito<br>';
-			opc[9]='<img onclick="drilldown_controller(\''+indicador+'\', \'Vendedor\', \'mvesal\', \'mvesan\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/vendedor.png"/>" style="width: 48px; height: 48px">Vendedor<br>';
-			opc[10]='<img onclick="drilldown_controller(\''+indicador+'\', \'Producto\', \'mvepro\', \'mveprn\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/producto.png"/>" style="width: 48px; height: 48px"> Producto<br>';
-			opc[11]='<img onclick="drilldown_controller(\''+indicador+'\', \'Clase Articulo\', \'mvecal\', \'mvecan\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/clasearticulo.png"/>" style="width: 48px; height: 48px"> Clase Artículo<br>';
-			opc[12]='<img onclick="drilldown_controller(\''+indicador+'\', \'Tipo Articulo\', \'mvesr1\', \'mvesn1\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/grupoarticulo.png"/>" style="width: 48px; height: 48px"> Grupo Artículo<br>';
-			opc[13]='<img onclick="drilldown_controller(\''+indicador+'\', \'Grupo Articulo\', \'mvesr2\', \'mvesn2\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/grupoarticulo.png"/>" style="width: 48px; height: 48px"> Grupo Artículo<br>';
-			opc[14]='<img onclick="drilldown_controller(\''+indicador+'\', \'Linea Articulo\', \'mvesr3\', \'mvesn3\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/lineaarticulo.png"/>" style="width: 48px; height: 48px"> Línea Artículo<br>';
-			opc[15]='<img onclick="drilldown_controller(\''+indicador+'\', \'Categoria Articulo\', \'mvesr4\', \'mvesn4\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/categoriaarticulo.png"/>" style="width: 48px; height: 48px"> Categoría Artículo<br>';
-			opc[16]='<img onclick="drilldown_controller(\''+indicador+'\', \'Marca\', \'mvesr5\', \'mvesn5\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\')" src="<c:url value="/resources/img/adm/marca.png"/>" style="width: 48px; height: 48px"> Marca <br>';
+			opc[1]='<img onclick="drilldown_controller(\''+indicador+'\', \'Clientes\', \'mvecli\', \'mvecln\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/cliente.png"/>" style="width: 48px; height: 48px">Por Cliente<br>';
+			opc[2]='<img onclick="drilldown_controller(\''+indicador+'\', \'Tipos de Cliente\', \'mvetic\', \'mvetin\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/tipocliente.png"/>" style="width: 48px; height: 48px">Tipo Cliente<br>';
+			opc[3]='<img onclick="drilldown_controller(\''+indicador+'\', \'Bodega\', \'mveloc\', \'mvelon\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/bodega.png"/>" style="width: 48px; height: 48px">Bodega<br>';
+			opc[4]='<img onclick="drilldown_controller(\''+indicador+'\', \'Areas de Cliente\', \'mvecr1\', \'mvecn1\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/areacliente.png"/>" style="width: 48px; height: 48px">Area Cliente<br>';
+			opc[5]='<img onclick="drilldown_controller(\''+indicador+'\', \'Zonas Cliente\', \'mvecr2\', \'mvecn2\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/zonacliente.png"/>" style="width: 48px; height: 48px"> Zona Cliente<br>';
+			opc[6]='<img onclick="drilldown_controller(\''+indicador+'\', \'Region Cliente\', \'mvecr3\', \'mvecn3\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/regioncliente.png"/>" style="width: 48px; height: 48px">Región Cliente<br>';
+			opc[7]='<img onclick="drilldown_controller(\''+indicador+'\', \'Local Cliente\', \'mvecr4\', \'mvecn4\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/localcliente.png"/>" style="width: 48px; height: 48px">Local Cliente<br>';
+			opc[8]='<img onclick="drilldown_controller(\''+indicador+'\', \'Distrito\', \'mvecr5\', \'mvecn5\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/distrito.png"/>" style="width: 48px; height: 48px">Distrito<br>';
+			opc[9]='<img onclick="drilldown_controller(\''+indicador+'\', \'Vendedor\', \'mvesal\', \'mvesan\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/vendedor.png"/>" style="width: 48px; height: 48px">Vendedor<br>';
+			opc[10]='<img onclick="drilldown_controller(\''+indicador+'\', \'Producto\', \'mvepro\', \'mveprn\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/producto.png"/>" style="width: 48px; height: 48px"> Producto<br>';
+			opc[11]='<img onclick="drilldown_controller(\''+indicador+'\', \'Clase Articulo\', \'mvecal\', \'mvecan\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/clasearticulo.png"/>" style="width: 48px; height: 48px"> Clase Artículo<br>';
+			opc[12]='<img onclick="drilldown_controller(\''+indicador+'\', \'Tipo Articulo\', \'mvesr1\', \'mvesn1\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/grupoarticulo.png"/>" style="width: 48px; height: 48px"> Grupo Artículo<br>';
+			opc[13]='<img onclick="drilldown_controller(\''+indicador+'\', \'Grupo Articulo\', \'mvesr2\', \'mvesn2\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/grupoarticulo.png"/>" style="width: 48px; height: 48px"> Grupo Artículo<br>';
+			opc[14]='<img onclick="drilldown_controller(\''+indicador+'\', \'Linea Articulo\', \'mvesr3\', \'mvesn3\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/lineaarticulo.png"/>" style="width: 48px; height: 48px"> Línea Artículo<br>';
+			opc[15]='<img onclick="drilldown_controller(\''+indicador+'\', \'Categoria Articulo\', \'mvesr4\', \'mvesn4\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/categoriaarticulo.png"/>" style="width: 48px; height: 48px"> Categoría Artículo<br>';
+			opc[16]='<img onclick="drilldown_controller(\''+indicador+'\', \'Marca\', \'mvesr5\', \'mvesn5\', \''+indicador_des+'\', \''+simbolo_porcentaje+'\', \''+operacion+'\')" src="<c:url value="/resources/img/adm/marca.png"/>" style="width: 48px; height: 48px"> Marca <br>';
 			var opciones = new Array();
 			switch (indicador) {
 			case "VEN001":
@@ -1434,9 +1434,9 @@
 			$("#dialog-message").dialog('open');
 		}
 		
-		function drilldown(indicador, cosa) {
+		function drilldown(indicador, operacion, cosa) {
 			$( "#opc" ).html('');
-			$( "#opc" ).append(opciones_detalle(indicador, cosa.innerHTML, cosa));
+			$( "#opc" ).append(opciones_detalle(indicador, operacion, cosa.innerHTML, cosa));
 			//tit=cosa.innerHTML;
 			$("span.ui-dialog-title").text(cosa.innerHTML);
 			ventana_drill();
