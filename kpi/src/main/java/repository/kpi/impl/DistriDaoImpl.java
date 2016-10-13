@@ -177,7 +177,9 @@ public class DistriDaoImpl implements DistriDao {
 						anioAntPres,
 						promMvevalRealAnoActual, 
 						promMvevpePresupuestadoAnoActual,
-						new ArrayList<Distri>(list),cfg.getTipo()));
+						new ArrayList<Distri>(list),cfg.getTipo(),
+						(cfg.getOperacion().equals("AV2")?"AVG":cfg.getOperacion())
+						));
 			}
 			promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 			promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
@@ -382,7 +384,8 @@ public class DistriDaoImpl implements DistriDao {
 						anioAntPres,
 						promMvevalRealAnoActual, 
 						promMvevpePresupuestadoAnoActual,
-						new ArrayList<Distri>(list),cfg.getTipo()));
+						new ArrayList<Distri>(list),cfg.getTipo(),
+						(cfg.getOperacion().equals("AV2")?"AVG":cfg.getOperacion())));
 			}
 			promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 			promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
@@ -614,7 +617,8 @@ public class DistriDaoImpl implements DistriDao {
 						anioAntPres,
 						promMvevalRealAnoActual, 
 						promMvevpePresupuestadoAnoActual,
-						new ArrayList<Distri>(list),cfg.getTipo()));
+						new ArrayList<Distri>(list),cfg.getTipo(),
+						(cfg.getOperacion().equals("AV2")?"AVG":cfg.getOperacion())));
 			}
 			promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 			promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
@@ -670,14 +674,19 @@ public class DistriDaoImpl implements DistriDao {
 		String operacion[] = new String [2];
 		String filtro="";
 		System.out.println("Operacion:"+ses.getOp());
-	    if (ses.getOp().equals("-")){
-	    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
-	    	operacion[1]="(sum(k.mvevpe))";
-	    }
-	    else{
-	    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
-	    	operacion[1]="(avg(k.mvevpe))";
-	    }
+		
+		/*if (ses.getOp().equals("-")){
+    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
+    	operacion[1]="(sum(k.mvevpe))";
+    }
+    else{
+    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
+    	operacion[1]="(avg(k.mvevpe))";
+    }*/
+	
+	operacion[0]="("+ses.getOp3r()+"(k."+ses.getMoneda()+"))";
+	operacion[1]="("+ses.getOp3r()+"(k.mvevpe))";
+	
 	    System.out.println("Operación drill: "+ses.getIndicador_drill());
 	    //if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016")|| ses.getIndicador_drill().equals("VEN017")){
 	    //	operacion[0]="(max(k."+ses.getMoneda()+"))";
@@ -800,7 +809,7 @@ public class DistriDaoImpl implements DistriDao {
 					anioAntPres,
 					promedio, 
 					promedio,
-					new ArrayList<Distri>(list),""));
+					new ArrayList<Distri>(list),"",""));
 			x++;
 			promedio = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 		}
@@ -845,14 +854,19 @@ public class DistriDaoImpl implements DistriDao {
 			String operacion[] = new String [2];
 			String filtro="";
 			System.out.println("Operacion:"+ses.getOp());
-		    if (ses.getOp().equals("-")){
-		    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
-		    	operacion[1]="(sum(k.mvevpe))";
-		    }
-		    else{
-		    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
-		    	operacion[1]="(avg(k.mvevpe))";
-		    }
+			
+			/*if (ses.getOp().equals("-")){
+	    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
+	    	operacion[1]="(sum(k.mvevpe))";
+	    }
+	    else{
+	    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
+	    	operacion[1]="(avg(k.mvevpe))";
+	    }*/
+		
+		operacion[0]="("+ses.getOp3r()+"(k."+ses.getMoneda()+"))";
+    	operacion[1]="("+ses.getOp3r()+"(k.mvevpe))";
+    	
 		    System.out.println("Operación: "+ses.getIndicador_drill());
 		    /*if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016") || ses.getIndicador_drill().equals("VEN017")){
 		    	operacion[0]="(max(k."+ses.getMoneda()+"))";
@@ -959,7 +973,7 @@ public class DistriDaoImpl implements DistriDao {
 							anioAntPres,
 							promMvevalRealAnoActual, 
 							promMvevpePresupuestadoAnoActual,
-							new ArrayList<Distri>(list),""));
+							new ArrayList<Distri>(list),"",""));
 				//}
 			}
 			return valor;
@@ -1000,14 +1014,19 @@ public class DistriDaoImpl implements DistriDao {
 			String operacion[] = new String [2];
 			String filtro;
 			System.out.println("Operacion:"+ses.getOp());
-		    if (ses.getOp().equals("-")){
-		    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
-		    	operacion[1]="(sum(k.mvevpe))";
-		    }
-		    else{
-		    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
-		    	operacion[1]="(avg(k.mvevpe))";
-		    }
+		    
+			/*if (ses.getOp().equals("-")){
+	    	operacion[0]="(sum(k."+ses.getMoneda()+"))";
+	    	operacion[1]="(sum(k.mvevpe))";
+	    }
+	    else{
+	    	operacion[0]="(avg(k."+ses.getMoneda()+"))";
+	    	operacion[1]="(avg(k.mvevpe))";
+	    }*/
+		
+		operacion[0]="("+ses.getOp3r()+"(k."+ses.getMoneda()+"))";
+    	operacion[1]="("+ses.getOp3r()+"(k.mvevpe))";
+    	
 		    System.out.println("Operación: "+ses.getIndicador_drill());
 		    /*if ( ses.getIndicador_drill().equals("VEN004") || ses.getIndicador_drill().equals("VEN005") || ses.getIndicador_drill().equals("VEN006") || ses.getIndicador_drill().equals("VEN007") || ses.getIndicador_drill().equals("VEN008") || ses.getIndicador_drill().equals("VEN009") || ses.getIndicador_drill().equals("VEN010") || ses.getIndicador_drill().equals("VEN012") || ses.getIndicador_drill().equals("VEN013") || ses.getIndicador_drill().equals("VEN014") || ses.getIndicador_drill().equals("VEN015") || ses.getIndicador_drill().equals("VEN016")|| ses.getIndicador_drill().equals("VEN017")){
 		    	operacion[0]="(max(k."+ses.getMoneda()+"))";
@@ -1184,7 +1203,7 @@ public class DistriDaoImpl implements DistriDao {
 							anioAntPres,
 							value.get(2), 
 							value.get(2), // No se usa el presupuestado
-							new ArrayList<Distri>(list),""));
+							new ArrayList<Distri>(list),"",""));
 			}
 			if (ses.getOp().equals("p")){
 				for(int i=0; i < totales.size(); i++){

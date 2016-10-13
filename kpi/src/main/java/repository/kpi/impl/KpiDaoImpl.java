@@ -773,7 +773,7 @@ public class KpiDaoImpl implements KpiDao {
 			totales.set(1, totales.get(1).add(promedio));
 			
 			//Se obtiene el promedio del año anterior por cada línea generada
-			System.out.println("Esto: "+list.get(0));
+			//System.out.println("Esto: "+list.get(0));
 			if (!ses.getCampo_llave().equals("mvecli")){
 				@SuppressWarnings("unchecked")
 				List<Object[]> promedioAnioAnterior = em
@@ -933,7 +933,7 @@ public class KpiDaoImpl implements KpiDao {
 					}
 				}
 			    // Se obtiene el promedio del PRESENTE año por cada línea generada, todo el año
-			    System.out.println("Esto: "+list.get(0));
+			    //System.out.println("Esto: "+list.get(0));
 				if (!ses.getCampo_llave().equals("mvecli")){
 				    @SuppressWarnings("unchecked")
 				    List<Object[]> promedioAnio = em
