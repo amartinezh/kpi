@@ -9,9 +9,9 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@IdClass(ManufacturePK.class)
-@Table(name = "mvindve", schema = "kpi")
-public class Manufacture {
+@IdClass(Manufacture1PK.class)
+@Table(name = "indman1", schema = "kpi")
+public class Manufacture1 {
 	
 	private static final long serialVersionUID = -9068113467850707780L;
 	
@@ -41,30 +41,35 @@ public class Manufacture {
 	@Column(name = "mvecln")
 	private String mvecln; // Nombre Proceso
 	
+	@Id
 	@Column(name = "mveind")
 	private String mveind; // ID. Indicador
 	
 	@Column(name = "mvedes")
 	private String mvedes; // Descripcion Indicador
 	
+	@Id
 	@Column(name = "mvecen")
 	private String mvecen; // Codigo Centro
 	
 	@Column(name = "mveced")
 	private String mveced; // Nombre Centro Productivo
 	
+	@Id
 	@Column(name = "mvepro")
 	private String mvepro; // Código Producto
 	
 	@Column(name = "mveprn")
 	private String mveprn; // Nombre Producto
 	
+	@Id
 	@Column(name = "mvecal")
 	private String mvecal; // Clase Artículo
 	
 	@Column(name = "mvecan")
 	private String mvecan; // Nombre Clase Artículo
 	
+	@Id
 	@Column(name = "mvetur")
 	private String mvetur; // Turno
 	
@@ -86,7 +91,7 @@ public class Manufacture {
 	@Column(name = "mvevpe")
 	private BigDecimal mvevpe; // Valor Indicador PRESUPUESTO
 
-	public Manufacture(){
+	public Manufacture1(){
 		
 	}
 
@@ -364,7 +369,7 @@ public class Manufacture {
 				+ ", mvevap=" + mvevap + ", mvevpe=" + mvevpe + "]";
 	}
 
-	public Manufacture(String mveano, String mvemes) {
+	public Manufacture1(String mveano, String mvemes) {
 		this.mveano = mveano;
 		this.mvemes = mvemes;
 		this.mveval = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
@@ -373,7 +378,7 @@ public class Manufacture {
 		this.mvevpe = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);;
 	}
 	
-	public Manufacture(String mveano, String mvemes, BigDecimal mveval, BigDecimal mvevac, BigDecimal mvevap,
+	public Manufacture1(String mveano, String mvemes, BigDecimal mveval, BigDecimal mvevac, BigDecimal mvevap,
 			BigDecimal mvevpe) {
 		super();
 		this.mveano = mveano;
