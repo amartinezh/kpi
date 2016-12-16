@@ -69,7 +69,7 @@
 					<h1> <c:out value="${tit}" /></h1>
 					<c:choose>
 					    <c:when test="${n == 1}">
-					       	<a class="btn btn-success btn-lg" href="#">Manufacturing</a>
+					       	<a class="btn btn-success btn-lg" href="<c:url value="${viewManufacture}"/>?t=${tit}&op10=${op10}">Manufacturing</a>
 					    </c:when>
 					    <c:when test="${n == 2}">
 					       <a class="btn btn-warning btn-lg" href="${view}?t=${tit}&op10=${op10}">Sales</a>
@@ -84,7 +84,7 @@
 					       <a class="btn btn-warning btn-lg" href="<c:url value="${viewFinance}"/>?t=${tit}&op10=${op10}">Finance</a>
 					    </c:when>
 					    <c:when test="${n == 6}">
-					        <a class="btn btn-success btn-lg" href="#">Manufacturing</a>
+					        <a class="btn btn-success btn-lg" href="<c:url value="${viewManufacture}"/>?t=${tit}&op10=${op10}">Manufacturing</a>
 							<a class="btn btn-warning btn-lg" href="${view}?t=${tit}&op10=${op10}">Sales</a>
 							<a class="btn btn-info btn-lg" href="<c:url value="${viewDistri}"/>?t=${tit}&op10=${op10}">Distribution</a>
 							<a class="btn btn-success btn-lg" href="<c:url value="${viewHuman}"/>?t=${tit}&op10=${op10}">Human Resources</a>

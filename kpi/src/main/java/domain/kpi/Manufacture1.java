@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @IdClass(Manufacture1PK.class)
-@Table(name = "indman1", schema = "kpi")
+@Table(name = "indman1", schema = "man")
 public class Manufacture1 {
 	
 	private static final long serialVersionUID = -9068113467850707780L;
