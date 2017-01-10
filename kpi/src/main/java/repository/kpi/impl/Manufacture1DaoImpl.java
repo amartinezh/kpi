@@ -13,14 +13,12 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import domain.adm.Cfg;
-import domain.adm.CfgDistri;
-import domain.kpi.Distri;
+import domain.adm.CfgManufacture1;
+import domain.kpi.Manufacture1;
 import domain.kpi.reporteManufacture1;
 import domain.session.session;
 import repository.kpi.Manufacture1Dao;
-import service.adm.CfgDistriService;
-import service.adm.CfgService;
+import service.adm.CfgManufacture1Service;
 
 @Repository
 public class Manufacture1DaoImpl implements Manufacture1Dao {
@@ -29,7 +27,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 	private EntityManager em = null;
 
 	@Autowired
-	private CfgDistriService cfgService;
+	private CfgManufacture1Service cfgService;
 	
 	private enum Indicadores {
 		VEN005, VEN008, VEN010, VEN011, VEN012, VEN013;
@@ -50,7 +48,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 
 	public List<reporteManufacture1> listSales(session ses, String table) {
 		List<reporteManufacture1> valor = new LinkedList<reporteManufacture1>();
-		List<CfgDistri> indicadores = cfgService.getListCfg();
+		List<CfgManufacture1> indicadores = cfgService.getListCfg();
 		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		
@@ -71,7 +69,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 		String operacion_segundo_campo="";
 		String filtro="";
 		// Lee todos los indicadores de la base de datos
-		for (CfgDistri cfg : indicadores) {
+		for (CfgManufacture1 cfg : indicadores) {
 			
 			if (cfg.getOperacion().equals("AV2")){
 				 operacion_primer_campo="avg";
@@ -108,11 +106,11 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 					.getResultList();
 
 			// Se crea un objeto lista para almacenar todo año (solo la línea del indicador)
-			List<Distri> list = new LinkedList<Distri>();
+			List<Manufacture1> list = new LinkedList<Manufacture1>();
 			
 			// Se inician los 12 meses
 			for (int i = 0; i < 12; i++) {
-				list.add(new Distri("2015", "" + (i + 1)));
+				list.add(new Manufacture1("2015", "" + (i + 1)));
 			}
 			int meses=0;
 			// Se va colocando cada mes en la hoja de resultado
@@ -177,7 +175,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 						anioAntPres,
 						promMvevalRealAnoActual, 
 						promMvevpePresupuestadoAnoActual,
-						new ArrayList<Distri>(list),cfg.getTipo(),
+						new ArrayList<Manufacture1>(list),cfg.getTipo(),
 						(cfg.getOperacion().equals("AV2")?"AVG":cfg.getOperacion())
 						));
 			}
@@ -199,7 +197,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 
 	public List<reporteManufacture1> listSalesMonth(session ses, String table) {
 		List<reporteManufacture1> valor = new LinkedList<reporteManufacture1>();
-		List<CfgDistri> indicadores = cfgService.getListCfg();
+		List<CfgManufacture1> indicadores = cfgService.getListCfg();
 		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		
@@ -218,7 +216,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 		String operacion_primer_campo="";
 		String operacion_segundo_campo="";
 		String filtro="";
-		for (CfgDistri cfg : indicadores) {
+		for (CfgManufacture1 cfg : indicadores) {
 			System.out.println("Operación:"+cfg.getOperacion());
 			if (cfg.getOperacion().equals("AV2")){
 				 operacion_primer_campo="avg";
@@ -257,13 +255,13 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 					.getResultList();
 
 			// Se crea un objeto lista para almacenar todo año (solo la línea del indicador)
-			List<Distri> list = new LinkedList<Distri>();
+			List<Manufacture1> list = new LinkedList<Manufacture1>();
 			
 			// Se inician los 12 meses
 			//for (int i = 0; i < 12; i++) {
 			//	list.add(new Kpi("2015", "" + (i + 1)));
 			//}
-			list.add(new Distri("2000", ses.getMes() ));
+			list.add(new Manufacture1("2000", ses.getMes() ));
 			System.out.println("Tamaño"+list.size());
 			int meses=0;
 			// Se va colocando cada mes en la hoja de resultado
@@ -384,7 +382,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 						anioAntPres,
 						promMvevalRealAnoActual, 
 						promMvevpePresupuestadoAnoActual,
-						new ArrayList<Distri>(list),cfg.getTipo(),
+						new ArrayList<Manufacture1>(list),cfg.getTipo(),
 						(cfg.getOperacion().equals("AV2")?"AVG":cfg.getOperacion())));
 			}
 			promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
@@ -404,7 +402,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 
 	public List<reporteManufacture1> listSalesQuarterly(session ses, String table) {
 		List<reporteManufacture1> valor = new LinkedList<reporteManufacture1>();
-		List<CfgDistri> indicadores = cfgService.getListCfg();
+		List<CfgManufacture1> indicadores = cfgService.getListCfg();
 		java.math.BigDecimal promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		java.math.BigDecimal promMvevpePresupuestadoAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
 		
@@ -439,7 +437,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 		String operacion_segundo_campo="";
 		String filtro="";
 		// Lee todos los indicadores de la base de datos
-		for (CfgDistri cfg : indicadores) {
+		for (CfgManufacture1 cfg : indicadores) {
 
 			System.out.println("Operación:"+cfg.getOperacion()+"Indicador:"+cfg.getIndicador());
 			if (cfg.getOperacion().equals("AV2")){
@@ -479,11 +477,11 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 					.getResultList();
 
 			// Se crea un objeto lista para almacenar todo año (solo la línea del indicador)
-			List<Distri> list = new LinkedList<Distri>();
+			List<Manufacture1> list = new LinkedList<Manufacture1>();
 			
 			// Se inician los 12 meses
 			for (int i = 0; i < 4; i++) {
-				list.add(new Distri("2015", "" + (i + 1)));
+				list.add(new Manufacture1("2015", "" + (i + 1)));
 			}
 			// Se va colocando cada mes en la hoja de resultado
 			for (Object[] r : result) {
@@ -617,7 +615,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 						anioAntPres,
 						promMvevalRealAnoActual, 
 						promMvevpePresupuestadoAnoActual,
-						new ArrayList<Distri>(list),cfg.getTipo(),
+						new ArrayList<Manufacture1>(list),cfg.getTipo(),
 						(cfg.getOperacion().equals("AV2")?"AVG":cfg.getOperacion())));
 			}
 			promMvevalRealAnoActual = new BigDecimal(0).setScale(0, BigDecimal.ROUND_HALF_EVEN);
@@ -710,16 +708,16 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 						+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mvedes, k.mveano , k.mvemes asc")
 		.getResultList();
 
-		List<Distri> list = new LinkedList<Distri>();
+		List<Manufacture1> list = new LinkedList<Manufacture1>();
 		
 		int x=0;
 		int meses=0;boolean primeraLinea=true;
 		while (x<result.size()){
 			meses=1;
 			// Se inician los 12 meses
-			list = new LinkedList<Distri>();
+			list = new LinkedList<Manufacture1>();
 			for (int i = 0; i < 12; i++) {
-				list.add(new Distri("2015", "" + (i + 1)));
+				list.add(new Manufacture1("2015", "" + (i + 1)));
 			}
 			ultimoValor = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 			//System.out.println(x+ " Actual: " + result.get(x)[0].toString() + " Anterior: " + result.get( (x==0?x:x-1)   )[0].toString() + " " );
@@ -809,7 +807,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 					anioAntPres,
 					promedio, 
 					promedio,
-					new ArrayList<Distri>(list),"",""));
+					new ArrayList<Manufacture1>(list),"",""));
 			x++;
 			promedio = new java.math.BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_EVEN);
 		}
@@ -892,13 +890,13 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 							+ " ORDER BY k."+ses.getCampo_descripcion()+", k."+ses.getCampo_llave()+", k.mveano , k.mvemes asc")
 			.getResultList();
 
-			List<Distri> list = new LinkedList<Distri>();
+			List<Manufacture1> list = new LinkedList<Manufacture1>();
 			
 			//System.out.println("Tamaño "+list.size());
 			// Se va colocando cada registro en la hoja de resultado
 			for (Object[] r : result) {
-				list = new LinkedList<Distri>();
-				list.add(new Distri("2000", ses.getMes() ));
+				list = new LinkedList<Manufacture1>();
+				list.add(new Manufacture1("2000", ses.getMes() ));
 				
 				list.get(0).setMveval(
 						new BigDecimal(r[4].toString()).setScale(3,	BigDecimal.ROUND_HALF_EVEN));
@@ -973,7 +971,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 							anioAntPres,
 							promMvevalRealAnoActual, 
 							promMvevpePresupuestadoAnoActual,
-							new ArrayList<Distri>(list),"",""));
+							new ArrayList<Manufacture1>(list),"",""));
 				//}
 			}
 			return valor;
@@ -1159,7 +1157,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 				}
 			}
 			// Se crea un objeto lista para almacenar todo año (solo la línea del indicador)
-			List<Distri> list = new LinkedList<Distri>();
+			List<Manufacture1> list = new LinkedList<Manufacture1>();
 			
 			// Se inician los 12 meses
 			//for (int i = 0; i < 4; i++) {
@@ -1172,11 +1170,11 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 				  List<BigDecimal> value = entry.getValue();
 				  //System.out.println(key + " => " + value);
 				 
-				  list = new LinkedList<Distri>();
+				  list = new LinkedList<Manufacture1>();
 					
 				  // Se inician los 12 meses
 				  for (int i = 0; i < 4; i++) {
-					  list.add(new Distri("2015", "" + (i + 1)));
+					  list.add(new Manufacture1("2015", "" + (i + 1)));
 				  }
 				  valor_row=tm.get(key);
 				  
@@ -1203,7 +1201,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 							anioAntPres,
 							value.get(2), 
 							value.get(2), // No se usa el presupuestado
-							new ArrayList<Distri>(list),"",""));
+							new ArrayList<Manufacture1>(list),"",""));
 			}
 			if (ses.getOp().equals("p")){
 				for(int i=0; i < totales.size(); i++){

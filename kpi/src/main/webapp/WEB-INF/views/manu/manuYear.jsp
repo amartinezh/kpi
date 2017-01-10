@@ -18,16 +18,13 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Basic Styles -->
-<link rel="stylesheet" type="text/css" media="screen"
-	href="<c:url value="/resources/css/bootstrap.min.css"/>">
-<link rel="stylesheet" type="text/css" media="screen"
-	href="<c:url value="../resources/css/font-awesome.min.css"/>">
+<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/bootstrap.min.css"/>">
+<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="../resources/css/font-awesome.min.css"/>">
 
 <!-- SmartAdmin Styles : Please note (smartadmin-production.css) was created using LESS variables -->
-<link rel="stylesheet" type="text/css" media="screen"
-	href="<c:url value="/resources/css/smartadmin-production.min.css" />">
-<link rel="stylesheet" type="text/css" media="screen"
-	href="<c:url value="/resources/css/smartadmin-skins.min.css" />">
+<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/smartadmin-production-plugins.min.css" />">
+<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/smartadmin-production.min.css" />">
+<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/smartadmin-skins.min.css" />">
 
 <!-- SmartAdmin RTL Support is under construction
 			 This RTL CSS will be released in version 1.5
@@ -161,6 +158,654 @@
 
 			<!-- row -->
 			<div class="row">
+
+
+
+
+
+
+
+
+
+
+				<div class="ui-widget-overlay jqgrid-overlay" id="lui_jqgrid"></div>
+				<div style="display: none;"
+					class="loading ui-state-default ui-state-active" id="load_jqgrid">Loading...</div>
+				<div style="width: 1105px;" id="gview_jqgrid" class="ui-jqgrid-view">
+					<div class="ui-jqgrid-titlebar ui-corner-top ui-helper-clearfix">
+						<a style="right: 0px;" role="link"
+							class="ui-jqgrid-titlebar-close HeaderButton"><span
+							class="ui-icon ui-icon-circle-triangle-n"></span></a><span
+							class="ui-jqgrid-title">SmartAdmin jQgrid Skin</span>
+					</div>
+					<div class="ui-jqgrid-hdiv" style="width: 1105px;">
+						<div class="ui-jqgrid-hbox">
+							<table class="ui-jqgrid-htable table table-bordered table-hover"
+								style="width: 1105px;" role="grid" aria-labelledby="gbox_jqgrid"
+								border="0" cellpadding="0" cellspacing="0">
+								<thead>
+									<tr class="ui-jqgrid-labels" role="rowheader">
+										<th style="width: 20px;" id="jqgrid_cb" role="columnheader"
+											class=""><div id="jqgh_jqgrid_cb">
+												<input role="checkbox" id="cb_jqgrid" class="cbox"
+													type="checkbox"><span class="s-ico"
+													style="display: none"><span sort="asc"
+													class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span
+													sort="desc"
+													class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span>
+											</div></th>
+										<th style="width: 130px;" id="jqgrid_act" role="columnheader"
+											class=""><span style="cursor: col-resize;"
+											class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span>
+										<div class="ui-jqgrid-sortable" id="jqgh_jqgrid_act">
+												Actions<span class="s-ico" style="display: none"><span
+													sort="asc"
+													class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span
+													sort="desc"
+													class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span>
+											</div></th>
+										<th style="width: 130px;" id="jqgrid_id" role="columnheader"
+											class=""><span style="cursor: col-resize;"
+											class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span>
+										<div class="ui-jqgrid-sortable" id="jqgh_jqgrid_id">
+												Inv No<span class="s-ico" style=""><span sort="asc"
+													class="ui-grid-ico-sort ui-icon-asc ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span
+													sort="desc"
+													class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span>
+											</div></th>
+										<th style="width: 130px;" id="jqgrid_date" role="columnheader"
+											class=""><span style="cursor: col-resize;"
+											class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span>
+										<div class="ui-jqgrid-sortable" id="jqgh_jqgrid_date">
+												Date<span class="s-ico" style="display: none"><span
+													sort="asc"
+													class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span
+													sort="desc"
+													class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span>
+											</div></th>
+										<th style="width: 130px;" id="jqgrid_name" role="columnheader"
+											class=""><span style="cursor: col-resize;"
+											class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span>
+										<div class="ui-jqgrid-sortable" id="jqgh_jqgrid_name">
+												Client<span class="s-ico" style="display: none"><span
+													sort="asc"
+													class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span
+													sort="desc"
+													class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span>
+											</div></th>
+										<th style="width: 130px;" id="jqgrid_amount"
+											role="columnheader" class=""><span
+											style="cursor: col-resize;"
+											class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span>
+										<div class="ui-jqgrid-sortable" id="jqgh_jqgrid_amount">
+												Amount<span class="s-ico" style="display: none"><span
+													sort="asc"
+													class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span
+													sort="desc"
+													class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span>
+											</div></th>
+										<th style="width: 130px;" id="jqgrid_tax" role="columnheader"
+											class=""><span style="cursor: col-resize;"
+											class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span>
+										<div class="ui-jqgrid-sortable" id="jqgh_jqgrid_tax">
+												Tax<span class="s-ico" style="display: none"><span
+													sort="asc"
+													class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span
+													sort="desc"
+													class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span>
+											</div></th>
+										<th style="width: 130px;" id="jqgrid_total"
+											role="columnheader" class=""><span
+											style="cursor: col-resize;"
+											class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span>
+										<div class="ui-jqgrid-sortable" id="jqgh_jqgrid_total">
+												Total<span class="s-ico" style="display: none"><span
+													sort="asc"
+													class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span
+													sort="desc"
+													class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span>
+											</div></th>
+										<th style="width: 130px;" id="jqgrid_note" role="columnheader"
+											class=""><span style="cursor: col-resize;"
+											class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span>
+										<div class="ui-jqgrid-sortable" id="jqgh_jqgrid_note">
+												Notes<span class="s-ico" style="display: none"><span
+													sort="asc"
+													class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span
+													sort="desc"
+													class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span>
+											</div></th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+					<div style="height: auto; width: 1105px;" class="ui-jqgrid-bdiv">
+						<div style="position: relative;">
+							<div></div>
+							<table style="width: 1105px;"
+								class="ui-jqgrid-btable table table-bordered table-striped"
+								aria-labelledby="gbox_jqgrid" aria-multiselectable="true"
+								role="grid" tabindex="0" id="jqgrid" border="0" cellpadding="0"
+								cellspacing="0">
+								<tbody>
+									<tr class="jqgfirstrow" role="row" style="height: auto">
+										<td role="gridcell" style="height: 0px; width: 20px;"></td>
+										<td role="gridcell" style="height: 0px; width: 130px;"></td>
+										<td role="gridcell" style="height: 0px; width: 130px;"></td>
+										<td role="gridcell" style="height: 0px; width: 130px;"></td>
+										<td role="gridcell" style="height: 0px; width: 130px;"></td>
+										<td role="gridcell" style="height: 0px; width: 130px;"></td>
+										<td role="gridcell" style="height: 0px; width: 130px;"></td>
+										<td role="gridcell" style="height: 0px; width: 130px;"></td>
+										<td role="gridcell" style="height: 0px; width: 130px;"></td>
+									</tr>
+									<tr role="row" id="1" tabindex="-1"
+										class="ui-widget-content jqgrow ui-row-ltr">
+										<td role="gridcell" style="text-align: center; width: 20px;"
+											aria-describedby="jqgrid_cb"><input role="checkbox"
+											id="jqg_jqgrid_1" class="cbox" name="jqg_jqgrid_1"
+											type="checkbox"></td>
+										<td role="gridcell" style="" title=""
+											aria-describedby="jqgrid_act"><button
+												class="btn btn-xs btn-default"
+												data-original-title="Edit Row"
+												onclick="jQuery('#jqgrid').editRow('1');">
+												<i class="fa fa-pencil"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Save Row"
+												onclick="jQuery('#jqgrid').saveRow('1');">
+												<i class="fa fa-save"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Cancel"
+												onclick="jQuery('#jqgrid').restoreRow('1');">
+												<i class="fa fa-times"></i>
+											</button></td>
+										<td role="gridcell" style="" title="1"
+											aria-describedby="jqgrid_id">1</td>
+										<td role="gridcell" style="" title="2007-10-01"
+											aria-describedby="jqgrid_date">2007-10-01</td>
+										<td role="gridcell" style="" title="test"
+											aria-describedby="jqgrid_name">test</td>
+										<td role="gridcell" style="text-align: right;" title="200.00"
+											aria-describedby="jqgrid_amount">200.00</td>
+										<td role="gridcell" style="text-align: right;" title="10.00"
+											aria-describedby="jqgrid_tax">10.00</td>
+										<td role="gridcell" style="text-align: right;" title="210.00"
+											aria-describedby="jqgrid_total">210.00</td>
+										<td role="gridcell" style="" title="note"
+											aria-describedby="jqgrid_note">note</td>
+									</tr>
+									<tr role="row" id="10" tabindex="-1"
+										class="ui-widget-content jqgrow ui-row-ltr">
+										<td role="gridcell" style="text-align: center;"
+											aria-describedby="jqgrid_cb"><input role="checkbox"
+											id="jqg_jqgrid_10" class="cbox" name="jqg_jqgrid_10"
+											type="checkbox"></td>
+										<td role="gridcell" style="" title=""
+											aria-describedby="jqgrid_act"><button
+												class="btn btn-xs btn-default"
+												data-original-title="Edit Row"
+												onclick="jQuery('#jqgrid').editRow('10');">
+												<i class="fa fa-pencil"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Save Row"
+												onclick="jQuery('#jqgrid').saveRow('10');">
+												<i class="fa fa-save"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Cancel"
+												onclick="jQuery('#jqgrid').restoreRow('10');">
+												<i class="fa fa-times"></i>
+											</button></td>
+										<td role="gridcell" style="" title="10"
+											aria-describedby="jqgrid_id">10</td>
+										<td role="gridcell" style="" title="2007-10-01"
+											aria-describedby="jqgrid_date">2007-10-01</td>
+										<td role="gridcell" style="" title="test"
+											aria-describedby="jqgrid_name">test</td>
+										<td role="gridcell" style="text-align: right;" title="200.00"
+											aria-describedby="jqgrid_amount">200.00</td>
+										<td role="gridcell" style="text-align: right;" title="10.00"
+											aria-describedby="jqgrid_tax">10.00</td>
+										<td role="gridcell" style="text-align: right;" title="210.00"
+											aria-describedby="jqgrid_total">210.00</td>
+										<td role="gridcell" style="" title="note"
+											aria-describedby="jqgrid_note">note</td>
+									</tr>
+									<tr role="row" id="11" tabindex="-1"
+										class="ui-widget-content jqgrow ui-row-ltr">
+										<td role="gridcell" style="text-align: center;"
+											aria-describedby="jqgrid_cb"><input role="checkbox"
+											id="jqg_jqgrid_11" class="cbox" name="jqg_jqgrid_11"
+											type="checkbox"></td>
+										<td role="gridcell" style="" title=""
+											aria-describedby="jqgrid_act"><button
+												class="btn btn-xs btn-default"
+												data-original-title="Edit Row"
+												onclick="jQuery('#jqgrid').editRow('11');">
+												<i class="fa fa-pencil"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Save Row"
+												onclick="jQuery('#jqgrid').saveRow('11');">
+												<i class="fa fa-save"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Cancel"
+												onclick="jQuery('#jqgrid').restoreRow('11');">
+												<i class="fa fa-times"></i>
+											</button></td>
+										<td role="gridcell" style="" title="11"
+											aria-describedby="jqgrid_id">11</td>
+										<td role="gridcell" style="" title="2007-10-02"
+											aria-describedby="jqgrid_date">2007-10-02</td>
+										<td role="gridcell" style="" title="test2"
+											aria-describedby="jqgrid_name">test2</td>
+										<td role="gridcell" style="text-align: right;" title="300.00"
+											aria-describedby="jqgrid_amount">300.00</td>
+										<td role="gridcell" style="text-align: right;" title="20.00"
+											aria-describedby="jqgrid_tax">20.00</td>
+										<td role="gridcell" style="text-align: right;" title="320.00"
+											aria-describedby="jqgrid_total">320.00</td>
+										<td role="gridcell" style="" title="note2"
+											aria-describedby="jqgrid_note">note2</td>
+									</tr>
+									<tr role="row" id="12" tabindex="-1"
+										class="ui-widget-content jqgrow ui-row-ltr">
+										<td role="gridcell" style="text-align: center;"
+											aria-describedby="jqgrid_cb"><input role="checkbox"
+											id="jqg_jqgrid_12" class="cbox" name="jqg_jqgrid_12"
+											type="checkbox"></td>
+										<td role="gridcell" style="" title=""
+											aria-describedby="jqgrid_act"><button
+												class="btn btn-xs btn-default"
+												data-original-title="Edit Row"
+												onclick="jQuery('#jqgrid').editRow('12');">
+												<i class="fa fa-pencil"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Save Row"
+												onclick="jQuery('#jqgrid').saveRow('12');">
+												<i class="fa fa-save"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Cancel"
+												onclick="jQuery('#jqgrid').restoreRow('12');">
+												<i class="fa fa-times"></i>
+											</button></td>
+										<td role="gridcell" style="" title="12"
+											aria-describedby="jqgrid_id">12</td>
+										<td role="gridcell" style="" title="2007-09-01"
+											aria-describedby="jqgrid_date">2007-09-01</td>
+										<td role="gridcell" style="" title="test3"
+											aria-describedby="jqgrid_name">test3</td>
+										<td role="gridcell" style="text-align: right;" title="400.00"
+											aria-describedby="jqgrid_amount">400.00</td>
+										<td role="gridcell" style="text-align: right;" title="30.00"
+											aria-describedby="jqgrid_tax">30.00</td>
+										<td role="gridcell" style="text-align: right;" title="430.00"
+											aria-describedby="jqgrid_total">430.00</td>
+										<td role="gridcell" style="" title="note3"
+											aria-describedby="jqgrid_note">note3</td>
+									</tr>
+									<tr role="row" id="13" tabindex="-1"
+										class="ui-widget-content jqgrow ui-row-ltr">
+										<td role="gridcell" style="text-align: center;"
+											aria-describedby="jqgrid_cb"><input role="checkbox"
+											id="jqg_jqgrid_13" class="cbox" name="jqg_jqgrid_13"
+											type="checkbox"></td>
+										<td role="gridcell" style="" title=""
+											aria-describedby="jqgrid_act"><button
+												class="btn btn-xs btn-default"
+												data-original-title="Edit Row"
+												onclick="jQuery('#jqgrid').editRow('13');">
+												<i class="fa fa-pencil"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Save Row"
+												onclick="jQuery('#jqgrid').saveRow('13');">
+												<i class="fa fa-save"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Cancel"
+												onclick="jQuery('#jqgrid').restoreRow('13');">
+												<i class="fa fa-times"></i>
+											</button></td>
+										<td role="gridcell" style="" title="13"
+											aria-describedby="jqgrid_id">13</td>
+										<td role="gridcell" style="" title="2007-10-04"
+											aria-describedby="jqgrid_date">2007-10-04</td>
+										<td role="gridcell" style="" title="test"
+											aria-describedby="jqgrid_name">test</td>
+										<td role="gridcell" style="text-align: right;" title="200.00"
+											aria-describedby="jqgrid_amount">200.00</td>
+										<td role="gridcell" style="text-align: right;" title="10.00"
+											aria-describedby="jqgrid_tax">10.00</td>
+										<td role="gridcell" style="text-align: right;" title="210.00"
+											aria-describedby="jqgrid_total">210.00</td>
+										<td role="gridcell" style="" title="note"
+											aria-describedby="jqgrid_note">note</td>
+									</tr>
+									<tr role="row" id="14" tabindex="-1"
+										class="ui-widget-content jqgrow ui-row-ltr">
+										<td role="gridcell" style="text-align: center;"
+											aria-describedby="jqgrid_cb"><input role="checkbox"
+											id="jqg_jqgrid_14" class="cbox" name="jqg_jqgrid_14"
+											type="checkbox"></td>
+										<td role="gridcell" style="" title=""
+											aria-describedby="jqgrid_act"><button
+												class="btn btn-xs btn-default"
+												data-original-title="Edit Row"
+												onclick="jQuery('#jqgrid').editRow('14');">
+												<i class="fa fa-pencil"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Save Row"
+												onclick="jQuery('#jqgrid').saveRow('14');">
+												<i class="fa fa-save"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Cancel"
+												onclick="jQuery('#jqgrid').restoreRow('14');">
+												<i class="fa fa-times"></i>
+											</button></td>
+										<td role="gridcell" style="" title="14"
+											aria-describedby="jqgrid_id">14</td>
+										<td role="gridcell" style="" title="2007-10-05"
+											aria-describedby="jqgrid_date">2007-10-05</td>
+										<td role="gridcell" style="" title="test2"
+											aria-describedby="jqgrid_name">test2</td>
+										<td role="gridcell" style="text-align: right;" title="300.00"
+											aria-describedby="jqgrid_amount">300.00</td>
+										<td role="gridcell" style="text-align: right;" title="20.00"
+											aria-describedby="jqgrid_tax">20.00</td>
+										<td role="gridcell" style="text-align: right;" title="320.00"
+											aria-describedby="jqgrid_total">320.00</td>
+										<td role="gridcell" style="" title="note2"
+											aria-describedby="jqgrid_note">note2</td>
+									</tr>
+									<tr role="row" id="15" tabindex="-1"
+										class="ui-widget-content jqgrow ui-row-ltr">
+										<td role="gridcell" style="text-align: center;"
+											aria-describedby="jqgrid_cb"><input role="checkbox"
+											id="jqg_jqgrid_15" class="cbox" name="jqg_jqgrid_15"
+											type="checkbox"></td>
+										<td role="gridcell" style="" title=""
+											aria-describedby="jqgrid_act"><button
+												class="btn btn-xs btn-default"
+												data-original-title="Edit Row"
+												onclick="jQuery('#jqgrid').editRow('15');">
+												<i class="fa fa-pencil"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Save Row"
+												onclick="jQuery('#jqgrid').saveRow('15');">
+												<i class="fa fa-save"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Cancel"
+												onclick="jQuery('#jqgrid').restoreRow('15');">
+												<i class="fa fa-times"></i>
+											</button></td>
+										<td role="gridcell" style="" title="15"
+											aria-describedby="jqgrid_id">15</td>
+										<td role="gridcell" style="" title="2007-09-06"
+											aria-describedby="jqgrid_date">2007-09-06</td>
+										<td role="gridcell" style="" title="test3"
+											aria-describedby="jqgrid_name">test3</td>
+										<td role="gridcell" style="text-align: right;" title="400.00"
+											aria-describedby="jqgrid_amount">400.00</td>
+										<td role="gridcell" style="text-align: right;" title="30.00"
+											aria-describedby="jqgrid_tax">30.00</td>
+										<td role="gridcell" style="text-align: right;" title="430.00"
+											aria-describedby="jqgrid_total">430.00</td>
+										<td role="gridcell" style="" title="note3"
+											aria-describedby="jqgrid_note">note3</td>
+									</tr>
+									<tr role="row" id="16" tabindex="-1"
+										class="ui-widget-content jqgrow ui-row-ltr">
+										<td role="gridcell" style="text-align: center;"
+											aria-describedby="jqgrid_cb"><input role="checkbox"
+											id="jqg_jqgrid_16" class="cbox" name="jqg_jqgrid_16"
+											type="checkbox"></td>
+										<td role="gridcell" style="" title=""
+											aria-describedby="jqgrid_act"><button
+												class="btn btn-xs btn-default"
+												data-original-title="Edit Row"
+												onclick="jQuery('#jqgrid').editRow('16');">
+												<i class="fa fa-pencil"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Save Row"
+												onclick="jQuery('#jqgrid').saveRow('16');">
+												<i class="fa fa-save"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Cancel"
+												onclick="jQuery('#jqgrid').restoreRow('16');">
+												<i class="fa fa-times"></i>
+											</button></td>
+										<td role="gridcell" style="" title="16"
+											aria-describedby="jqgrid_id">16</td>
+										<td role="gridcell" style="" title="2007-10-04"
+											aria-describedby="jqgrid_date">2007-10-04</td>
+										<td role="gridcell" style="" title="test"
+											aria-describedby="jqgrid_name">test</td>
+										<td role="gridcell" style="text-align: right;" title="200.00"
+											aria-describedby="jqgrid_amount">200.00</td>
+										<td role="gridcell" style="text-align: right;" title="10.00"
+											aria-describedby="jqgrid_tax">10.00</td>
+										<td role="gridcell" style="text-align: right;" title="210.00"
+											aria-describedby="jqgrid_total">210.00</td>
+										<td role="gridcell" style="" title="note"
+											aria-describedby="jqgrid_note">note</td>
+									</tr>
+									<tr role="row" id="17" tabindex="-1"
+										class="ui-widget-content jqgrow ui-row-ltr">
+										<td role="gridcell" style="text-align: center;"
+											aria-describedby="jqgrid_cb"><input role="checkbox"
+											id="jqg_jqgrid_17" class="cbox" name="jqg_jqgrid_17"
+											type="checkbox"></td>
+										<td role="gridcell" style="" title=""
+											aria-describedby="jqgrid_act"><button
+												class="btn btn-xs btn-default"
+												data-original-title="Edit Row"
+												onclick="jQuery('#jqgrid').editRow('17');">
+												<i class="fa fa-pencil"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Save Row"
+												onclick="jQuery('#jqgrid').saveRow('17');">
+												<i class="fa fa-save"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Cancel"
+												onclick="jQuery('#jqgrid').restoreRow('17');">
+												<i class="fa fa-times"></i>
+											</button></td>
+										<td role="gridcell" style="" title="17"
+											aria-describedby="jqgrid_id">17</td>
+										<td role="gridcell" style="" title="2007-10-03"
+											aria-describedby="jqgrid_date">2007-10-03</td>
+										<td role="gridcell" style="" title="test2"
+											aria-describedby="jqgrid_name">test2</td>
+										<td role="gridcell" style="text-align: right;" title="300.00"
+											aria-describedby="jqgrid_amount">300.00</td>
+										<td role="gridcell" style="text-align: right;" title="20.00"
+											aria-describedby="jqgrid_tax">20.00</td>
+										<td role="gridcell" style="text-align: right;" title="320.00"
+											aria-describedby="jqgrid_total">320.00</td>
+										<td role="gridcell" style="" title="note2"
+											aria-describedby="jqgrid_note">note2</td>
+									</tr>
+									<tr role="row" id="18" tabindex="-1"
+										class="ui-widget-content jqgrow ui-row-ltr">
+										<td role="gridcell" style="text-align: center;"
+											aria-describedby="jqgrid_cb"><input role="checkbox"
+											id="jqg_jqgrid_18" class="cbox" name="jqg_jqgrid_18"
+											type="checkbox"></td>
+										<td role="gridcell" style="" title=""
+											aria-describedby="jqgrid_act"><button
+												class="btn btn-xs btn-default"
+												data-original-title="Edit Row"
+												onclick="jQuery('#jqgrid').editRow('18');">
+												<i class="fa fa-pencil"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Save Row"
+												onclick="jQuery('#jqgrid').saveRow('18');">
+												<i class="fa fa-save"></i>
+											</button>
+											<button class="btn btn-xs btn-default"
+												data-original-title="Cancel"
+												onclick="jQuery('#jqgrid').restoreRow('18');">
+												<i class="fa fa-times"></i>
+											</button></td>
+										<td role="gridcell" style="" title="18"
+											aria-describedby="jqgrid_id">18</td>
+										<td role="gridcell" style="" title="2007-09-01"
+											aria-describedby="jqgrid_date">2007-09-01</td>
+										<td role="gridcell" style="" title="test3"
+											aria-describedby="jqgrid_name">test3</td>
+										<td role="gridcell" style="text-align: right;" title="400.00"
+											aria-describedby="jqgrid_amount">400.00</td>
+										<td role="gridcell" style="text-align: right;" title="30.00"
+											aria-describedby="jqgrid_tax">30.00</td>
+										<td role="gridcell" style="text-align: right;" title="430.00"
+											aria-describedby="jqgrid_total">430.00</td>
+										<td role="gridcell" style="" title="note3"
+											aria-describedby="jqgrid_note">note3</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="ui-jqgrid-resize-mark" id="rs_mjqgrid">&nbsp;</div>
+				<div dir="ltr" class="ui-jqgrid-pager ui-corner-bottom"
+					style="width: 1105px;" id="pjqgrid">
+					<div id="pg_pjqgrid" class="ui-pager-control" role="group">
+						<table class="ui-pg-table"
+							style="width: 100%; table-layout: fixed; height: 100%;"
+							role="row" border="0" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td id="pjqgrid_left" align="left"><table
+											class="ui-pg-table navtable"
+											style="float: left; table-layout: auto;" border="0"
+											cellpadding="0" cellspacing="0">
+											<tbody>
+												<tr>
+													<td data-original-title="Delete selected row"
+														id="del_jqgrid" title=""
+														class="ui-pg-button ui-corner-all"><div
+															class="btn btn-sm btn-primary">
+															<span class="fa fa-trash-o"></span>
+														</div></td>
+													<td title="" data-original-title=""
+														class="ui-pg-button ui-state-disabled" style="width: 4px;"><span
+														class="ui-separator"></span></td>
+													<td data-original-title="Find records" id="search_jqgrid"
+														title="" class="ui-pg-button ui-corner-all"><div
+															class="btn btn-sm btn-primary">
+															<span class="fa fa-search"></span>
+														</div></td>
+													<td data-original-title="Reload Grid" id="refresh_jqgrid"
+														title="" class="ui-pg-button ui-corner-all"><div
+															class="btn btn-sm btn-primary">
+															<span class="fa fa-refresh"></span>
+														</div></td>
+													<td data-original-title="Add new row" title=""
+														id="jqgrid_iladd" class="ui-pg-button ui-corner-all"><div
+															class="btn btn-sm btn-primary">
+															<span class="fa fa-plus"></span>
+														</div></td>
+													<td data-original-title="Edit selected row" title=""
+														id="jqgrid_iledit" class="ui-pg-button ui-corner-all"><div
+															class="btn btn-sm btn-primary">
+															<span class="fa fa-pencil"></span>
+														</div></td>
+													<td data-original-title="Save row" title=""
+														id="jqgrid_ilsave"
+														class="ui-pg-button ui-corner-all ui-state-disabled"><div
+															class="btn btn-sm btn-success">
+															<span class="fa fa-save"></span>
+														</div></td>
+													<td data-original-title="Cancel row editing" title=""
+														id="jqgrid_ilcancel"
+														class="ui-pg-button ui-corner-all ui-state-disabled"><div
+															class="btn btn-sm btn-danger">
+															<span class="fa fa-times"></span>
+														</div></td>
+												</tr>
+											</tbody>
+										</table></td>
+									<td id="pjqgrid_center" style="white-space: pre; width: 270px;"
+										align="center"><table style="table-layout: auto;"
+											class="ui-pg-table" border="0" cellpadding="0"
+											cellspacing="0">
+											<tbody>
+												<tr>
+													<td id="first_pjqgrid"
+														class="ui-pg-button ui-corner-all ui-state-disabled"><div
+															class="btn btn-sm btn-default">
+															<span class="fa fa-fast-backward"></span>
+														</div></td>
+													<td id="prev_pjqgrid"
+														class="ui-pg-button ui-corner-all ui-state-disabled"><div
+															class="btn btn-sm btn-default">
+															<span class="fa fa-backward"></span>
+														</div></td>
+													<td class="ui-pg-button ui-state-disabled"
+														style="width: 4px;"><span class="ui-separator"></span></td>
+													<td dir="ltr">Page <input class="ui-pg-input" size="2"
+														maxlength="7" value="0" role="textbox" type="text">
+														of <span id="sp_1_pjqgrid">2</span></td>
+													<td class="ui-pg-button ui-state-disabled"
+														style="width: 4px;"><span class="ui-separator"></span></td>
+													<td id="next_pjqgrid" class="ui-pg-button ui-corner-all"><div
+															class="btn btn-sm btn-default">
+															<span class="fa fa-forward"></span>
+														</div></td>
+													<td id="last_pjqgrid" class="ui-pg-button ui-corner-all"><div
+															class="btn btn-sm btn-default">
+															<span class="fa fa-fast-forward"></span>
+														</div></td>
+													<td dir="ltr"><select class="ui-pg-selbox"
+														role="listbox"><option role="option" value="10"
+																selected="selected">10</option>
+															<option role="option" value="20">20</option>
+															<option role="option" value="30">30</option></select></td>
+												</tr>
+											</tbody>
+										</table></td>
+									<td id="pjqgrid_right" align="right"><div dir="ltr"
+											style="text-align: right" class="ui-paging-info">View 1
+											- 10 of 18</div></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 				<!-- NEW WIDGET START -->
 				<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -432,7 +1077,7 @@
 
 	<!-- JQUERY VALIDATE -->
 	<script
-		src="<c:url value="/resources/vjs/plugin/jquery-validate/jquery.validate.min.js"/>"></script>
+		src="<c:url value="/resources/js/plugin/jquery-validate/jquery.validate.min.js"/>"></script>
 
 	<!-- JQUERY MASKED INPUT -->
 	<script
@@ -473,8 +1118,10 @@
 	<!-- PAGE RELATED PLUGIN(S) -->
 	
 	<script
-		src="<c:url value="/resources/js/plugin/chartjs/chart.min.js"/>"></script>
-		
+		src="<c:url value="/resources/js/smart-chat-ui/chart.min.js"/>"></script>
+	<script
+		src="<c:url value="/resources/js/smart-chat-ui/smart.chat.manager.min.js"/>"></script>
+
 	<script
 		src="<c:url value="/resources/js/plugin/datatables/jquery.dataTables.min.js"/>"></script>
 	<script
@@ -485,7 +1132,17 @@
 		src="<c:url value="/resources/js/plugin/datatables/dataTables.bootstrap.min.js"/>"></script>
 	<script
 		src="<c:url value="/resources/js/plugin/datatable-responsive/datatables.responsive.min.js"/>"></script>
-
+	
+	<!-- Ya esta <script
+		src="<c:url value="/resources/js/plugin/bootstrap-slider/bootstrap-slider.min.js"/>"></script>
+		 -->
+		 
+	<script
+		src="<c:url value="/resources/js/plugin/jqgrid/jquery.jqGrid.min.js"/>"></script>
+		
+	<script
+		src="<c:url value="/resources/js/plugin/jqgrid/grid.locale-en.min.js"/>"></script>
+		
 	<script type="text/javascript">
 		// DO NOT REMOVE : GLOBAL FUNCTIONS!
 		
@@ -494,6 +1151,7 @@
 		$(document)
 				.ready(
 						function() {
+							
 							
 							//document.getElementById("region").selectedIndex = "${r3g}";
 							//document.getElementById("nia").selectedIndex = "${c1a}";

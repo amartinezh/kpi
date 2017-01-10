@@ -42,8 +42,6 @@ public class manufacture1Controller {
 		January, February, March, April, May, June, July, August, September, October, November, December;
 	}
 	
-	
-	
 	@RequestMapping(value = "/manuYear", method = RequestMethod.GET)
 	public String distriYear(Model model, @RequestParam String t, @RequestParam String op10) {
 		if (model.containsAttribute("user_inicio") == true) {
@@ -87,7 +85,7 @@ public class manufacture1Controller {
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
-			return "distri/distriYear";
+			return "manu/manuYear";
 		} else {
 			return "redirect:/index/ingreso";
 		}
@@ -127,7 +125,7 @@ public class manufacture1Controller {
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
 			model.addAttribute("mes",((session) model.asMap().get("user_inicio")).getMes());
 			model.addAttribute("elmes", Months.values()[Integer.parseInt(((session) model.asMap().get("user_inicio")).getMes())-1]);
-			return "distri/distriMonth";
+			return "manu/manuMonth";
 		} else {
 			return "redirect:/index/ingreso";
 		}
@@ -159,7 +157,7 @@ public class manufacture1Controller {
 			model.addAttribute("cur", ((session) model.asMap().get("user_inicio")).getDash_moneda());
 			model.addAttribute("tas", ((session) model.asMap().get("user_inicio")).getDash_tasa());
 			model.addAttribute("anio",((session) model.asMap().get("user_inicio")).getAnio());
-			return "distri/distriQuarterly";
+			return "manu/manuQuarterly";
 		} else {
 			return "redirect:/index/ingreso";
 		}
