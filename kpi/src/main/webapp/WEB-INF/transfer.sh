@@ -1,1 +1,1 @@
-scp kpi.sql root@200.30.85.236:/home/amartinez/sql
+scp manufacture.sql root@186.113.28.37:/home/amartinez/sql
