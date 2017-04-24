@@ -206,7 +206,13 @@ img.transparent {
 
     <!-- ANDRES -->
     
-    <div role="widget" style="position: relative; opacity: 1; left: 0px; top: 0px;" class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" id="wid-id-0" data-widget-editbutton="false">
+   
+   
+   
+   
+   
+   
+<div role="widget" style="" class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" id="wid-id-0" data-widget-editbutton="false">
 								<!-- widget options:
 								usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -298,7 +304,15 @@ img.transparent {
 								</div>
 								<!-- end widget div -->
 
-							</div>
+							</div>   
+   
+   
+   
+   
+   
+   
+   
+   
 	<!-- ANDRES -->
 
 	<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2"
@@ -2231,7 +2245,7 @@ img.transparent {
 
 	<script
 		src="<c:url value="/resources/js/plugin/chartjs/chart.min.js"/>"></script>
-
+<!-- 
 	<script
 		src="<c:url value="/resources/js/plugin/datatables/jquery.dataTables.min.js"/>"></script>
 	<script
@@ -2243,6 +2257,9 @@ img.transparent {
 	<script
 		src="<c:url value="/resources/js/plugin/datatable-responsive/datatables.responsive.min.js"/>"></script>
 
+
+ -->
+ 
 	<script type="text/javascript">
 		// DO NOT REMOVE : GLOBAL FUNCTIONS!
 
