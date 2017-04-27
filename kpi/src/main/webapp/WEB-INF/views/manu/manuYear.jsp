@@ -13,7 +13,8 @@
 <title>Balanced Scorecard</title>
 <meta name="description" content="">
 <meta name="author" content="">
-
+calle 7 9c-07 piso 2
+calle 12 28a-09
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -197,8 +198,9 @@ img.transparent {
 			<!-- MAIN CONTENT -->
 			<div id="content">
 				
-
+				
 				<!-- widget grid -->
+				
 				<section id="widget-grid" class="">
 
 					<!-- row -->
@@ -208,6 +210,9 @@ img.transparent {
 						<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
 							<!-- Widget ID (each widget will need unique ID)-->
+							<!-- Pulp Plant -->
+							<!-- Pulp Plant -->
+							<!-- Pulp Plant -->
 							<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false">
 								<!-- widget options:
 								usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
@@ -474,11 +479,293 @@ img.transparent {
 								<!-- end widget div -->
 
 							</div>
+							<!-- Pulp Plant -->
+							<!-- Pulp Plant -->
+							<!-- Pulp Plant -->
 							<!-- end widget -->
-
-							<!-- Widget ID (each widget will need unique ID)-->
+						
+						
+							<!-- ----------------------------------------->
+							<!-- ----------------------------------------->
+							<!-- ----------------------------------------->
+							<!-- ----------------------------------------->
+							<!-- ----------------------------------------->
 							
-							<!-- end widget -->
+							
+							<!-- Widget ID (each widget will need unique ID)-->
+							<!-- Pulp Plant -->
+							<!-- Pulp Plant -->
+							<!-- Pulp Plant -->
+							<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false">
+								<!-- widget options:
+								usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+								data-widget-colorbutton="false"
+								data-widget-editbutton="false"
+								data-widget-togglebutton="false"
+								data-widget-deletebutton="false"
+								data-widget-fullscreenbutton="false"
+								data-widget-custombutton="false"
+								data-widget-collapsed="true"
+								data-widget-sortable="false"
+
+								-->
+								<header>
+									<span class="widget-icon"> <i class="fa fa-table"></i> </span>
+									<h2><strong>Destinct</strong> <i>Plant</i></h2>
+
+								</header>
+
+								<!-- widget div-->
+								<div>
+
+									<!-- widget edit box -->
+									<div class="jarviswidget-editbox">
+										<!-- This area used as dropdown edit box -->
+
+									</div>
+									<!-- end widget edit box -->
+
+									<!-- widget content -->
+									<div class="widget-body">
+										
+										<div class="table-responsive">
+										
+											<table id="tbl" class="table table-bordered" width="100%">
+							<thead>
+
+
+								<tr>
+
+								</tr>
+								<tr>
+									<th style="text-align: center; color: blue;">Indicator</th>
+									<th style="text-align: center; color: blue;">UM</th>
+									<th style="text-align: center; color: blue;">Type</th>
+									<th style="text-align: center; color: blue;">Average <c:out
+											value="${anio-1}" />
+									</th>
+									<th style="text-align: center; color: blue;">Average <c:out
+											value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">JAN
+										<c:out value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">FEB
+										<c:out value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">MAR
+										<c:out value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">APR
+										<c:out value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">MAY
+										<c:out value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">JUN
+										<c:out value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">JUL
+										<c:out value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">AUG
+										<c:out value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">SEP
+										<c:out value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">OCT
+										<c:out value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">NOV
+										<c:out value="${anio}" />
+									</th>
+									<th colspan="2" style="text-align: center; color: blue;">DEC
+										<c:out value="${anio}" />
+									</th>
+									<th style="text-align: center; color: blue;">Graph</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${valor}" var="kpi" varStatus="loopCounter">
+									<tr class="${color}">
+
+										<td rowspan="2"><a id="modal" href="#"
+											onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
+										<td rowspan="2">${ kpi.unidad }</td>
+										<td>${kpi.tipoUno}</td>
+										<c:choose>
+
+											<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+												<td style="text-align: right;"><fmt:formatNumber
+														pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}"
+														type="number" /> <c:if
+														test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+												<td style="text-align: right;"><fmt:formatNumber
+														pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}"
+														type="number" /> <c:if
+														test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+											</c:when>
+											<c:otherwise>
+												<td style="text-align: right;"><fmt:formatNumber
+														pattern="###,##0.0" value="${kpi.promMvevalRealAnoAnt}"
+														type="number" /></td>
+												<td style="text-align: right;"><fmt:formatNumber
+														pattern="###,##0.0" value="${kpi.promMvevalRealAnoActual}"
+														type="number" /></td>
+											</c:otherwise>
+										</c:choose>
+										<c:set var="real" value="" />
+										<c:set var="presupuestado" value="" />
+										<c:forEach items="${kpi.lista}" var="val"
+											varStatus="loopCounter">
+											<c:choose>
+
+												<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+													<td style="text-align: right;" nowrap><fmt:formatNumber
+															pattern="###,##0.0" value="${val.mveval}" type="number" />
+														<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+												</c:when>
+												<c:otherwise>
+													<td style="text-align: right;" nowrap><fmt:formatNumber
+															pattern="###,##0.0" value="${val.mveval}" type="number" />
+														<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+												</c:otherwise>
+											</c:choose>
+
+											<td style="text-align: right;" valign="middle" rowspan="2">
+												<c:choose>
+													<c:when
+														test="${fn:contains(kpi.ind_cod, 'DIS003') || fn:contains(kpi.ind_cod, 'DIS004') || fn:contains(kpi.ind_cod, 'DIS005') || fn:contains(kpi.ind_cod, 'DIS008') || fn:contains(kpi.ind_cod, 'DIS009') || fn:contains(kpi.ind_cod, 'DIS011') || fn:contains(kpi.ind_cod, 'DIS012')}">
+														<c:choose>
+															<c:when test="${val.mveval lt val.mvevpe}">
+																<img src="<c:url value="/resources/img/adm/verde.png"/>"
+																	alt="Rojo"
+																	style="width: 15px; height: 15px; margin-top: 3px; margin-right: 10px;">
+															</c:when>
+															<c:otherwise>
+																<img src="<c:url value="/resources/img/adm/rojo.png"/>"
+																	alt="Verde"
+																	style="width: 15px; height: 15px; margin-top: 3px; margin-right: 10px;">
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<c:choose>
+															<c:when test="${val.mveval gt val.mvevpe}">
+																<img src="<c:url value="/resources/img/adm/verde.png"/>"
+																	alt="Verde"
+																	style="width: 15px; height: 15px; margin-top: 3px; margin-right: 10px;">
+															</c:when>
+															<c:otherwise>
+																<img src="<c:url value="/resources/img/adm/rojo.png"/>"
+																	alt="Rojo"
+																	style="width: 15px; height: 15px; margin-top: 3px; margin-right: 10px;">
+															</c:otherwise>
+														</c:choose>
+													</c:otherwise>
+												</c:choose>
+											</td>
+											<fmt:formatNumber var="real2" pattern="##0.0"
+												value="${val.mveval}" type="number" maxFractionDigits="0" />
+											<c:set var="real" value="${real};${real2}" />
+										</c:forEach>
+
+										<td><img onclick="drilldown('${ kpi.ind_cod }')"
+											src="<c:url value="/resources/img/adm/plan.png"/>"
+											alt="Graficos"
+											style="width: 20px; height: 20px; margin-top: 3px; margin-right: 10px;"></td>
+
+
+									</tr>
+									<tr class="${color}">
+										<td>${kpi.tipoDos}</td>
+
+										<c:choose>
+											<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+												<td style="text-align: right;"><fmt:formatNumber
+														pattern="###,##0.0"
+														value="${kpi.promMvevpePresupuestadoAnt}" type="number" />
+													<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+												<td style="text-align: right;"><fmt:formatNumber
+														pattern="###,##0.0"
+														value="${kpi.promMvevpePresupuestadoAnoActual}"
+														type="number" /> <c:if
+														test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+											</c:when>
+											<c:otherwise>
+												<td style="text-align: right;"><fmt:formatNumber
+														pattern="###,##0.0"
+														value="${kpi.promMvevpePresupuestadoAnt}" type="number" /></td>
+												<td style="text-align: right;"><fmt:formatNumber
+														pattern="###,##0.0"
+														value="${kpi.promMvevpePresupuestadoAnoActual}"
+														type="number" /></td>
+											</c:otherwise>
+										</c:choose>
+
+										<c:forEach items="${kpi.lista}" var="val"
+											varStatus="loopCounter">
+											<c:choose>
+												<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+													<td style="text-align: right;"><fmt:formatNumber
+															pattern="###,##0.0" value="${val.mvevpe}" type="number" />
+														<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+												</c:when>
+												<c:otherwise>
+													<td style="text-align: right;"><fmt:formatNumber
+															pattern="###,##0.0" value="${val.mvevpe}" type="number" />
+														<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+												</c:otherwise>
+											</c:choose>
+											<fmt:formatNumber var="presupuestado2" pattern="###"
+												value="${val.mvevpe}" type="number" maxFractionDigits="0" />
+											<c:set var="presupuestado"
+												value="${presupuestado};${presupuestado2}" />
+										</c:forEach>
+
+										<td><img
+											onclick="graph('${real}', '${presupuestado}', '${ kpi.ind }')"
+											src="<c:url value="/resources/img/adm/graph.png"/>"
+											alt="Graficos"
+											style="width: 20px; height: 20px; margin-top: 3px; margin-right: 10px;"></td>
+									</tr>
+									<c:choose>
+										<c:when test="${color=='success'}">
+											<c:set var="color" value="warning" />
+										</c:when>
+										<c:otherwise>
+											<c:set var="color" value="success" />
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<tr>
+									<td colspan="20" align="center"></td>
+								</tr>
+								<!-- <tr>
+						<td colspan="11" align="center"></td>
+					</tr>
+					 <tr>
+						<td colspan="11" align="center">Usuario: <c:out
+								value="${usuarioactuall}" /></td>
+					</tr>
+					 -->
+							</tbody>
+						</table>
+											
+										</div>
+									</div>
+									<!-- end widget content -->
+
+								</div>
+								<!-- end widget div -->
+
+							</div>
+							<!-- Pulp Plant -->
+							<!-- Pulp Plant -->
+							<!-- Pulp Plant -->
+							<!-- end widget -->							
 
 						</article>
 						<!-- WIDGET END -->
@@ -496,9 +783,17 @@ img.transparent {
 					<!-- end row -->
 
 				</section>
-				<!-- end widget grid -->
+				
+				<!-- end widget ->
+				
+				
+				
+				
+				
 			</div>
 			<!-- END MAIN CONTENT -->
+			
+			
 
 		</div>
 		<!-- END MAIN PANEL -->
