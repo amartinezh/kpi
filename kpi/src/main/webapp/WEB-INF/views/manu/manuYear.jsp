@@ -899,7 +899,7 @@ img.transparent {
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${valor}" var="kpi"
+												<c:forEach items="${papermills}" var="kpi"
 													varStatus="loopCounter">
 													<tr class="${color}">
 
@@ -1192,7 +1192,7 @@ img.transparent {
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${valor}" var="kpi"
+												<c:forEach items="${converting}" var="kpi"
 													varStatus="loopCounter">
 													<tr class="${color}">
 
@@ -1485,7 +1485,7 @@ img.transparent {
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${valor}" var="kpi"
+												<c:forEach items="${absorbents}" var="kpi"
 													varStatus="loopCounter">
 													<tr class="${color}">
 
@@ -1778,7 +1778,7 @@ img.transparent {
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${valor}" var="kpi"
+												<c:forEach items="${supplychain}" var="kpi"
 													varStatus="loopCounter">
 													<tr class="${color}">
 
@@ -2070,7 +2070,7 @@ img.transparent {
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${valor}" var="kpi"
+												<c:forEach items="${qualityandenvironment}" var="kpi"
 													varStatus="loopCounter">
 													<tr class="${color}">
 
@@ -2363,7 +2363,7 @@ img.transparent {
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${valor}" var="kpi"
+												<c:forEach items="${maintenance}" var="kpi"
 													varStatus="loopCounter">
 													<tr class="${color}">
 
@@ -2655,7 +2655,7 @@ img.transparent {
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${valor}" var="kpi"
+												<c:forEach items="${general}" var="kpi"
 													varStatus="loopCounter">
 													<tr class="${color}">
 
