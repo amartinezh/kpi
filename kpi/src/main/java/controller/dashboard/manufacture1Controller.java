@@ -120,6 +120,24 @@ public class manufacture1Controller {
 			// Lista
 			model.addAttribute("valor", manufactureService.listSalesMonth((session) model.asMap().get("user_inicio"),"Manufacture1"));
 			
+			List<reporteManufacture1> listado2 = manufactureService.listSalesMonth((session) model.asMap().get("user_inicio"),"Manufacture2");
+			List<reporteManufacture1> listado3 = manufactureService.listSalesMonth((session) model.asMap().get("user_inicio"),"Manufacture3");
+			List<reporteManufacture1> listado4 = manufactureService.listSalesMonth((session) model.asMap().get("user_inicio"),"Manufacture4");
+			List<reporteManufacture1> listado5 = manufactureService.listSalesMonth((session) model.asMap().get("user_inicio"),"Manufacture5");
+			List<reporteManufacture1> listado6 = manufactureService.listSalesMonth((session) model.asMap().get("user_inicio"),"Manufacture6");
+			List<reporteManufacture1> listado7 = manufactureService.listSalesMonth((session) model.asMap().get("user_inicio"),"Manufacture7");
+			List<reporteManufacture1> listado8 = manufactureService.listSalesMonth((session) model.asMap().get("user_inicio"),"Manufacture8");
+			List<reporteManufacture1> listado9 = manufactureService.listSalesMonth((session) model.asMap().get("user_inicio"),"Manufacture9");
+			
+			model.addAttribute("deinking", listado2);
+			model.addAttribute("papermills", listado3);
+			model.addAttribute("converting", listado4);
+			model.addAttribute("absorbents", listado5);
+			model.addAttribute("supplychain", listado6);
+			model.addAttribute("qualityandenvironment", listado7);
+			model.addAttribute("maintenance", listado8);
+			model.addAttribute("general", listado9);
+			
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
 					"Company: " + n + " >> " +
