@@ -1655,6 +1655,7 @@ img.transparent {
 											</tbody>
 										</table>
 
+
 									</div>
 								</div>
 								<!-- end widget content -->
@@ -1720,6 +1721,7 @@ img.transparent {
 								<div class="widget-body">
 
 									<div class="table-responsive">
+
 
 										<table id="tbl" class="table table-bordered" width="100%">
 											<thead>
@@ -1947,6 +1949,8 @@ img.transparent {
 												</tr>
 											</tbody>
 										</table>
+
+
 
 									</div>
 								</div>

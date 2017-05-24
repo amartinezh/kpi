@@ -174,6 +174,25 @@ public class manufacture1Controller {
 			if (!r.equals("Todas")) r = regionService.getRegion(((session) model.asMap().get("user_inicio")).getDash_region()).get(0).getDescripcion();
 			if (!n.equals("Todas")) n = companyService.listCompany__(((session) model.asMap().get("user_inicio")).getDash_nia()).get(0).getDescripcion();
 			model.addAttribute("valor", manufactureService.listSalesQuarterly((session) model.asMap().get("user_inicio"),"Manufacture1"));
+			
+			List<reporteManufacture1> listado2 = manufactureService.listSalesQuarterly((session) model.asMap().get("user_inicio"),"Manufacture2");
+			List<reporteManufacture1> listado3 = manufactureService.listSalesQuarterly((session) model.asMap().get("user_inicio"),"Manufacture3");
+			List<reporteManufacture1> listado4 = manufactureService.listSalesQuarterly((session) model.asMap().get("user_inicio"),"Manufacture4");
+			List<reporteManufacture1> listado5 = manufactureService.listSalesQuarterly((session) model.asMap().get("user_inicio"),"Manufacture5");
+			List<reporteManufacture1> listado6 = manufactureService.listSalesQuarterly((session) model.asMap().get("user_inicio"),"Manufacture6");
+			List<reporteManufacture1> listado7 = manufactureService.listSalesQuarterly((session) model.asMap().get("user_inicio"),"Manufacture7");
+			List<reporteManufacture1> listado8 = manufactureService.listSalesQuarterly((session) model.asMap().get("user_inicio"),"Manufacture8");
+			List<reporteManufacture1> listado9 = manufactureService.listSalesQuarterly((session) model.asMap().get("user_inicio"),"Manufacture9");
+			
+			model.addAttribute("deinking", listado2);
+			model.addAttribute("papermills", listado3);
+			model.addAttribute("converting", listado4);
+			model.addAttribute("absorbents", listado5);
+			model.addAttribute("supplychain", listado6);
+			model.addAttribute("qualityandenvironment", listado7);
+			model.addAttribute("maintenance", listado8);
+			model.addAttribute("general", listado9);
+			
 			model.addAttribute("navegacion",
 					"Region: " + r + " >> " +
 					"Company: " + n + " >> " +
