@@ -1577,13 +1577,19 @@ img.transparent {
 
 										<table id="tbl" class="table table-bordered" width="100%">
 											<thead>
-
-
+												<div class="row">
+													<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+														<h1 class="page-title txt-color-blueDark">
+															<i class="fa fa-list-alt fa-fw "></i> <span><c:out
+																	value="${navegacion}" /> </span>
+														</h1>
+													</div>
+												</div>
 												<tr>
-
 												</tr>
 												<tr>
-													<th style="text-align: center; color: blue;">Indicator</th>
+													<th style="text-align: center; color: blue;">Indicator
+													</th>
 													<th style="text-align: center; color: blue;">UM</th>
 													<th style="text-align: center; color: blue;">Type</th>
 													<th style="text-align: center; color: blue;">Average <c:out
@@ -1592,41 +1598,13 @@ img.transparent {
 													<th style="text-align: center; color: blue;">Average <c:out
 															value="${anio}" />
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JAN
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q1
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">FEB
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q2
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">MAR
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q3
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">APR
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">MAY
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JUN
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JUL
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">AUG
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">SEP
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">OCT
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">NOV
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">DEC
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q4
 													</th>
 													<th style="text-align: center; color: blue;">Graph</th>
 												</tr>
@@ -1636,13 +1614,12 @@ img.transparent {
 													varStatus="loopCounter">
 													<tr class="${color}">
 
-														<td rowspan="2"><a id="modal" href="#"
-															onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
+														<td rowspan="2">${ kpi.ind }</td>
 														<td rowspan="2">${ kpi.unidad }</td>
 														<td>${kpi.tipoUno}</td>
 														<c:choose>
-
-															<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+															<c:when
+																test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevalRealAnoAnt}" type="number" />
@@ -1665,24 +1642,19 @@ img.transparent {
 														<c:set var="presupuestado" value="" />
 														<c:forEach items="${kpi.lista}" var="val"
 															varStatus="loopCounter">
-															<c:choose>
-
-																<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
-																	<td style="text-align: right;" nowrap><fmt:formatNumber
-																			pattern="###,##0.0" value="${val.mveval}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-																</c:when>
-																<c:otherwise>
-																	<td style="text-align: right;" nowrap><fmt:formatNumber
-																			pattern="###,##0.0" value="${val.mveval}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-																</c:otherwise>
-															</c:choose>
-
-															<td style="text-align: right;" valign="middle"
-																rowspan="2"><c:choose>
+															<td style="text-align: right;" nowrap><c:choose>
+																	<c:when
+																		test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+																		<fmt:formatNumber pattern="###,##0.0"
+																			value="${val.mveval}" type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
+																	</c:when>
+																	<c:otherwise>
+																		<fmt:formatNumber pattern="###,##0.0"
+																			value="${val.mveval}" type="number" />
+																	</c:otherwise>
+																</c:choose></td>
+															<td valign="middle" rowspan="2"><c:choose>
 																	<c:when
 																		test="${fn:contains(kpi.ind_cod, 'DIS003') || fn:contains(kpi.ind_cod, 'DIS004') || fn:contains(kpi.ind_cod, 'DIS005') || fn:contains(kpi.ind_cod, 'DIS008') || fn:contains(kpi.ind_cod, 'DIS009') || fn:contains(kpi.ind_cod, 'DIS011') || fn:contains(kpi.ind_cod, 'DIS012')}">
 																		<c:choose>
@@ -1723,28 +1695,25 @@ img.transparent {
 															<c:set var="real" value="${real};${real2}" />
 														</c:forEach>
 
-														<td><img onclick="drilldown('${ kpi.ind_cod }')"
-															src="<c:url value="/resources/img/adm/plan.png"/>"
-															alt="Graficos"
-															style="width: 20px; height: 20px; margin-top: 3px; margin-right: 10px;"></td>
-
+														<td></td>
+														</td>
 
 													</tr>
 													<tr class="${color}">
 														<td>${kpi.tipoDos}</td>
-
 														<c:choose>
-															<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+															<c:when
+																test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevpePresupuestadoAnt}"
-																		type="number" /> <c:if
-																		test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																		type="number" />
+																	<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevpePresupuestadoAnoActual}"
-																		type="number" /> <c:if
-																		test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																		type="number" />
+																	<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 															</c:when>
 															<c:otherwise>
 																<td style="text-align: right;"><fmt:formatNumber
@@ -1757,21 +1726,21 @@ img.transparent {
 																		type="number" /></td>
 															</c:otherwise>
 														</c:choose>
-
 														<c:forEach items="${kpi.lista}" var="val"
 															varStatus="loopCounter">
 															<c:choose>
-																<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+																<c:when
+																	test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																	<td style="text-align: right;"><fmt:formatNumber
 																			pattern="###,##0.0" value="${val.mvevpe}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																			type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																</c:when>
 																<c:otherwise>
 																	<td style="text-align: right;"><fmt:formatNumber
 																			pattern="###,##0.0" value="${val.mvevpe}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																			type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																</c:otherwise>
 															</c:choose>
 															<fmt:formatNumber var="presupuestado2" pattern="###"
@@ -1799,6 +1768,7 @@ img.transparent {
 												<tr>
 													<td colspan="20" align="center"></td>
 												</tr>
+												
 											</tbody>
 										</table>
 
@@ -1872,13 +1842,19 @@ img.transparent {
 
 										<table id="tbl" class="table table-bordered" width="100%">
 											<thead>
-
-
+												<div class="row">
+													<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+														<h1 class="page-title txt-color-blueDark">
+															<i class="fa fa-list-alt fa-fw "></i> <span><c:out
+																	value="${navegacion}" /> </span>
+														</h1>
+													</div>
+												</div>
 												<tr>
-
 												</tr>
 												<tr>
-													<th style="text-align: center; color: blue;">Indicator</th>
+													<th style="text-align: center; color: blue;">Indicator
+													</th>
 													<th style="text-align: center; color: blue;">UM</th>
 													<th style="text-align: center; color: blue;">Type</th>
 													<th style="text-align: center; color: blue;">Average <c:out
@@ -1887,41 +1863,13 @@ img.transparent {
 													<th style="text-align: center; color: blue;">Average <c:out
 															value="${anio}" />
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JAN
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q1
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">FEB
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q2
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">MAR
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q3
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">APR
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">MAY
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JUN
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JUL
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">AUG
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">SEP
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">OCT
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">NOV
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">DEC
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q4
 													</th>
 													<th style="text-align: center; color: blue;">Graph</th>
 												</tr>
@@ -1931,13 +1879,12 @@ img.transparent {
 													varStatus="loopCounter">
 													<tr class="${color}">
 
-														<td rowspan="2"><a id="modal" href="#"
-															onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
+														<td rowspan="2">${ kpi.ind }</td>
 														<td rowspan="2">${ kpi.unidad }</td>
 														<td>${kpi.tipoUno}</td>
 														<c:choose>
-
-															<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+															<c:when
+																test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevalRealAnoAnt}" type="number" />
@@ -1960,24 +1907,19 @@ img.transparent {
 														<c:set var="presupuestado" value="" />
 														<c:forEach items="${kpi.lista}" var="val"
 															varStatus="loopCounter">
-															<c:choose>
-
-																<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
-																	<td style="text-align: right;" nowrap><fmt:formatNumber
-																			pattern="###,##0.0" value="${val.mveval}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-																</c:when>
-																<c:otherwise>
-																	<td style="text-align: right;" nowrap><fmt:formatNumber
-																			pattern="###,##0.0" value="${val.mveval}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-																</c:otherwise>
-															</c:choose>
-
-															<td style="text-align: right;" valign="middle"
-																rowspan="2"><c:choose>
+															<td style="text-align: right;" nowrap><c:choose>
+																	<c:when
+																		test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+																		<fmt:formatNumber pattern="###,##0.0"
+																			value="${val.mveval}" type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
+																	</c:when>
+																	<c:otherwise>
+																		<fmt:formatNumber pattern="###,##0.0"
+																			value="${val.mveval}" type="number" />
+																	</c:otherwise>
+																</c:choose></td>
+															<td valign="middle" rowspan="2"><c:choose>
 																	<c:when
 																		test="${fn:contains(kpi.ind_cod, 'DIS003') || fn:contains(kpi.ind_cod, 'DIS004') || fn:contains(kpi.ind_cod, 'DIS005') || fn:contains(kpi.ind_cod, 'DIS008') || fn:contains(kpi.ind_cod, 'DIS009') || fn:contains(kpi.ind_cod, 'DIS011') || fn:contains(kpi.ind_cod, 'DIS012')}">
 																		<c:choose>
@@ -2018,28 +1960,25 @@ img.transparent {
 															<c:set var="real" value="${real};${real2}" />
 														</c:forEach>
 
-														<td><img onclick="drilldown('${ kpi.ind_cod }')"
-															src="<c:url value="/resources/img/adm/plan.png"/>"
-															alt="Graficos"
-															style="width: 20px; height: 20px; margin-top: 3px; margin-right: 10px;"></td>
-
+														<td></td>
+														</td>
 
 													</tr>
 													<tr class="${color}">
 														<td>${kpi.tipoDos}</td>
-
 														<c:choose>
-															<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+															<c:when
+																test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevpePresupuestadoAnt}"
-																		type="number" /> <c:if
-																		test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																		type="number" />
+																	<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevpePresupuestadoAnoActual}"
-																		type="number" /> <c:if
-																		test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																		type="number" />
+																	<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 															</c:when>
 															<c:otherwise>
 																<td style="text-align: right;"><fmt:formatNumber
@@ -2052,21 +1991,21 @@ img.transparent {
 																		type="number" /></td>
 															</c:otherwise>
 														</c:choose>
-
 														<c:forEach items="${kpi.lista}" var="val"
 															varStatus="loopCounter">
 															<c:choose>
-																<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+																<c:when
+																	test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																	<td style="text-align: right;"><fmt:formatNumber
 																			pattern="###,##0.0" value="${val.mvevpe}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																			type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																</c:when>
 																<c:otherwise>
 																	<td style="text-align: right;"><fmt:formatNumber
 																			pattern="###,##0.0" value="${val.mvevpe}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																			type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																</c:otherwise>
 															</c:choose>
 															<fmt:formatNumber var="presupuestado2" pattern="###"
@@ -2094,6 +2033,7 @@ img.transparent {
 												<tr>
 													<td colspan="20" align="center"></td>
 												</tr>
+												
 											</tbody>
 										</table>
 
@@ -2168,13 +2108,19 @@ img.transparent {
 
 										<table id="tbl" class="table table-bordered" width="100%">
 											<thead>
-
-
+												<div class="row">
+													<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+														<h1 class="page-title txt-color-blueDark">
+															<i class="fa fa-list-alt fa-fw "></i> <span><c:out
+																	value="${navegacion}" /> </span>
+														</h1>
+													</div>
+												</div>
 												<tr>
-
 												</tr>
 												<tr>
-													<th style="text-align: center; color: blue;">Indicator</th>
+													<th style="text-align: center; color: blue;">Indicator
+													</th>
 													<th style="text-align: center; color: blue;">UM</th>
 													<th style="text-align: center; color: blue;">Type</th>
 													<th style="text-align: center; color: blue;">Average <c:out
@@ -2183,41 +2129,13 @@ img.transparent {
 													<th style="text-align: center; color: blue;">Average <c:out
 															value="${anio}" />
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JAN
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q1
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">FEB
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q2
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">MAR
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q3
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">APR
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">MAY
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JUN
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JUL
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">AUG
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">SEP
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">OCT
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">NOV
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">DEC
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q4
 													</th>
 													<th style="text-align: center; color: blue;">Graph</th>
 												</tr>
@@ -2227,13 +2145,12 @@ img.transparent {
 													varStatus="loopCounter">
 													<tr class="${color}">
 
-														<td rowspan="2"><a id="modal" href="#"
-															onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
+														<td rowspan="2">${ kpi.ind }</td>
 														<td rowspan="2">${ kpi.unidad }</td>
 														<td>${kpi.tipoUno}</td>
 														<c:choose>
-
-															<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+															<c:when
+																test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevalRealAnoAnt}" type="number" />
@@ -2256,24 +2173,19 @@ img.transparent {
 														<c:set var="presupuestado" value="" />
 														<c:forEach items="${kpi.lista}" var="val"
 															varStatus="loopCounter">
-															<c:choose>
-
-																<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
-																	<td style="text-align: right;" nowrap><fmt:formatNumber
-																			pattern="###,##0.0" value="${val.mveval}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-																</c:when>
-																<c:otherwise>
-																	<td style="text-align: right;" nowrap><fmt:formatNumber
-																			pattern="###,##0.0" value="${val.mveval}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-																</c:otherwise>
-															</c:choose>
-
-															<td style="text-align: right;" valign="middle"
-																rowspan="2"><c:choose>
+															<td style="text-align: right;" nowrap><c:choose>
+																	<c:when
+																		test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+																		<fmt:formatNumber pattern="###,##0.0"
+																			value="${val.mveval}" type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
+																	</c:when>
+																	<c:otherwise>
+																		<fmt:formatNumber pattern="###,##0.0"
+																			value="${val.mveval}" type="number" />
+																	</c:otherwise>
+																</c:choose></td>
+															<td valign="middle" rowspan="2"><c:choose>
 																	<c:when
 																		test="${fn:contains(kpi.ind_cod, 'DIS003') || fn:contains(kpi.ind_cod, 'DIS004') || fn:contains(kpi.ind_cod, 'DIS005') || fn:contains(kpi.ind_cod, 'DIS008') || fn:contains(kpi.ind_cod, 'DIS009') || fn:contains(kpi.ind_cod, 'DIS011') || fn:contains(kpi.ind_cod, 'DIS012')}">
 																		<c:choose>
@@ -2314,28 +2226,25 @@ img.transparent {
 															<c:set var="real" value="${real};${real2}" />
 														</c:forEach>
 
-														<td><img onclick="drilldown('${ kpi.ind_cod }')"
-															src="<c:url value="/resources/img/adm/plan.png"/>"
-															alt="Graficos"
-															style="width: 20px; height: 20px; margin-top: 3px; margin-right: 10px;"></td>
-
+														<td></td>
+														</td>
 
 													</tr>
 													<tr class="${color}">
 														<td>${kpi.tipoDos}</td>
-
 														<c:choose>
-															<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+															<c:when
+																test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevpePresupuestadoAnt}"
-																		type="number" /> <c:if
-																		test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																		type="number" />
+																	<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevpePresupuestadoAnoActual}"
-																		type="number" /> <c:if
-																		test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																		type="number" />
+																	<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 															</c:when>
 															<c:otherwise>
 																<td style="text-align: right;"><fmt:formatNumber
@@ -2348,21 +2257,21 @@ img.transparent {
 																		type="number" /></td>
 															</c:otherwise>
 														</c:choose>
-
 														<c:forEach items="${kpi.lista}" var="val"
 															varStatus="loopCounter">
 															<c:choose>
-																<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+																<c:when
+																	test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																	<td style="text-align: right;"><fmt:formatNumber
 																			pattern="###,##0.0" value="${val.mvevpe}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																			type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																</c:when>
 																<c:otherwise>
 																	<td style="text-align: right;"><fmt:formatNumber
 																			pattern="###,##0.0" value="${val.mvevpe}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																			type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																</c:otherwise>
 															</c:choose>
 															<fmt:formatNumber var="presupuestado2" pattern="###"
@@ -2390,6 +2299,7 @@ img.transparent {
 												<tr>
 													<td colspan="20" align="center"></td>
 												</tr>
+												
 											</tbody>
 										</table>
 
@@ -2463,13 +2373,19 @@ img.transparent {
 
 										<table id="tbl" class="table table-bordered" width="100%">
 											<thead>
-
-
+												<div class="row">
+													<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+														<h1 class="page-title txt-color-blueDark">
+															<i class="fa fa-list-alt fa-fw "></i> <span><c:out
+																	value="${navegacion}" /> </span>
+														</h1>
+													</div>
+												</div>
 												<tr>
-
 												</tr>
 												<tr>
-													<th style="text-align: center; color: blue;">Indicator</th>
+													<th style="text-align: center; color: blue;">Indicator
+													</th>
 													<th style="text-align: center; color: blue;">UM</th>
 													<th style="text-align: center; color: blue;">Type</th>
 													<th style="text-align: center; color: blue;">Average <c:out
@@ -2478,41 +2394,13 @@ img.transparent {
 													<th style="text-align: center; color: blue;">Average <c:out
 															value="${anio}" />
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JAN
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q1
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">FEB
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q2
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">MAR
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q3
 													</th>
-													<th colspan="2" style="text-align: center; color: blue;">APR
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">MAY
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JUN
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">JUL
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">AUG
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">SEP
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">OCT
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">NOV
-														<c:out value="${anio}" />
-													</th>
-													<th colspan="2" style="text-align: center; color: blue;">DEC
-														<c:out value="${anio}" />
+													<th colspan="2" style="text-align: center; color: blue;">Q4
 													</th>
 													<th style="text-align: center; color: blue;">Graph</th>
 												</tr>
@@ -2522,13 +2410,12 @@ img.transparent {
 													varStatus="loopCounter">
 													<tr class="${color}">
 
-														<td rowspan="2"><a id="modal" href="#"
-															onclick="drilldown('${ kpi.ind_cod }', this)">${ kpi.ind }</a>
+														<td rowspan="2">${ kpi.ind }</td>
 														<td rowspan="2">${ kpi.unidad }</td>
 														<td>${kpi.tipoUno}</td>
 														<c:choose>
-
-															<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+															<c:when
+																test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevalRealAnoAnt}" type="number" />
@@ -2551,24 +2438,19 @@ img.transparent {
 														<c:set var="presupuestado" value="" />
 														<c:forEach items="${kpi.lista}" var="val"
 															varStatus="loopCounter">
-															<c:choose>
-
-																<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
-																	<td style="text-align: right;" nowrap><fmt:formatNumber
-																			pattern="###,##0.0" value="${val.mveval}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-																</c:when>
-																<c:otherwise>
-																	<td style="text-align: right;" nowrap><fmt:formatNumber
-																			pattern="###,##0.0" value="${val.mveval}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
-																</c:otherwise>
-															</c:choose>
-
-															<td style="text-align: right;" valign="middle"
-																rowspan="2"><c:choose>
+															<td style="text-align: right;" nowrap><c:choose>
+																	<c:when
+																		test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
+																		<fmt:formatNumber pattern="###,##0.0"
+																			value="${val.mveval}" type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if>
+																	</c:when>
+																	<c:otherwise>
+																		<fmt:formatNumber pattern="###,##0.0"
+																			value="${val.mveval}" type="number" />
+																	</c:otherwise>
+																</c:choose></td>
+															<td valign="middle" rowspan="2"><c:choose>
 																	<c:when
 																		test="${fn:contains(kpi.ind_cod, 'DIS003') || fn:contains(kpi.ind_cod, 'DIS004') || fn:contains(kpi.ind_cod, 'DIS005') || fn:contains(kpi.ind_cod, 'DIS008') || fn:contains(kpi.ind_cod, 'DIS009') || fn:contains(kpi.ind_cod, 'DIS011') || fn:contains(kpi.ind_cod, 'DIS012')}">
 																		<c:choose>
@@ -2609,28 +2491,25 @@ img.transparent {
 															<c:set var="real" value="${real};${real2}" />
 														</c:forEach>
 
-														<td><img onclick="drilldown('${ kpi.ind_cod }')"
-															src="<c:url value="/resources/img/adm/plan.png"/>"
-															alt="Graficos"
-															style="width: 20px; height: 20px; margin-top: 3px; margin-right: 10px;"></td>
-
+														<td></td>
+														</td>
 
 													</tr>
 													<tr class="${color}">
 														<td>${kpi.tipoDos}</td>
-
 														<c:choose>
-															<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+															<c:when
+																test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevpePresupuestadoAnt}"
-																		type="number" /> <c:if
-																		test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																		type="number" />
+																	<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																<td style="text-align: right;"><fmt:formatNumber
 																		pattern="###,##0.0"
 																		value="${kpi.promMvevpePresupuestadoAnoActual}"
-																		type="number" /> <c:if
-																		test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																		type="number" />
+																	<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 															</c:when>
 															<c:otherwise>
 																<td style="text-align: right;"><fmt:formatNumber
@@ -2643,21 +2522,21 @@ img.transparent {
 																		type="number" /></td>
 															</c:otherwise>
 														</c:choose>
-
 														<c:forEach items="${kpi.lista}" var="val"
 															varStatus="loopCounter">
 															<c:choose>
-																<c:when test="${not fn:contains(kpi.ind_cod, '001')}">
+																<c:when
+																	test="${not fn:contains(kpi.ind_cod, '001') and not fn:contains(kpi.ind_cod, '002')}">
 																	<td style="text-align: right;"><fmt:formatNumber
 																			pattern="###,##0.0" value="${val.mvevpe}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																			type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																</c:when>
 																<c:otherwise>
 																	<td style="text-align: right;"><fmt:formatNumber
 																			pattern="###,##0.0" value="${val.mvevpe}"
-																			type="number" /> <c:if
-																			test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
+																			type="number" />
+																		<c:if test="${fn:contains(kpi.unidad, '%')}">%</c:if></td>
 																</c:otherwise>
 															</c:choose>
 															<fmt:formatNumber var="presupuestado2" pattern="###"
@@ -2685,6 +2564,7 @@ img.transparent {
 												<tr>
 													<td colspan="20" align="center"></td>
 												</tr>
+												
 											</tbody>
 										</table>
 

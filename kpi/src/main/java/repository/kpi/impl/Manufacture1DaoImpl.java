@@ -345,7 +345,7 @@ public class Manufacture1DaoImpl implements Manufacture1Dao {
 		    List<Object[]> promAnioActual = em
 					.createQuery(
 							"Select k.mveano as mveano, "+operacion[0]+" as mveval, "+operacion[1]+" as mvevpe"
-									+ " From Distri as k where k.mveind = '"
+									+ " From "+table+" as k where k.mveind = '"
 									+ cfg.getIndicador()
 									+ "' "
 									+ filtro
